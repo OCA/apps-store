@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd0b50ba-a3b3-4f5a-b438-730a595b9e2b" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/apps_product_creator/data/ir_cron.xml" />
       <change beforePath="$PROJECT_DIR$/apps_product_creator/__manifest__.py" afterPath="$PROJECT_DIR$/apps_product_creator/__manifest__.py" />
+      <change beforePath="$PROJECT_DIR$/apps_product_creator/data/ir_cron.xml" afterPath="$PROJECT_DIR$/apps_product_creator/data/ir_cron.xml" />
       <change beforePath="$PROJECT_DIR$/apps_product_creator/data/product_attribute.xml" afterPath="$PROJECT_DIR$/apps_product_creator/data/product_attribute.xml" />
       <change beforePath="$PROJECT_DIR$/apps_product_creator/models/odoo_module.py" afterPath="$PROJECT_DIR$/apps_product_creator/models/odoo_module.py" />
+      <change beforePath="$PROJECT_DIR$/apps_product_creator/models/product_product.py" afterPath="$PROJECT_DIR$/apps_product_creator/models/product_product.py" />
+      <change beforePath="$PROJECT_DIR$/apps_product_creator/models/product_template.py" afterPath="$PROJECT_DIR$/apps_product_creator/models/product_template.py" />
+      <change beforePath="$PROJECT_DIR$/apps_product_creator/views/view_odoo_module.xml" afterPath="$PROJECT_DIR$/apps_product_creator/views/view_odoo_module.xml" />
+      <change beforePath="$PROJECT_DIR$/apps_product_creator/views/view_product_product.xml" afterPath="$PROJECT_DIR$/apps_product_creator/views/view_product_product.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,21 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="odoo_module.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="odoo_module.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps_product_creator/models/odoo_module.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="745">
-              <caret line="96" column="19" lean-forward="false" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+              <caret line="94" column="19" lean-forward="false" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="product_product.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="product_product.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps_product_creator/models/product_product.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="795">
-              <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
+            <state relative-caret-position="777">
+              <caret line="189" column="67" lean-forward="false" selection-start-line="189" selection-start-column="67" selection-end-line="189" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -49,8 +53,8 @@
       <file leaf-file-name="product_template.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps_product_creator/models/product_template.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="5" lean-forward="false" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+            <state relative-caret-position="324">
+              <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -61,17 +65,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view_product_template.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps_product_creator/views/view_product_template.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1523529087148" expanded="true" signature="43:175" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -99,9 +95,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/apps_product_creator/models/product_product.py" />
         <option value="$PROJECT_DIR$/apps_product_creator/models/product_template.py" />
         <option value="$PROJECT_DIR$/apps_product_creator/models/odoo_module.py" />
+        <option value="$PROJECT_DIR$/apps_product_creator/models/product_product.py" />
       </list>
     </option>
   </component>
@@ -231,18 +227,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps_product_creator/models/product_product.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps_product_creator/models/product_template.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="5" lean-forward="false" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        <state relative-caret-position="324">
+          <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -251,7 +239,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1523529087148" expanded="true" signature="43:175" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -274,7 +264,15 @@
     <entry file="file://$PROJECT_DIR$/apps_product_creator/models/odoo_module.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="745">
-          <caret line="96" column="19" lean-forward="false" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+          <caret line="94" column="19" lean-forward="false" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps_product_creator/models/product_product.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="777">
+          <caret line="189" column="67" lean-forward="false" selection-start-line="189" selection-start-column="67" selection-end-line="189" selection-end-column="67" />
           <folding />
         </state>
       </provider>
