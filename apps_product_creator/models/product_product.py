@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: Odoo Community Association (OCA)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 
@@ -58,12 +57,6 @@ class ProductProduct(models.Model):
     'Author (Manifest)',
         readonly=True,
         related="odoo_module_version_id.author",
-        store=True,
-    )
-    image = fields.Binary(
-        'Icon Image',
-        reaonly=True,
-        related="odoo_module_version_id.image",
         store=True,
     )
     github_url = fields.Char(
@@ -167,3 +160,31 @@ class ProductProduct(models.Model):
         attribute = attributes.filtered(
             lambda a: a.attribute_id.id == version_attribute.id)
         return attribute
+
+    @api.multi
+    @api.depends('image_variant', 'product_tmpl_id.image', 'image_module',
+                 'odoo_module_version_id')
+    def _compute_images(self):
+        products = self.filtered(
+            lambda p: p.odoo_module_version_id and p.image_module)
+        other_products = self.filtered(lambda p: p not in products)
+        for product in products:
+            if self._context.get('bin_size'):
+                product.image_medium = product.image_module
+                product.image_small = product.image_module
+                product.image = product.image_module
+            else:
+                resized_images = tools.image_get_resized_images(
+                    product.image_module, return_big=True,
+                    avoid_resize_medium=True)
+                product.image_medium = resized_images.get('image_medium')
+                product.image_small = resized_images.get('image_small')
+                product.image = resized_images.get('image')
+            if not product.image_medium:
+                product.image_medium = product.product_tmpl_id.image_medium
+            if not product.image_small:
+                product.image_small = product.product_tmpl_id.image_small
+            if not product.image:
+                product.image = product.product_tmpl_id.image
+        if other_products:
+            super(ProductProduct, other_products)._compute_images()
