@@ -13,3 +13,6 @@ class ProductTemplate(models.Model):
     technical_name = fields.Char(
         string="Technical Name", related="odoo_module_id.technical_name",
         store=True)
+    image_module = fields.Binary(
+        string='Icon Image', readonly=True,
+        related="odoo_module_id.image", store=True)

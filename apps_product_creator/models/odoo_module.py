@@ -44,6 +44,7 @@ class OdooModule(models.Model):
             'odoo_module_id': self.id,
             'type': 'service',
             'name': self.name,
+            'image': self.image,
             'attribute_line_ids': [(0, 0, {
                 'attribute_id': self.env.ref(
                     'github_product_creator.attribute_odoo_version').id,
@@ -57,3 +58,14 @@ class OdooModule(models.Model):
         modules = self.search(['product_template_id', '=', False])
         modules.action_create_product()
         return True
+
+    @api.multi
+    def write(self, vals):
+        to_update = False
+        if vals.get('image', False):
+            to_update = True
+        ret = super(OdooModule, self).write(vals)
+        if to_update:
+            for module in self.filtered(lambda x: x.product_template_id):
+                module.product_template_id.image = module.image
+        return ret
