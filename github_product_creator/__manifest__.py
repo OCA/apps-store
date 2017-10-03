@@ -6,7 +6,7 @@
     'name': 'Github Product Creator',
     'summary': 'Creates product variants for each module version',
     'version': '10.0.1.0.0',
-    'category': 'Connector',
+    'category': 'Extra Tools',
     'license': 'AGPL-3',
     'author': 'Onestein, Agile Business Group,'
               'Odoo Community Association (OCA),',
