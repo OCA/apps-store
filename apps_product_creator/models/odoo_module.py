@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: Odoo Community Association (OCA)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+# Copyright 2017 Onestein (<http://www.onestein.eu>)
+# Copyright 2017 Alex Comba - Agile Business Group
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+from odoo import models, fields, api
 
 
 class OdooModule(models.Model):
@@ -89,3 +90,9 @@ class OdooModule(models.Model):
                     'image': odoo_module.image,
                 })
         return result
+
+    @api.model
+    def cron_create_product(self):
+        modules = self.search(['product_template_id', '=', False])
+        modules.action_create_product()
+        return True
