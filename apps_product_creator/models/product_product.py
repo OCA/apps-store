@@ -2,7 +2,7 @@
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import models, fields, api
+from odoo import tools, models, fields, api
 
 
 class ProductProduct(models.Model):
@@ -60,3 +60,38 @@ class ProductProduct(models.Model):
     github_url = fields.Char(
         string='Github URL', readonly=True,
         related="odoo_module_version_id.github_url", store=True)
+
+    image = fields.Binary(
+        "Big-sized image", compute='_compute_images', inverse='_set_image',
+        help="Image of the product variant (Big-sized image of product template if false). It is automatically "
+             "resized as a 1024x1024px image, with aspect ratio preserved.")
+    image_small = fields.Binary(
+        "Small-sized image", compute='_compute_images', inverse='_set_image_small',
+        help="Image of the product variant (Small-sized image of product template if false).")
+    image_medium = fields.Binary(
+        "Medium-sized image", compute='_compute_images', inverse='_set_image_medium',
+        help="Image of the product variant (Medium-sized image of product template if false).")
+
+    @api.one
+    @api.depends('image_variant', 'product_tmpl_id.image', 'image_module', 'odoo_module_version_id')
+    def _compute_images(self):
+
+        if self.odoo_module_version_id and self.image_module:
+            if self._context.get('bin_size'):
+                self.image_medium = self.image_module
+                self.image_small = self.image_module
+                self.image = self.image_module
+            else:
+                resized_images = tools.image_get_resized_images(self.image_module, return_big=True,
+                                                                avoid_resize_medium=True)
+                self.image_medium = resized_images['image_medium']
+                self.image_small = resized_images['image_small']
+                self.image = resized_images['image']
+            if not self.image_medium:
+                self.image_medium = self.product_tmpl_id.image_medium
+            if not self.image_small:
+                self.image_small = self.product_tmpl_id.image_small
+            if not self.image:
+                self.image = self.product_tmpl_id.image
+        else:
+            return super(ProductProduct, self)._compute_images()
