@@ -7,9 +7,8 @@ from openerp import models, fields, api, _
 from openerp.tools import html_sanitize
 
 
-class ProductProduct(models.Model):
+class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     odoo_module_id = fields.Many2one('odoo.module', 'Odoo Module', readonly=True)
     technical_name = fields.Char(string="Technical Name", related="odoo_module_id.technical_name", store=True)
-

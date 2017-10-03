@@ -10,6 +10,20 @@ from openerp.tools import html_sanitize
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
+    @api.model
+    def create(self, values):
+        if values.get('product_tmpl_id') and values.get('attribute_value_ids'):
+            template = self.env['product.template'].browse(values['product_tmpl_id'])
+            attribute = self.env['product.attribute.value'].browse(values['attribute_value_ids'][0][2]).filtered(lambda x: x.attribute_id == self.env.ref('github_product_creator.attribute_odoo_version'))
+
+
+
+            if attribute:
+                version = template.odoo_module_id.module_version_ids.filtered(lambda x: x.organization_milestone_id.name == attribute.name)
+                if version:
+                    values.update({'odoo_module_version_id': version.id})
+        return super(ProductProduct, self).create(values)
+
     odoo_module_version_id = fields.Many2one('odoo.module.version', 'Odoo Module')
 
     license = fields.Char(string='License (Manifest)', readonly=True, related="odoo_module_version_id.license", store=True)
@@ -26,3 +40,4 @@ class ProductProduct(models.Model):
     image = fields.Binary(string='Icon Image', reaonly=True, related="odoo_module_version_id.image", store=True)
     github_url = fields.Char(
         string='Github URL', readonly=True, related="odoo_module_version_id.github_url", store=True)
+

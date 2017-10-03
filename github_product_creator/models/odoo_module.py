@@ -29,13 +29,6 @@ class OdooModule(models.Model):
             new_template = self.env['product.template'].create(template_dict)
             module.product_template_id = new_template
 
-            for version in module.module_version_ids:
-                milestone = version.organization_milestone_id
-                for variant in new_template.product_variant_ids:
-                    if variant.attribute_value_ids.filtered(lambda x: x.name == milestone.name):
-                        variant.odoo_module_version_id = version
-                        break
-
     @api.multi
     def _get_template_values(self):
         self.ensure_one()
