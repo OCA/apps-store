@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Copyright (C) 2016-Today: Odoo Community Association (OCA)
-@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
--->
 <odoo>
+
     <record id="product_product_form_view" model="ir.ui.view">
         <field name="name">product.product.form (in github_product_creator)</field>
         <field name="model">product.product</field>
         <field name="priority" eval="100"/>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='odoo_module_id']" position="after">
-                <field name="odoo_module_version_id"/>
-                <field name="author"/>
-                <field name="license"/>
-                <field name="website"/>
-            </xpath>
-            <xpath expr="//field[@name='odoo_module_id']/.." position="after">
-                <group>
-                    <field name="summary"/>
-                    <field name="description_rst"/>
-                    <field name="version"/>
-                    <field name="github_url"/>
-                </group>
+            <xpath expr="//notebook" position="inside">
+                <page string="Module Informations" id="module_informations" attrs="{'invisible':[('odoo_module_version_id','=',False)]}">
+                    <group>
+                        <group>
+                            <field name="odoo_module_version_id"/>
+                            <field name="author"/>
+                            <field name="license"/>
+                            <field name="website"/>
+                        </group>
+                        <group>
+                            <field name="summary"/>
+                            <field name="description_rst"/>
+                            <field name="version"/>
+                            <field name="github_url"/>
+                        </group>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
+
 </odoo>
