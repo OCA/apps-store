@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: Odoo Community Association (OCA)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017 Onestein (<http://www.onestein.eu>)
+# Copyright 2017 Alex Comba - Agile Business Group
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
-    'name': 'Github Connector - Odoo',
-    'summary': 'Analyze Odoo modules information from Github repositories',
+    'name': 'Github Product Creator',
+    'summary': 'Creates product variants for each module version',
     'version': '10.0.1.0.0',
     'category': 'Connector',
     'license': 'AGPL-3',
-    'author': 'Odoo Community Association (OCA), Sylvain LE GAL, GRAP',
+    'author': 'Onestein, Agile Business Group,'
+              'Odoo Community Association (OCA),',
     'depends': [
         'github_connector_odoo',
         'product',
