@@ -2,42 +2,16 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-======================
-Github Product Creator
-======================
+====================
+Apps Product creator
+====================
 
-This module extends the functionality of github_connector_odoomodule
-and allow to create product variants for each module version
-
-Installation
-============
-
-To install this module, you need to:
-
-#. Do this ...
-
-Configuration
-=============
-
-To configure this module, you need to:
-
-#. Go to ...
-
-.. figure:: path/to/local/image.png
-   :alt: alternative description
-   :width: 600 px
-
-Usage
-=====
-
-To use this module, you need to:
-
-#. Go to ...
+This module extends the functionality of the module Github connector to create a product for every module found.
+A variant is also created for every version of the module.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/{repo_id}/{branch}
-
+   :target: https://runbot.odoo-community.org/runbot/249/10.0
 
 Known issues / Roadmap
 ======================
@@ -48,7 +22,7 @@ Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/{project_repo}/issues>`_. In case of trouble, please
+<https://github.com/OCA/apps-store/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smash it by providing detailed and welcomed feedback.
 
@@ -63,18 +37,14 @@ Images
 Contributors
 ------------
 
-* Antonio Esposito <a.esposito@onestein.nl> (http://www.onestein.eu)
-* Alex Comba <alex.comba@agilebg.com> (https://www.agilebg.com/)
+* François Honoré <francois.honore@acsone.eu>
+* Antonio Esposito <a.esposito@onestein.nl>
+* Nicola Malcontenti <nicola.malcontenti@agilebg.com>
+* Alex Comba
+
+ <alex.comba@agilebg.com>
 
 Do not contact contributors directly about support or help with technical issues.
-
-Funders
--------
-
-The development of this module has been financially supported by:
-
-* Company 1 name
-* Company 2 name
 
 Maintainer
 ----------

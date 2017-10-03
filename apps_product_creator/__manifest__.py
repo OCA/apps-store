@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# Copyright 2017 Alex Comba - Agile Business Group
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# Copyright (C) 2016-Today: Odoo Community Association (OCA)
+# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    'name': 'Github Product Creator',
-    'summary': 'Creates product variants for each module version',
+    'name': 'Github product creator',
+    'summary': 'Create a product variant (by version) for every module found.',
     'version': '10.0.1.0.0',
-    'category': 'Extra Tools',
+    'category': 'Connector',
     'license': 'AGPL-3',
-    'author': 'Onestein, Agile Business Group,'
-              'Odoo Community Association (OCA),',
+    'author': 'Odoo Community Association (OCA)',
     'depends': [
         'github_connector_odoo',
         'product',
     ],
     'data': [
         'data/product_attribute.xml',
-        'data/ir_cron.xml',
         'views/view_odoo_module.xml',
+        'views/view_product_template.xml',
         'views/view_product_product.xml',
     ],
     'installable': True,
