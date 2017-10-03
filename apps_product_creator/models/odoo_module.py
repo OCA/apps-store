@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: Odoo Community Association (OCA)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+# Copyright 2017 Onestein (<http://www.onestein.eu>)
+# Copyright 2017 Alex Comba - Agile Business Group
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+from odoo import models, fields, api
 
 
 class OdooModule(models.Model):
@@ -72,3 +73,25 @@ class OdooModule(models.Model):
             ]
         }
         return values
+
+    @api.multi
+    def write(self, values):
+        """
+
+        :param values: dict
+        :return: bool
+        """
+        to_update = bool(values.get('image', False))
+        result = super(OdooModule, self).write(values)
+        if to_update:
+            for odoo_module in self.filtered(lambda x: x.product_template_id):
+                odoo_module.product_template_id.write({
+                    'image': odoo_module.image,
+                })
+        return result
+
+    @api.model
+    def cron_create_product(self):
+        modules = self.search(['product_template_id', '=', False])
+        modules.action_create_product()
+        return True
