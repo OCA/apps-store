@@ -3,6 +3,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+from odoo import tools
 
 
 class ProductProduct(models.Model):
@@ -55,7 +56,7 @@ class ProductProduct(models.Model):
         store=True,
     )
     author = fields.Char(
-    'Author (Manifest)',
+        'Author (Manifest)',
         readonly=True,
         related="odoo_module_version_id.author",
         store=True,
@@ -71,6 +72,28 @@ class ProductProduct(models.Model):
         readonly=True,
         related="odoo_module_version_id.github_url",
         store=True,
+    )
+    image = fields.Binary(
+        "Big-sized image",
+        compute='_compute_images',
+        inverse='_set_image',
+        help="Image of the product variant (Big-sized image of product "
+             "template if false). It is automatically resized as a "
+             "1024x1024px image, with aspect ratio preserved.",
+    )
+    image_small = fields.Binary(
+        "Small-sized image",
+        compute='_compute_images',
+        inverse='_set_image_small',
+        help="Image of the product variant (Small-sized image of "
+             "product template if false).",
+    )
+    image_medium = fields.Binary(
+        "Medium-sized image",
+        compute='_compute_images',
+        inverse='_set_image_medium',
+        help="Image of the product variant (Medium-sized image of "
+             "product template if false).",
     )
 
     @api.model
@@ -168,3 +191,29 @@ class ProductProduct(models.Model):
             lambda a: a.attribute_id.id == version_attribute.id)
         return attribute
 
+    @api.multi
+    @api.depends('image_variant', 'product_tmpl_id.image', 'image_module',
+                 'odoo_module_version_id')
+    def _compute_images(self):
+        products = self.filtered(
+            lambda p: p.odoo_module_version_id and p.image_module)
+        other_products = self.filtered(lambda p: p not in products)
+        for product in products:
+            if self._context.get('bin_size'):
+                product.image_medium = product.image_module
+                product.image_small = product.image_module
+                product.image = product.image_module
+            else:
+                resized_images = tools.image_get_resized_images(
+                    product.image_module, return_big=True,
+                    avoid_resize_medium=True)
+                product.image_medium = resized_images.get('image_medium')
+                product.image_small = resized_images.get('image_small')
+                product.image = resized_images.get('image')
+            if not product.image_medium:
+                product.image_medium = product.product_tmpl_id.image_medium
+            if not product.image_small:
+                product.image_small = product.product_tmpl_id.image_small
+            if not product.image:
+                product.image = product.product_tmpl_id.image
+        super(ProductProduct, other_products)._compute_images()

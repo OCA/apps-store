@@ -67,8 +67,25 @@ class OdooModule(models.Model):
             'odoo_module_id': self.id,
             'type': 'service',
             'name': self.name,
+            'image': self.image,
             'attribute_line_ids': [
                 (0, 0, attribute_line_values),
             ]
         }
         return values
+
+    @api.multi
+    def write(self, values):
+        """
+
+        :param values: dict
+        :return: bool
+        """
+        to_update = bool(values.get('image', False))
+        result = super(OdooModule, self).write(values)
+        if to_update:
+            for odoo_module in self.filtered(lambda x: x.product_template_id):
+                odoo_module.product_template_id.write({
+                    'image': odoo_module.image,
+                })
+        return result
