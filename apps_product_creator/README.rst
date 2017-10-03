@@ -40,9 +40,7 @@ Contributors
 * François Honoré <francois.honore@acsone.eu>
 * Antonio Esposito <a.esposito@onestein.nl>
 * Nicola Malcontenti <nicola.malcontenti@agilebg.com>
-* Alex Comba
-
- <alex.comba@agilebg.com>
+* Alex Comba <alex.comba@agilebg.com>
 
 Do not contact contributors directly about support or help with technical issues.
 
