@@ -85,7 +85,7 @@ class ProductProduct(models.Model):
         field).
         Then check into given variant attributes if we find the variant used
         to save the module version (with XML ID:
-        github_product_creator.attribute_odoo_version).
+        apps_product_creator.attribute_odoo_version).
         If it's the case, we check the version (based on the attribute value)
         and just link the product.product to this version
         :param values: dict
@@ -146,7 +146,7 @@ class ProductProduct(models.Model):
         :return: product.attribute.value recordset (0 or 1 recordset)
         """
         attr_obj = self.env['product.attribute.value']
-        attr_xml_id = "github_product_creator.attribute_odoo_version"
+        attr_xml_id = "apps_product_creator.attribute_odoo_version"
         attr_key = "attribute_value_ids"
         version_attribute = self.env.ref(attr_xml_id)
         attr_raw_ids = values.get(attr_key, [])
