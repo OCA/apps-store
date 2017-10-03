@@ -17,7 +17,6 @@
         'data/product_attribute.xml',
         'data/ir_cron.xml',
         'views/view_odoo_module.xml',
-        'views/view_product_template.xml',
         'views/view_product_product.xml',
     ],
     'installable': True,
