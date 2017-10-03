@@ -57,7 +57,7 @@ class OdooModule(models.Model):
             'repository_branch_id.organization_milestone_id.name')
         attributes = attribute_obj.search([('name', 'in', milestones)])
         attribute = self.env.ref(
-            'github_product_creator.attribute_odoo_version')
+            'apps_product_creator.attribute_odoo_version')
         attribute_line_values = {
             'attribute_id': attribute.id,
             'value_ids': [(6, 0, attributes.ids)],
@@ -91,6 +91,7 @@ class OdooModule(models.Model):
 
     @api.model
     def cron_create_product(self):
-        modules = self.search(['product_template_id', '=', False])
+        modules = self.search([('product_template_id', '=', False),
+                               ('module_version_qty', '!=', 0)])
         modules.action_create_product()
         return True
