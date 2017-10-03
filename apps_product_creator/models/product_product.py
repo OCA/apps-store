@@ -1,97 +1,169 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
-from odoo import tools, models, fields, api
+# Copyright (C) 2016-Today: Odoo Community Association (OCA)
+# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from odoo import api, fields, models
 
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
+    odoo_module_version_id = fields.Many2one(
+        'odoo.module.version',
+        'Odoo Module',
+    )
+    license = fields.Char(
+        'License (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.license",
+        store=True,
+    )
+    summary = fields.Char(
+        'Summary (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.summary",
+        store=True,
+    )
+    website = fields.Char(
+        'Website (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.website",
+        store=True,
+    )
+    external_dependencies = fields.Char(
+        'External Dependencies (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.external_dependencies",
+        store=True,
+    )
+    description_rst = fields.Char(
+        'RST Description (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.description_rst",
+        store=True,
+    )
+    description_rst_html = fields.Html(
+        'HTML the RST Description',
+        readonly=True,
+        related="odoo_module_version_id.description_rst_html",
+        store=True,
+    )
+    version = fields.Char(
+        'Version (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.version",
+        store=True,
+    )
+    author = fields.Char(
+    'Author (Manifest)',
+        readonly=True,
+        related="odoo_module_version_id.author",
+        store=True,
+    )
+    image = fields.Binary(
+        'Icon Image',
+        reaonly=True,
+        related="odoo_module_version_id.image",
+        store=True,
+    )
+    github_url = fields.Char(
+        'Github URL',
+        readonly=True,
+        related="odoo_module_version_id.github_url",
+        store=True,
+    )
+
     @api.model
     def create(self, values):
-        if values.get('product_tmpl_id') and values.get('attribute_value_ids'):
-            template = self.env['product.template'].browse(
-                values['product_tmpl_id'])
-            attribute = self.env['product.attribute.value'].browse(
-                values['attribute_value_ids'][0][2]).filtered(
-                lambda x: x.attribute_id == self.env.ref(
-                    'github_product_creator.attribute_odoo_version'))
-
-            if attribute:
-                version = template.odoo_module_id.module_version_ids.filtered(
-                    lambda x:
-                    x.organization_milestone_id.name == attribute.name)
-                if version:
-                    values.update({'odoo_module_version_id': version.id})
+        """
+        Apply the behaviour to product used to save modules.
+        :param values: dict
+        :return: self recordset
+        """
+        self._manage_product_module(values)
         return super(ProductProduct, self).create(values)
 
-    odoo_module_version_id = fields.Many2one(
-        'odoo.module.version', 'Odoo Module')
+    @api.model
+    def _manage_product_module(self, values):
+        """
+        Manage product variants related to modules.
+        During the creation of a new product.product (who is a variant), we
+        check if the product is used to save a module (by the odoo_module_id
+        field).
+        Then check into given variant attributes if we find the variant used
+        to save the module version (with XML ID:
+        github_product_creator.attribute_odoo_version).
+        If it's the case, we check the version (based on the attribute value)
+        and just link the product.product to this version
+        :param values: dict
+        :return: bool
+        """
+        product_tmpl_key = "product_tmpl_id"
+        attr_key = "attribute_value_ids"
+        check_keys = [
+            product_tmpl_key,
+            attr_key,
+        ]
+        values_keys = values.keys()
+        # Check if mandatory keys (for product module) are given
+        if all([k in values_keys for k in check_keys]):
+            product_obj = self.env['product.template']
+            product = product_obj.browse(values.get(product_tmpl_key, []))
+            # If the product template is used to save an Odoo module
+            if self._check_related_to_module(product):
+                attribute = self._get_version_attribute(values)
+                version = self._get_version_with_attribute(product.odoo_module_id.module_version_ids, attribute)
+                # If we don't have a result, the ID will be False
+                values.update({
+                    'odoo_module_version_id': version.id,
+                })
+        return True
 
-    license = fields.Char(
-        string='License (Manifest)', readonly=True,
-        related="odoo_module_version_id.license", store=True)
-    summary = fields.Char(
-        string='Summary (Manifest)', readonly=True,
-        related="odoo_module_version_id.summary", store=True)
-    website = fields.Char(
-        string='Website (Manifest)', readonly=True,
-        related="odoo_module_version_id.website", store=True)
-    external_dependencies = fields.Char(
-        string='External Dependencies (Manifest)',
-        readonly=True, related="odoo_module_version_id.external_dependencies",
-        store=True)
-    description_rst = fields.Char(
-        string='RST Description (Manifest)', readonly=True,
-        related="odoo_module_version_id.description_rst", store=True)
-    description_rst_html = fields.Html(
-        string='HTML the RST Description', readonly=True,
-        related="odoo_module_version_id.description_rst_html", store=True)
-    version = fields.Char(
-        string='Version (Manifest)', readonly=True,
-        related="odoo_module_version_id.version", store=True)
-    author = fields.Char(
-        string='Author (Manifest)', readonly=True,
-        related="odoo_module_version_id.author", store=True)
-    image_module = fields.Binary(
-        string='Icon Image', reaonly=True,
-        related="odoo_module_version_id.image", store=True)
-    github_url = fields.Char(
-        string='Github URL', readonly=True,
-        related="odoo_module_version_id.github_url", store=True)
+    @api.model
+    def _get_version_with_attribute(self, versions, attribute):
+        """
+        Get the version recordset (odoo.module.version) into the given version
+        (versions) based on the attribute name.
+        :param versions: odoo.module.version recordset
+        :param attribute: product.attribute.value recordset
+        :return: odoo.module.version recordset
+        """
+        # Attribute value (so the name field) must be the milestone name
+        # (so the version). So we can compare name without managing
+        # translations.
+        version = versions.filtered(
+            lambda x: x.organization_milestone_id.name == attribute.name)
+        return version
 
-    image = fields.Binary(
-        "Big-sized image", compute='_compute_images', inverse='_set_image',
-        help="Image of the product variant (Big-sized image of product template if false). It is automatically "
-             "resized as a 1024x1024px image, with aspect ratio preserved.")
-    image_small = fields.Binary(
-        "Small-sized image", compute='_compute_images', inverse='_set_image_small',
-        help="Image of the product variant (Small-sized image of product template if false).")
-    image_medium = fields.Binary(
-        "Medium-sized image", compute='_compute_images', inverse='_set_image_medium',
-        help="Image of the product variant (Medium-sized image of product template if false).")
+    @api.model
+    def _check_related_to_module(self, product):
+        """
+        Check if the product template is related to a module or not
+        :param product: product.template recordset
+        :return: bool
+        """
+        return bool(product.odoo_module_id)
 
-    @api.one
-    @api.depends('image_variant', 'product_tmpl_id.image', 'image_module', 'odoo_module_version_id')
-    def _compute_images(self):
-
-        if self.odoo_module_version_id and self.image_module:
-            if self._context.get('bin_size'):
-                self.image_medium = self.image_module
-                self.image_small = self.image_module
-                self.image = self.image_module
-            else:
-                resized_images = tools.image_get_resized_images(self.image_module, return_big=True,
-                                                                avoid_resize_medium=True)
-                self.image_medium = resized_images['image_medium']
-                self.image_small = resized_images['image_small']
-                self.image = resized_images['image']
-            if not self.image_medium:
-                self.image_medium = self.product_tmpl_id.image_medium
-            if not self.image_small:
-                self.image_small = self.product_tmpl_id.image_small
-            if not self.image:
-                self.image = self.product_tmpl_id.image
-        else:
-            return super(ProductProduct, self)._compute_images()
+    @api.model
+    def _get_version_attribute(self, values):
+        """
+        Get the attribute value used to save the Module version (using the
+        xml id) if it's into the given dict values.
+        :param values: dict
+        :return: product.attribute.value recordset (0 or 1 recordset)
+        """
+        attr_obj = self.env['product.attribute.value']
+        attr_xml_id = "github_product_creator.attribute_odoo_version"
+        attr_key = "attribute_value_ids"
+        version_attribute = self.env.ref(attr_xml_id)
+        attr_raw_ids = values.get(attr_key, [])
+        attr_ids = []
+        # The MAGIC NUMBER used to create variants are (6, _, list) so we must
+        # have the last element of the tuple
+        if attr_raw_ids and len(attr_raw_ids[0]) > 1:
+            attr_ids = attr_raw_ids[0][2]
+        attributes = attr_obj.browse(attr_ids)
+        # We should have 0 or 1 result maximum. Because we compare id.
+        attribute = attributes.filtered(
+            lambda a: a.attribute_id.id == version_attribute.id)
+        return attribute
