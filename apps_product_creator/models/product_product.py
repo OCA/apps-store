@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today: Odoo Community Association (OCA)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 from odoo import tools
@@ -59,12 +58,6 @@ class ProductProduct(models.Model):
         'Author (Manifest)',
         readonly=True,
         related="odoo_module_version_id.author",
-        store=True,
-    )
-    image = fields.Binary(
-        'Icon Image',
-        reaonly=True,
-        related="odoo_module_version_id.image",
         store=True,
     )
     github_url = fields.Char(
@@ -216,4 +209,5 @@ class ProductProduct(models.Model):
                 product.image_small = product.product_tmpl_id.image_small
             if not product.image:
                 product.image = product.product_tmpl_id.image
-        super(ProductProduct, other_products)._compute_images()
+        if other_products:
+            super(ProductProduct, other_products)._compute_images()
