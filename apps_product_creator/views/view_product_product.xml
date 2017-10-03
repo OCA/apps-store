@@ -6,19 +6,23 @@
         <field name="sequence">100</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='odoo_module_id']" position="after">
-                <field name="odoo_module_version_id"/>
-                <field name="author"/>
-                <field name="license"/>
-                <field name="website"/>
-            </xpath>
-            <xpath expr="//field[@name='odoo_module_id']/.." position="after">
-                <group>
-                    <field name="summary"/>
-                    <field name="description_rst"/>
-                    <field name="version"/>
-                    <field name="github_url"/>
-                </group>
+            <xpath expr="//notebook" position="inside">
+                <page string="Module Informations" id="module_informations" attrs="{'invisible':[('odoo_module_version_id','=',False)]}">
+                    <group>
+                        <group>
+                            <field name="odoo_module_version_id"/>
+                            <field name="author"/>
+                            <field name="license"/>
+                            <field name="website"/>
+                        </group>
+                        <group>
+                            <field name="summary"/>
+                            <field name="description_rst"/>
+                            <field name="version"/>
+                            <field name="github_url"/>
+                        </group>
+                    </group>
+                </page>
             </xpath>
         </field>
     </record>
