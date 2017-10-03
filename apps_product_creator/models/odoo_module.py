@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# Copyright 2017 Alex Comba - Agile Business Group
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
+# Copyright (C) 2016-Today: Odoo Community Association (OCA)
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, api
 
 

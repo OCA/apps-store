@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (C) 2016-Today: Odoo Community Association (OCA)-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo>
 
     <record id="product_product_form_view" model="ir.ui.view">
