@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2017 Onestein (<http://www.onestein.eu>)
+# Copyright 2017 Alex Comba - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import models, fields, api
@@ -50,3 +51,9 @@ class OdooModule(models.Model):
             })]
         }
         return res
+
+    @api.model
+    def cron_create_product(self):
+        modules = self.search(['product_template_id', '=', False])
+        modules.action_create_product()
+        return True
