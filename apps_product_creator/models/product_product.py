@@ -54,7 +54,7 @@ class ProductProduct(models.Model):
     author = fields.Char(
         string='Author (Manifest)', readonly=True,
         related="odoo_module_version_id.author", store=True)
-    image = fields.Binary(
+    image_module = fields.Binary(
         string='Icon Image', reaonly=True,
         related="odoo_module_version_id.image", store=True)
     github_url = fields.Char(
