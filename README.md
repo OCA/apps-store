@@ -8,18 +8,6 @@
 To be done...
 
 [//]: # (addons)
-
-Available addons
-----------------
-addon | version | summary
---- | --- | ---
-
-
-Unported addons
----------------
-addon | version | summary
---- | --- | ---
-
 [//]: # (end addons)
 
 Translation Status
