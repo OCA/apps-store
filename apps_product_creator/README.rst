@@ -13,18 +13,12 @@ A variant is also created for every version of the module.
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/249/10.0
 
-Known issues / Roadmap
-======================
-
-* ...
-
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/apps-store/issues>`_. In case of trouble, please
-check there if your issue has already been reported. If you spotted it first,
-help us smash it by providing detailed and welcomed feedback.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/apps-store/issues>`_.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
@@ -37,12 +31,11 @@ Images
 Contributors
 ------------
 
-* François Honoré <francois.honore@acsone.eu>
-* Antonio Esposito <a.esposito@onestein.nl>
-* Nicola Malcontenti <nicola.malcontenti@agilebg.com>
 * Alex Comba <alex.comba@agilebg.com>
-
-Do not contact contributors directly about support or help with technical issues.
+* Antonio Esposito <a.esposito@onestein.nl>
+* Eric Caudal <eric.caudal@elico-corp.com>
+* François Honoré <francois.honore@acsone.eu>
+* Nicola Malcontenti <nicola.malcontenti@agilebg.com>
 
 Maintainer
 ----------
