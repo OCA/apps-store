@@ -128,7 +128,8 @@ class ProductProduct(models.Model):
             # If the product template is used to save an Odoo module
             if self._check_related_to_module(product):
                 attribute = self._get_version_attribute(values)
-                version = self._get_version_with_attribute(product.odoo_module_id.module_version_ids, attribute)
+                version = self._get_version_with_attribute(
+                    product.odoo_module_id.module_version_ids, attribute)
                 # If we don't have a result, the ID will be False
                 values.update({
                     'odoo_module_version_id': version.id,
