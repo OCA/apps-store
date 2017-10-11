@@ -3,12 +3,16 @@
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo>
     <record id="odoo_module_form_view" model="ir.ui.view">
-        <field name="name">odoo.module.form (in github_product_creator)</field>
         <field name="model">odoo.module</field>
         <field name="inherit_id" ref="github_connector_odoo.view_odoo_module_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='author_ids']" position="after">
+                <field name="product_template_id"/>
+            </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_create_product" string="Create Products" type="object" class="oe_highlight" />
+                <button type="object" class="oe_stat_button" icon="fa-arrows-v" name="action_view_rel_products" attrs="{'invisible': [('rel_product_count', '=', 0)]}">
+                    <field name="rel_product_count" string="Products" widget="statinfo"/>
+                </button>
             </xpath>
         </field>
     </record>
