@@ -21,5 +21,4 @@ class ProductTemplate(models.Model):
         'Icon Image',
         readonly=True,
         related="odoo_module_id.image",
-        store=True,
     )

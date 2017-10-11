@@ -12,81 +12,50 @@ class ProductProduct(models.Model):
         'odoo.module.version',
         'Odoo Module',
     )
-    license = fields.Char(
-        'License (Manifest)',
+    app_license_id = fields.Many2one(
+        comodel_name='odoo.license',
+        string='License',
         readonly=True,
-        related="odoo_module_version_id.license",
+        related="odoo_module_version_id.license_id",
         store=True,
     )
-    summary = fields.Char(
+    app_summary = fields.Char(
         'Summary (Manifest)',
         readonly=True,
         related="odoo_module_version_id.summary",
         store=True,
     )
-    website = fields.Char(
+    app_website = fields.Char(
         'Website (Manifest)',
         readonly=True,
         related="odoo_module_version_id.website",
         store=True,
     )
-    external_dependencies = fields.Char(
-        'External Dependencies (Manifest)',
-        readonly=True,
-        related="odoo_module_version_id.external_dependencies",
-        store=True,
-    )
-    description_rst = fields.Char(
-        'RST Description (Manifest)',
-        readonly=True,
-        related="odoo_module_version_id.description_rst",
-        store=True,
-    )
-    description_rst_html = fields.Html(
-        'HTML the RST Description',
+    app_description_rst_html = fields.Html(
+        'HTML of the RST Description',
         readonly=True,
         related="odoo_module_version_id.description_rst_html",
         store=True,
     )
-    version = fields.Char(
+    app_version = fields.Char(
         'Version (Manifest)',
         readonly=True,
         related="odoo_module_version_id.version",
         store=True,
     )
-    author = fields.Char(
-        'Author (Manifest)',
-        readonly=True,
-        related="odoo_module_version_id.author",
-        store=True,
-    )
-    github_url = fields.Char(
+    app_author_ids = fields.Many2many(
+        string='Authors', comodel_name='odoo.author',
+        relation='product_module_author_rel',
+        column1='product_id',
+        column2='author_id',
+        multi='author',
+        related="odoo_module_version_id.author_ids",
+        store=True,)
+    app_github_url = fields.Char(
         'Github URL',
         readonly=True,
         related="odoo_module_version_id.github_url",
         store=True,
-    )
-    image = fields.Binary(
-        "Big-sized image",
-        compute='_compute_images',
-        inverse='_set_image',
-        help="Image of the product variant (Big-sized image of product "
-             "template if false). It is automatically resized as a "
-             "1024x1024px image, with aspect ratio preserved.",
-    )
-    image_small = fields.Binary(
-        "Small-sized image",
-        compute='_compute_images',
-        inverse='_set_image_small',
-        help="Image of the product variant (Small-sized image of "
-             "product template if false).",
-    )
-    image_medium = fields.Binary(
-        "Medium-sized image",
-        compute='_compute_images',
-        inverse='_set_image_medium',
-        help="Image of the product variant (Medium-sized image of "
-             "product template if false).",
     )
 
     @api.model
