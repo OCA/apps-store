@@ -3,7 +3,7 @@
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo noupdate="1">
 
-        <record model="ir.cron" id="cron_update_organization">
+        <record id="cron_update_organization" model="ir.cron">
             <field name="name">Create product variants for each module version</field>
             <field name="interval_number">1</field>
             <field name="active" eval="False"/>
