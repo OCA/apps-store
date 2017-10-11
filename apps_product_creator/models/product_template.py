@@ -17,3 +17,8 @@ class ProductTemplate(models.Model):
         related="odoo_module_id.technical_name",
         store=True,
     )
+    image_module = fields.Binary(
+        'Icon Image',
+        readonly=True,
+        related="odoo_module_id.image",
+    )
