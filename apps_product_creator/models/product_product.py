@@ -11,50 +11,40 @@ class ProductProduct(models.Model):
         'odoo.module.version',
         'Odoo Module',
     )
-    license = fields.Char(
-        'License (Manifest)',
+    app_license_id = fields.Many2one(
+        comodel_name='odoo.license',
+        string='License',
         readonly=True,
-        related="odoo_module_version_id.license",
+        related="odoo_module_version_id.license_id",
         store=True,
     )
-    summary = fields.Char(
+    app_summary = fields.Char(
         'Summary (Manifest)',
         readonly=True,
         related="odoo_module_version_id.summary",
         store=True,
     )
-    website = fields.Char(
+    app_website = fields.Char(
         'Website (Manifest)',
         readonly=True,
         related="odoo_module_version_id.website",
         store=True,
     )
-    external_dependencies = fields.Char(
-        'External Dependencies (Manifest)',
-        readonly=True,
-        related="odoo_module_version_id.external_dependencies",
-        store=True,
-    )
-    description_rst = fields.Char(
-        'RST Description (Manifest)',
-        readonly=True,
-        related="odoo_module_version_id.description_rst",
-        store=True,
-    )
-    description_rst_html = fields.Html(
-        'HTML the RST Description',
+    app_description_rst_html = fields.Html(
+        'HTML of the RST Description',
         readonly=True,
         related="odoo_module_version_id.description_rst_html",
         store=True,
     )
-    version = fields.Char(
+    app_version = fields.Char(
         'Version (Manifest)',
         readonly=True,
         related="odoo_module_version_id.version",
         store=True,
     )
+
     author = fields.Char(
-    'Author (Manifest)',
+        'Author (Manifest)',
         readonly=True,
         related="odoo_module_version_id.author",
         store=True,
