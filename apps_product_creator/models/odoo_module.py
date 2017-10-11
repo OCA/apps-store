@@ -7,10 +7,41 @@ from odoo import models, fields, api
 class OdooModule(models.Model):
     _inherit = 'odoo.module'
 
+    @api.depends(
+        'product_template_id',
+        'product_template_id.product_variant_ids'
+    )
+    def _get_rel_product_count(self):
+        for module in self:
+            module.rel_product_count = len(
+                module.product_template_id.product_variant_ids)
+
     product_template_id = fields.Many2one(
         'product.template',
         "Product Template",
     )
+    rel_product_count = fields.Integer(
+        '# of Products',
+        compute='_get_rel_product_count',
+        store=True)
+
+    @api.multi
+    def action_view_rel_products(self):
+        action = self.env.ref('product.product_normal_action_sell')
+        result = action.read()[0]
+        product_ids = sum(
+            [m.product_template_id.product_variant_ids.ids for m in self],
+            []
+        )
+        # choose the view_mode accordingly
+        if len(product_ids) > 1:
+            result['domain'] = "[('id','in',[" + ','.join(
+                map(str, product_ids)) + "])]"
+        elif len(product_ids) == 1:
+            res = self.env.ref('product.product_normal_form_view', False)
+            result['views'] = [(res and res.id or False, 'form')]
+            result['res_id'] = product_ids and product_ids[0] or False
+        return result
 
     @api.multi
     def action_create_product(self):
@@ -66,6 +97,10 @@ class OdooModule(models.Model):
             'odoo_module_id': self.id,
             'type': 'service',
             'name': self.name,
+            'purchase_ok': False,
+            'list_price': 0,
+            'standard_price': 0,
+            'image': self.image,
             'attribute_line_ids': [
                 (0, 0, attribute_line_values),
             ]
