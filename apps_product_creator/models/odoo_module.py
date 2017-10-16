@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: Odoo Community Association (OCA)
+# Copyright (C) 2017-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import models, fields, api
 
@@ -84,9 +84,9 @@ class OdooModule(models.Model):
         """
         self.ensure_one()
         attribute_obj = self.env['product.attribute.value']
-        milestones = self.module_version_ids.mapped(
-            'repository_branch_id.organization_milestone_id.name')
-        attributes = attribute_obj.search([('name', 'in', milestones)])
+        series = self.module_version_ids.mapped(
+            'repository_branch_id.organization_serie_id.name')
+        attributes = attribute_obj.search([('name', 'in', series)])
         attribute = self.env.ref(
             'apps_product_creator.attribute_odoo_version')
         attribute_line_values = {

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016-Today: Odoo Community Association (OCA)
+# Copyright (C) 2017-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 from odoo import tools
@@ -114,11 +114,11 @@ class ProductProduct(models.Model):
         :param attribute: product.attribute.value recordset
         :return: odoo.module.version recordset
         """
-        # Attribute value (so the name field) must be the milestone name
+        # Attribute value (so the name field) must be the serie name
         # (so the version). So we can compare name without managing
         # translations.
         version = versions.filtered(
-            lambda x: x.organization_milestone_id.name == attribute.name)
+            lambda x: x.organization_serie_id.name == attribute.name)
         return version
 
     @api.model
