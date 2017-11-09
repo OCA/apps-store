@@ -18,6 +18,7 @@ class OdooModule(models.Model):
 
     @api.multi
     def _create_product(self):
+<<<<<<< 8a1a3a92b9fff34baf1d73c402fb8eb21f6dcdca
         for module in self:
             if module.product_template_id:
                 continue
@@ -29,6 +30,30 @@ class OdooModule(models.Model):
             template_dict = module._get_template_values()
             new_template = self.env['product.template'].create(template_dict)
             module.product_template_id = new_template
+=======
+        """
+        Create the product template related to the module in current recordset.
+        :return: product.template recordset
+        """
+        product_obj = self.env['product.template']
+        products = self.env['product.template']
+        modules = self.filtered(lambda m: not m.product_template_id)
+        domain = [
+            ('odoo_module_id', 'in', modules.ids),
+        ]
+        matching_products = product_obj.search(domain)
+        for odoo_module in modules:
+            product = matching_products.filtered(
+                lambda p: p.odoo_module_id == odoo_module)
+            if not product:
+                product_values = odoo_module._get_template_values()
+                new_product = product_obj.create(product_values)
+                odoo_module.write({
+                    'product_template_id': new_product.id,
+                })
+                products |= new_product
+        return products
+>>>>>>> Implemented Unit tests
 
     @api.multi
     def _get_template_values(self):
