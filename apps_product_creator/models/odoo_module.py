@@ -57,7 +57,7 @@ class OdooModule(models.Model):
         products = self.env['product.template']
         modules = self.filtered(lambda m: not m.product_template_id)
         domain = [
-            ('odoo_module_id', '=', modules.ids),
+            ('odoo_module_id', 'in', modules.ids),
         ]
         matching_products = product_obj.search(domain)
         for odoo_module in modules:
