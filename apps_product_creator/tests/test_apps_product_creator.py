@@ -47,7 +47,7 @@ class TestAppsProductCreator(TransactionCase):
         self.assertFalse(self.odoo_module1.product_template_id)
         self.odoo_module1.action_create_product()
         self.assertTrue(self.odoo_module1.product_template_id)
-        action = self.odoo_module1.action_view_rel_products()
+        action = self.odoo_module1.action_view_products()
         self.assertEqual(
             self.odoo_module1.product_template_id.product_variant_ids.ids[0],
             action['res_id']
