@@ -11,22 +11,22 @@ class OdooModule(models.Model):
         'product_template_id',
         'product_template_id.product_variant_ids'
     )
-    def _get_rel_product_count(self):
+    def _compute_product_qty(self):
         for module in self:
-            module.rel_product_count = len(
+            module.product_qty = len(
                 module.product_template_id.product_variant_ids)
 
     product_template_id = fields.Many2one(
         'product.template',
         "Product Template",
     )
-    rel_product_count = fields.Integer(
+    product_qty = fields.Integer(
         '# of Products',
-        compute='_get_rel_product_count',
+        compute='_compute_product_qty',
         store=True)
 
     @api.multi
-    def action_view_rel_products(self):
+    def action_view_products(self):
         action = self.env.ref('product.product_normal_action_sell')
         result = action.read()[0]
         product_ids = sum(
@@ -64,7 +64,7 @@ class OdooModule(models.Model):
             product = matching_products.filtered(
                 lambda p: p.odoo_module_id == odoo_module)
             if not product:
-                product_values = odoo_module._get_template_values()
+                product_values = odoo_module._prepare_template()
                 new_product = product_obj.create(product_values)
                 odoo_module.write({
                     'product_template_id': new_product.id,
@@ -73,7 +73,7 @@ class OdooModule(models.Model):
         return products
 
     @api.multi
-    def _get_template_values(self):
+    def _prepare_template(self):
         """
         Create the dict to create a product.template recordset based on the
         current recordset.
@@ -109,11 +109,6 @@ class OdooModule(models.Model):
 
     @api.multi
     def write(self, values):
-        """
-
-        :param values: dict
-        :return: bool
-        """
         to_update = bool(values.get('image', False))
         result = super(OdooModule, self).write(values)
         if to_update:
