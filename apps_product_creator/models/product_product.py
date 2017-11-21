@@ -58,11 +58,6 @@ class ProductProduct(models.Model):
 
     @api.model
     def create(self, values):
-        """
-        Apply the behaviour to product used to save modules.
-        :param values: dict
-        :return: self recordset
-        """
         self._manage_product_module(values)
         return super(ProductProduct, self).create(values)
 
