@@ -21,7 +21,8 @@ env:
   global:
   - VERSION="10.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
   - TRANSIFEX_USER='transbot@odoo-community.org'
-
+  - secure: "3ZwXX7d/5/L//SDHXQtqiXcjveCb8Y01OyWzfhmLD5tUADmQ4OaZsTQgFw9Z3ONfTBUBfx5fhwe/paxMz1NzzOs3xudQqYDjuT/bTv81vZOC8LoV3q3Rjp5Ogs5qk1TW6B8KzSTrNtEw4od8Ruok9cjqW9sdaew3Fy2jkNg/vStPy+rWVuTAVzi86LedCQbi/remDxNqbSuUY7XAHXG0jmPpqsKFlxa4lu4na6DClJhL3HwPKCnVn4ME4DHsOvqcxcm58oEXXtr2r8ME+WilDSBElK07GRkqLh5AJ3ELgwWzm8ZKX51tieUTMiWa2rqx5VZRMsRnNVcDFlgPu4aLlPcNEK7HZJ6Zd+0yj2OX/rje2Cr9ddZWO77xSZTNwu7lvE950ZuNuAj16jfl2+JyZIlNootFZ/e7VarSP8QnTjt6Y+L+ywdlJih87REFMOxvylPbcpXEBu01wsM5IhxN0PDhzB/a+IsFkqsx74pUg9em10koyi2KBW8CP/N/hc1Yqs/oCEuMDZl3nR6GfaxTEohQT4/5EGeiW5yDZ3iqAu4PiPlUcat05FjoByydF8uSvlYaBf+VKrd8jZLf/b8ALXeXD9s9ne7KWmFvgLe7JjKPk9wdlqGAgW/YoIVIZsbkFbABcykmOGioUTXDbEPdhQKOk8Wzw1baYIWRuC4ZqRg="
+  
   matrix:
   - LINT_CHECK="1"
   - TESTS="1" ODOO_REPO="odoo/odoo"
