@@ -8,6 +8,13 @@
 To be done...
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[apps_product_creator](apps_product_creator/) | 10.0.1.0.0 | Create a product variant (by version) for every module found in the Github repositories
+
 [//]: # (end addons)
 
 Translation Status
