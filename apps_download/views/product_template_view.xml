@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
+<!--
+    Copyright 2017 BizzAppDev - Ruchir Shukla <ruchir@bizzappdev.com>
+    Copyright 2017 AgentERP - Georg Notter <georg.notter@agenterp.com>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
         <record id="view_product_product_view_dependent_form" model="ir.ui.view">
             <field name="name">product.product.form</field>
             <field name="model">product.product</field>
@@ -11,10 +15,10 @@
                     <page string="Module Dependency">
                         <separator string="Modules Dependency" colspan="4"/>
                         <field name="dependent_product_ids" colspan="4" nolabel="1"/>
-                        <button string="Get all Dependency" type="object" name="create_dependency_list"/>
+                        <button string="Get all Dependency" type="object" name="generate_zip_file"/>
+                        <field name="module_path"/>
                     </page>
                 </xpath>
             </field>
         </record>
-    </data>
-</openerp>
+</odoo>
