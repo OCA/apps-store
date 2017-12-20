@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017 BizzAppDev - Ruchir Shukla <ruchir@bizzappdev.com>
+    Copyright 2017 AgentERP - Georg Notter <georg.notter@agenterp.com>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+        <record id="ir_cron_scheduler_generate_zip" model="ir.cron">
+            <field name="name">Generate all product zip</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'product.product'"/>
+            <field name="function" eval="'generate_zip_file_batch'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
+</odoo>
