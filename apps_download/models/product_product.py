@@ -8,7 +8,6 @@ import tempfile
 import shutil
 import logging
 import base64
-import subprocess
 import time
 from odoo.exceptions import ValidationError
 from odoo import models, fields, api, _
@@ -22,7 +21,7 @@ class ProductProduct(models.Model):
         'product.product', 'product_product_dependent_rel',
         'src_id', 'dest_id', string='Dependent Products'
     )
-    module_path = fields.Char('Module Path')
+    module_path = fields.Char()
 
     @api.constrains('dependent_product_ids')
     def check_dependent_recursion(self):
@@ -53,20 +52,16 @@ class ProductProduct(models.Model):
 
     @api.multi
     def generate_zip_file(self):
-        for product in self:
-            if not product.module_path:
-                continue
+        for product in self.filtered('module_path'):
             tmp_dir = tempfile.mkdtemp()
             tmp_dir_2 = tempfile.mkdtemp()
             dependent_products = product.create_dependency_list()
             dependent_products = dependent_products[product.id]
-            for dependent_product in dependent_products:
-                if not dependent_product.module_path:
-                    continue
-                subprocess.Popen(['cp', '-r', dependent_product.module_path,
-                                  tmp_dir], stdout=subprocess.PIPE)
-            subprocess.Popen(['cp', '-r', product.module_path, tmp_dir],
-                             stdout=subprocess.PIPE)
+
+            for dependent_pro in dependent_products.filtered('module_path'):
+                shutil.copytree(dependent_pro.module_path, tmp_dir)
+
+            shutil.copytree(product.module_path, tmp_dir)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')
             if product.attribute_value_ids:
