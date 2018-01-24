@@ -59,9 +59,13 @@ class ProductProduct(models.Model):
             dependent_products = dependent_products[product.id]
 
             for dependent_pro in dependent_products.filtered('module_path'):
-                shutil.copytree(dependent_pro.module_path, tmp_dir)
+                tmp_module_path = os.path.join(
+                    tmp_dir, os.path.split(dependent_pro.module_path)[-1])
+                shutil.copytree(dependent_pro.module_path, tmp_module_path)
 
-            shutil.copytree(product.module_path, tmp_dir)
+            tmp_module_path = os.path.join(
+                tmp_dir, os.path.split(product.module_path)[-1])
+            shutil.copytree(product.module_path, tmp_module_path)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')
             if product.attribute_value_ids:
