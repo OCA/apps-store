@@ -36,8 +36,8 @@ class ProductProduct(models.Model):
         for child in children:
             if not child.dependent_product_ids:
                 continue
-            res += child.dependent_product_ids
-            res += self.child_dependency(child.dependent_product_ids)
+            res |= child.dependent_product_ids
+            res |= self.child_dependency(child.dependent_product_ids)
         return res
 
     @api.multi
@@ -46,7 +46,7 @@ class ProductProduct(models.Model):
         for product in self:
             ret_val[product.id] = product.dependent_product_ids
             if product.dependent_product_ids:
-                ret_val[product.id] += self.child_dependency(
+                ret_val[product.id] |= self.child_dependency(
                     product.dependent_product_ids)
         return ret_val
 
@@ -91,9 +91,9 @@ class ProductProduct(models.Model):
                         'res_id': product.id,
                         'product_downloadable': True,
                     })
-                except:
-                    _logger.error('Error creating attachment %s' %
-                                  tmp_zip_file)
+                except Exception as exc:
+                    _logger.error('Error creating attachment %s Error is: %s' %
+                                  (tmp_zip_file, exc.message))
             try:
                 shutil.rmtree(tmp_dir)
             except OSError as exc:
