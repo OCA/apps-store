@@ -21,7 +21,7 @@ class ProductProduct(models.Model):
         'product.product', 'product_product_dependent_rel',
         'src_id', 'dest_id', string='Dependent Products'
     )
-    module_path = fields.Char()
+    module_path = fields.Char(related="odoo_module_version_id.repository_branch_id.local_path")
 
     @api.constrains('dependent_product_ids')
     def check_dependent_recursion(self):

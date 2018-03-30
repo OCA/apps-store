@@ -13,7 +13,8 @@
     "depends": [
         'base',
         'website_sale_digital',
-        'github_connector_odoo'
+        'github_connector_odoo',
+        'apps_product_creator'
     ],
     "summary": "Product Download for Appstore",
     "data": [
