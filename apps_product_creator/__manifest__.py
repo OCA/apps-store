@@ -15,12 +15,9 @@
     ],
     'data': [
         'data/ir_cron.xml',
-        'demo/product_attribute.xml',
         'views/view_odoo_module.xml',
         'views/view_product_product.xml',
         'data/product_attribute.xml',
-    ],
-    'demo': [
     ],
     'installable': True,
 }
