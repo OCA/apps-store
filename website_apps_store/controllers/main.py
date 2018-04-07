@@ -155,3 +155,11 @@ class WebsiteSaleCustom(WebsiteSale):
         if category:
             values['main_object'] = category
         return request.render("website_sale.products", values)
+
+    #@http.route('/shop/cart/download_source', type='json', auth="public", website=True)
+    #def download_souce_product(self, **kwargs):
+    #    product_id = kwargs.get('product_id', False)
+    #    product = request.env['product.product'].broswe(product_id)
+    #    product.generate_zip_file()
+    #    return True
+

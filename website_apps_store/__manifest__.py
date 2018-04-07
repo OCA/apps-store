@@ -15,6 +15,7 @@
         'apps_product_creator',
     ],
     'data': [
+        'views/assets.xml',
         'views/templates.xml',
     ],
     'demo': [

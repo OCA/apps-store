@@ -122,6 +122,76 @@
             <xpath expr="//div[@id='product_details']/p[@class='text-muted']" position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
+            <xpath expr="//form[@class='js_add_cart_variants']" position="after">
+                <div class="col-xs-12 set_row">
+                    <div class="col-xs-4 zip_button">
+                        <button name="download_zip" id="download_zip">Download</button>
+                    </div>
+                </div>
+                <div class="col-xs-12 set_row">
+                    <div class="pull-left text-left col-xs-4 set_row">
+                        <b>Technical Name: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 set_row">
+                        <span class="tech_detail" t-esc="product.product_variant_id.odoo_module_version_id.name"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 set_row">
+                    <div class="pull-left text-left col-xs-4 set_row">
+                        <b>License: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 set_row">
+                        <a t-att-href="product.product_variant_id.app_license_id.name" target="_blank">
+                            <span class="license_detail" t-esc="product.product_variant_id.app_license_id.name"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 set_row">
+                    <div class="pull-left text-left col-xs-4 set_row">
+                        <b>Author: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 set_row">
+                        <t t-foreach="product.product_variant_id.app_author_ids" t-as="author">
+                            <span class="author_detail" t-esc="author.name"/>
+                        </t>
+                    </div>
+                </div>
+                <div class="col-xs-12 set_row">
+                    <div class="pull-left text-left col-xs-4 set_row">
+                        <b>Maintainer: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 set_row">
+                        <a href="/" target="_blank">
+                            <span class="main_detail" t-esc="product.product_variant_id.name"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 set_row">
+                    <div class="pull-left text-left col-xs-4 set_row">
+                        <b>Website: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 set_row">
+                        <a t-att-href="product.product_variant_id.app_website" target="_blank">
+                            <span class="website_detail" t-esc="product.product_variant_id.app_website"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 set_row">
+                    <div class="pull-left text-left col-xs-4 set_row">
+                        <b>Repository: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 set_row">
+                        <a t-att-href="product.product_variant_id.app_github_url" target="_blank">
+                            <span class="repo_detail" t-esc="product.product_variant_id.app_github_url"/>
+                        </a>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//section" position="inside">
+                <div class="desc_rst">
+                    <p t-esc="product.product_variant_id.app_description_rst_html" t-options='{"widget": "html"}'/>
+                </div>
+            </xpath>
         </template>
         <template id="product_quantity_customize" inherit_id="website_sale.product_quantity">
             <xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="attributes">
