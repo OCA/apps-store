@@ -14,3 +14,6 @@ class ProductTemplate(models.Model):
                     author_ids.append(author)
         return author_ids
 
+class ProductAttributevalue(models.Model):
+    _inherit = "product.attribute.value"
+    _order = 'sequence desc'

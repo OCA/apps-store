@@ -12,7 +12,6 @@ odoo.define('website_apps_store.website_sale', function (require) {
         var oe_website_sale = this;
         var $product_global;
 
-        console.log("---------1----", $product_global);
         function price_to_str(price) {
             var l10n = _t.database.parameters;
             var precision = 2;
@@ -30,6 +29,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
             if ($('#o-carousel-product').length) {
                 var $img = $(event_source).closest('tr.js_product, .oe_website_sale').find('img.js_variant_img');
                 $img.attr("src", "/web/image/product.product/" + product_id + "/image");
+                console.log("=========2=====", $img, product_id)
                 $img.parent().attr('data-oe-model', 'product.product').attr('data-oe-id', product_id)
                     .data('oe-model', 'product.product').data('oe-id', product_id);
 
@@ -59,6 +59,14 @@ odoo.define('website_apps_store.website_sale', function (require) {
             var $product_id = $parent.find('.product_id').first();
             var $price = $parent.find(".oe_price:first .oe_currency_value");
             var $default_price = $parent.find(".oe_default_price:first .oe_currency_value");
+            var $tech_deatil = $(".tech_deatil");
+            var $license_detail = $(".license_detail");
+            var $author_detail = $(".author_detail");
+            var $main_detail = $(".main_detail");
+            var $website_detail = $(".website_detail");
+            var $repo_detail = $(".repo_detail");
+            var $rst_html = $(".desc_rst");
+            var $app_summary = $(".app_summary");
             var $optional_price = $parent.find(".oe_optional:first .oe_currency_value");
             var variant_ids = $ul.data("attribute_value_ids");
             var values = [];
@@ -88,8 +96,21 @@ odoo.define('website_apps_store.website_sale', function (require) {
                     }
                     product_id = variant_ids[k][0];
                     $product_global = product_id;
-                    console.log("========2======", $product_global);
                     update_product_image(this, product_id);
+                    ajax.jsonRpc("/shop/change_attribute_version", 'call', {
+                        'product_id': product_id,
+                    }).then(function (data) {
+                        if(data){
+                            $tech_deatil.text(data['technical_name']);
+                            $license_detail.text(data['license']);
+                            $author_detail.text(data['author']);
+                            $main_detail.text(data['maintainer']);
+                            $website_detail.text(data['website']);
+                            $repo_detail.text(data['repository']);
+                            $rst_html.html(data['rst_html']);
+                            $app_summary.text(data['app_summary']);
+                        }
+                    });
                     break;
                 }
             }
@@ -122,16 +143,18 @@ odoo.define('website_apps_store.website_sale', function (require) {
                 $parent.find("#add_to_cart").addClass("disabled");
             }
         });
-        
-        /*$('#download_zip').on('click', function(ev){
-            console.log("---------33333", $product_global);
-            ajax.jsonRpc("/shop/cart/download_souce", 'call', {
+
+        $('#download_zip').on('click', function(ev){
+            var product_template_id = $(this).data('tmpl-id');
+            console.log("---------33333", product_template_id, $product_global);
+            ajax.jsonRpc("/shop/cart/download_source", 'call', {
                     'product_id': $product_global,
+                    'product_template_id': product_template_id,
                 }).then(function (data) {
                     if(data){
                         console.log("============", data)
                     }
                 });
-        });*/
+        });
     });
 });

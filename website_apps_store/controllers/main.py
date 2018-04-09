@@ -61,7 +61,6 @@ class WebsiteSaleCustom(WebsiteSale):
         '/shop/category/<model("product.public.category"):category>/page/<int:page>'
     ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', ppg=False, **post):
-        print "=\=============", post
         if ppg:
             try:
                 ppg = int(ppg)
@@ -72,7 +71,6 @@ class WebsiteSaleCustom(WebsiteSale):
             ppg = PPG
 
         attrib_list = request.httprequest.args.getlist('attrib')
-        print "----2-----------", attrib_list
         attrib_values = [map(int, v.split("-")) for v in attrib_list if v]
         attributes_ids = set([v[0] for v in attrib_values])
         attrib_set = set([v[1] for v in attrib_values])
@@ -80,7 +78,8 @@ class WebsiteSaleCustom(WebsiteSale):
         domain = self._get_search_domain(search, category, attrib_values)
 
         keep = QueryURL('/shop', category=category and int(category), search=search,
-                        attrib=attrib_list, order=post.get('order'), version=post.get('version'), author=post.get('author'))
+                        attrib=attrib_list, order=post.get('order'),
+                        version=post.get('version'), author=post.get('author'))
         pricelist_context = dict(request.env.context)
         if not pricelist_context.get('pricelist'):
             pricelist = request.website.get_current_pricelist()
@@ -151,15 +150,38 @@ class WebsiteSaleCustom(WebsiteSale):
             'keep': keep,
             'parent_category_ids': parent_category_ids,
         }
-        print "=========2======", values
         if category:
             values['main_object'] = category
         return request.render("website_sale.products", values)
 
-    #@http.route('/shop/cart/download_source', type='json', auth="public", website=True)
-    #def download_souce_product(self, **kwargs):
-    #    product_id = kwargs.get('product_id', False)
-    #    product = request.env['product.product'].broswe(product_id)
-    #    product.generate_zip_file()
-    #    return True
+    @http.route(['/shop/change_attribute_version'], type='json',
+                auth="public", website=True)
+    def change_product_attribute_version(self, **kwargs):
+        print "===========2=======", kwargs
+        product_id = kwargs.get('product_id', False)
+        product = request.env['product.product'].browse(product_id)
+        vals = {
+            'technical_name': product.odoo_module_version_id.name,
+            'license': product.app_license_id.name,
+            'author': ', '.join(author.name for author in product.app_author_ids),
+            'maintainer': product.app_version,
+            'website': product.app_website,
+            'repository': product.app_github_url,
+            'rst_html': product.app_description_rst_html,
+            'app_summary': product.app_summary,
+        }
+        return vals
+
+    @http.route('/shop/cart/download_source', type='json', auth="public", website=True)
+    def download_source_product(self, **kwargs):
+        print "---------00000------",kwargs
+        product_id = kwargs.get('product_id', False)
+        tmpl_id = kwargs.get('product_template_id', False)
+        product = request.env['product.product'].browse(product_id)
+        if not product:
+            product_tmpl= request.env['product.template'].browse(tmpl_id)
+            product = product_tmpl.product_variant_ids[-1]
+            print "-----1", product_tmpl, product
+        #product.generate_zip_file()
+        return True
 
