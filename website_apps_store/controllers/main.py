@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import json
 import logging
-from werkzeug.exceptions import Forbidden
+import os
+import tempfile
+import shutil
+import base64
+import time
 
-from odoo import http, tools, _
+from odoo import http
 from odoo.http import request
-from odoo.addons.base.ir.ir_qweb.fields import nl2br
 from odoo.addons.website.models.website import slug
 from odoo.addons.website.controllers.main import QueryURL
-from odoo.exceptions import ValidationError
-from odoo.addons.website_form.controllers.main import WebsiteForm
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
 
 _logger = logging.getLogger(__name__)
@@ -26,9 +26,12 @@ class WebsiteSaleCustom(WebsiteSale):
         if search:
             for srch in search.split(" "):
                 domain += [
-                    '|', '|', '|', '|','|', '|', ('name', 'ilike', srch), ('description', 'ilike', srch),
-                    ('description_sale', 'ilike', srch), ('product_variant_ids.default_code', 'ilike', srch),
-                    ('product_variant_ids.attribute_value_ids.name', 'ilike', srch),
+                    '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
+                    ('description', 'ilike', srch),
+                    ('description_sale', 'ilike', srch),
+                    ('product_variant_ids.default_code', 'ilike', srch),
+                    ('product_variant_ids.attribute_value_ids.name',
+                     'ilike', srch),
                     ('product_variant_ids.app_author_ids.name', 'ilike', srch),
                     ('product_variant_ids.app_summary', 'ilike', srch)]
         if category:
@@ -52,13 +55,12 @@ class WebsiteSaleCustom(WebsiteSale):
 
         return domain
 
-
-
     @http.route([
         '/shop',
         '/shop/page/<int:page>',
         '/shop/category/<model("product.public.category"):category>',
-        '/shop/category/<model("product.public.category"):category>/page/<int:page>'
+        '/shop/category/<model("product.public.category"):category>\
+        /page/<int:page>'
     ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         if ppg:
@@ -77,32 +79,39 @@ class WebsiteSaleCustom(WebsiteSale):
 
         domain = self._get_search_domain(search, category, attrib_values)
 
-        keep = QueryURL('/shop', category=category and int(category), search=search,
-                        attrib=attrib_list, order=post.get('order'),
+        keep = QueryURL('/shop', category=category and int(category),
+                        search=search, attrib=attrib_list,
+                        order=post.get('order'),
                         version=post.get('version'), author=post.get('author'))
         pricelist_context = dict(request.env.context)
         if not pricelist_context.get('pricelist'):
             pricelist = request.website.get_current_pricelist()
             pricelist_context['pricelist'] = pricelist.id
         else:
-            pricelist = request.env['product.pricelist'].browse(pricelist_context['pricelist'])
+            pricelist = request.env['product.pricelist'].browse(
+                pricelist_context['pricelist'])
 
-        request.context = dict(request.context, pricelist=pricelist.id, partner=request.env.user.partner_id)
+        request.context = dict(request.context, pricelist=pricelist.id,
+                               partner=request.env.user.partner_id)
         if post.get('version'):
-            domain += [('product_variant_ids.attribute_value_ids.name', 'ilike', post.get('version'))]
+            domain += [('product_variant_ids.attribute_value_ids.name',
+                        'ilike', post.get('version'))]
         if post.get('author'):
-            domain += [('product_variant_ids.app_author_ids.name', 'ilike', post.get('author'))]
+            domain += [('product_variant_ids.app_author_ids.name',
+                        'ilike', post.get('author'))]
 
         url = "/shop"
         if search:
             post["search"] = search
         if category:
-            category = request.env['product.public.category'].browse(int(category))
+            category = request.env['product.public.category'].browse(
+                int(category))
             url = "/shop/category/%s" % slug(category)
         if attrib_list:
             post['attrib'] = attrib_list
 
-        categs = request.env['product.public.category'].search([('parent_id', '=', False)])
+        categs = request.env['product.public.category'].search(
+            [('parent_id', '=', False)])
         versions = request.env['product.attribute.value'].search([])
         authors = request.env['odoo.author'].search([])
         Product = request.env['product.template']
@@ -116,20 +125,26 @@ class WebsiteSaleCustom(WebsiteSale):
                 current_category = current_category.parent_id
 
         product_count = Product.search_count(domain)
-        pager = request.website.pager(url=url, total=product_count, page=page, step=ppg, scope=7, url_args=post)
-        products = Product.search(domain, limit=ppg, offset=pager['offset'], order=self._get_search_order(post))
+        pager = request.website.pager(url=url, total=product_count,
+                                      page=page, step=ppg,
+                                      scope=7, url_args=post)
+        products = Product.search(domain, limit=ppg, offset=pager['offset'],
+                                  order=self._get_search_order(post))
 
         ProductAttribute = request.env['product.attribute']
         if products:
             # get all products without limit
             selected_products = Product.search(domain, limit=False)
-            attributes = ProductAttribute.search([('attribute_line_ids.product_tmpl_id', 'in', selected_products.ids)])
+            attributes = ProductAttribute.search(
+                [('attribute_line_ids.product_tmpl_id', 'in',
+                  selected_products.ids)])
         else:
             attributes = ProductAttribute.browse(attributes_ids)
 
         from_currency = request.env.user.company_id.currency_id
         to_currency = pricelist.currency_id
-        compute_currency = lambda price: from_currency.compute(price, to_currency)
+        compute_currency = lambda price: from_currency.compute(
+            price, to_currency)
 
         values = {
             'search': search,
@@ -157,14 +172,14 @@ class WebsiteSaleCustom(WebsiteSale):
     @http.route(['/shop/change_attribute_version'], type='json',
                 auth="public", website=True)
     def change_product_attribute_version(self, **kwargs):
-        print "===========2=======", kwargs
         product_id = kwargs.get('product_id', False)
         product = request.env['product.product'].browse(product_id)
         vals = {
             'technical_name': product.odoo_module_version_id.name,
             'license': product.app_license_id.name,
-            'author': ', '.join(author.name for author in product.app_author_ids),
-            'maintainer': product.app_version,
+            'license_url': product.app_license_id.website,
+            'author': ', '.join(
+                author.name for author in product.app_author_ids),
             'website': product.app_website,
             'repository': product.app_github_url,
             'rst_html': product.app_description_rst_html,
@@ -172,16 +187,46 @@ class WebsiteSaleCustom(WebsiteSale):
         }
         return vals
 
-    @http.route('/shop/cart/download_source', type='json', auth="public", website=True)
+    @http.route('/shop/cart/download_source', type='json',
+                auth="public", website=True)
     def download_source_product(self, **kwargs):
-        print "---------00000------",kwargs
         product_id = kwargs.get('product_id', False)
         tmpl_id = kwargs.get('product_template_id', False)
         product = request.env['product.product'].browse(product_id)
         if not product:
-            product_tmpl= request.env['product.template'].browse(tmpl_id)
+            product_tmpl = request.env['product.template'].browse(tmpl_id)
             product = product_tmpl.product_variant_ids[-1]
-            print "-----1", product_tmpl, product
-        #product.generate_zip_file()
-        return True
+        return product.id
 
+    @http.route(
+        '/shop/download_product_zip/<model("product.product"):product>',
+        type='http', auth="public", website=True)
+    def download_product_zip(self, product, **kwargs):
+        tmp_dir = tempfile.mkdtemp()
+        tmp_module_path = os.path.join(
+            tmp_dir, os.path.split(product.module_path)[-1])
+        module_path = product.module_path + '/'\
+            + product.odoo_module_version_id.module_id.technical_name
+        tmp_module_path = tmp_module_path + '/'\
+            + product.odoo_module_version_id.module_id.technical_name
+        shutil.copytree(module_path, tmp_module_path)
+        time_version_value = time.strftime(
+            '_%y%m%d_%H%M%S')
+        if product.attribute_value_ids:
+            time_version_value = '_%s%s' % (
+                '_'.join([name.replace('.', '_') for name in
+                          product.attribute_value_ids.mapped('name')]),
+                time_version_value)
+
+        tmp_zip_file = (os.path.join(product.name) +
+                        time_version_value)
+        shutil.make_archive(tmp_zip_file, 'zip', tmp_dir)
+        tmp_zip_file = '%s.zip' % tmp_zip_file
+        with open(tmp_zip_file, "rb") as file_obj:
+            data_encode = base64.encodestring(file_obj.read())
+        filecontent = base64.b64decode(data_encode)
+        disposition = 'attachment; filename=%s' % tmp_zip_file
+        return request.make_response(
+            filecontent, [('Content-Type', 'application/csv'),
+                          ('Content-Length', len(filecontent)),
+                          ('Content-Disposition', disposition)])

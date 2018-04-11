@@ -141,7 +141,7 @@
                         <b>License: </b>
                     </div>
                     <div class="pull-right col-xs-8 set_row">
-                        <a t-att-href="product.product_variant_ids[-1].app_license_id.name" target="_blank">
+                        <a t-att-href="product.product_variant_ids[-1].app_license_id.website" class="license_url" target="_blank">
                             <span class="license_detail" t-esc="product.product_variant_ids[-1].app_license_id.name"/>
                         </a>
                     </div>
@@ -159,8 +159,8 @@
                         <b>Maintainer: </b>
                     </div>
                     <div class="pull-right col-xs-8 set_row">
-                        <a href="/" target="_blank">
-                            <span class="main_detail" t-esc="product.product_variant_ids[-1].app_version"/>
+                        <a href="https://odoo-community.org" target="_blank">
+                            <span class="main_detail">https://odoo-community.org</span>
                         </a>
                     </div>
                 </div>

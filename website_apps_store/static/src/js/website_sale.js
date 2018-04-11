@@ -29,7 +29,6 @@ odoo.define('website_apps_store.website_sale', function (require) {
             if ($('#o-carousel-product').length) {
                 var $img = $(event_source).closest('tr.js_product, .oe_website_sale').find('img.js_variant_img');
                 $img.attr("src", "/web/image/product.product/" + product_id + "/image");
-                console.log("=========2=====", $img, product_id)
                 $img.parent().attr('data-oe-model', 'product.product').attr('data-oe-id', product_id)
                     .data('oe-model', 'product.product').data('oe-id', product_id);
 
@@ -61,8 +60,8 @@ odoo.define('website_apps_store.website_sale', function (require) {
             var $default_price = $parent.find(".oe_default_price:first .oe_currency_value");
             var $tech_deatil = $(".tech_deatil");
             var $license_detail = $(".license_detail");
+            var $license_url = $(".license_url");
             var $author_detail = $(".author_detail");
-            var $main_detail = $(".main_detail");
             var $website_detail = $(".website_detail");
             var $repo_detail = $(".repo_detail");
             var $rst_html = $(".desc_rst");
@@ -103,8 +102,8 @@ odoo.define('website_apps_store.website_sale', function (require) {
                         if(data){
                             $tech_deatil.text(data['technical_name']);
                             $license_detail.text(data['license']);
+                            $('.license_url').attr('href', data['license_url']);
                             $author_detail.text(data['author']);
-                            $main_detail.text(data['maintainer']);
                             $website_detail.text(data['website']);
                             $repo_detail.text(data['repository']);
                             $rst_html.html(data['rst_html']);
@@ -146,13 +145,12 @@ odoo.define('website_apps_store.website_sale', function (require) {
 
         $('#download_zip').on('click', function(ev){
             var product_template_id = $(this).data('tmpl-id');
-            console.log("---------33333", product_template_id, $product_global);
             ajax.jsonRpc("/shop/cart/download_source", 'call', {
                     'product_id': $product_global,
                     'product_template_id': product_template_id,
                 }).then(function (data) {
                     if(data){
-                        console.log("============", data)
+                        window.location.href = "/shop/download_product_zip/" + data;
                     }
                 });
         });
