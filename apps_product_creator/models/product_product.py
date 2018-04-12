@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2017-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+from odoo import tools
 
 
 class ProductProduct(models.Model):
@@ -42,14 +42,15 @@ class ProductProduct(models.Model):
         related="odoo_module_version_id.version",
         store=True,
     )
-
-    author = fields.Char(
-        'Author (Manifest)',
-        readonly=True,
-        related="odoo_module_version_id.author",
-        store=True,
-    )
-    github_url = fields.Char(
+    app_author_ids = fields.Many2many(
+        string='Authors', comodel_name='odoo.author',
+        relation='product_module_author_rel',
+        column1='product_id',
+        column2='author_id',
+        multi='author',
+        related="odoo_module_version_id.author_ids",
+        store=True,)
+    app_github_url = fields.Char(
         'Github URL',
         readonly=True,
         related="odoo_module_version_id.github_url",

@@ -11,9 +11,9 @@
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
-            <field name="model" eval="'odoo.module'"/>
-            <field name="function" eval="'cron_create_product'"/>
-            <field name="args" eval="'()'"/>
+            <field name="model_id" ref="model_odoo_module"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_create_product()</field>
         </record>
 
 </odoo>
