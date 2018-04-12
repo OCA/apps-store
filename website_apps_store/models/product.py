@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models
 
 
 class ProductTemplate(models.Model):
@@ -13,6 +13,19 @@ class ProductTemplate(models.Model):
                 if author not in author_ids:
                     author_ids.append(author)
         return author_ids
+
+    def get_version_info(self):
+        versions = []
+        for attr in self.attribute_line_ids:
+            for value in attr.value_ids:
+                versions.append(float(value.name))
+        version = max([x for x in versions])
+        product = self.env['product.product'].search([
+            ('attribute_value_ids.name', 'ilike', str(version)),
+            ('product_tmpl_id', '=', self.id),
+            ])
+        return product
+
 
 class ProductAttributevalue(models.Model):
     _inherit = "product.attribute.value"

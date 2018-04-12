@@ -2,7 +2,8 @@
     padding: 0;
 }
 .zip_button{
-    margin: 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     border: 1px solid #2976b6;
     padding: 10px;
     border-radius: 7px;
@@ -10,4 +11,7 @@
     font-weight: 600;
     color: black;
     background-color: #337ab4;
+}
+.font_2{
+    font-size: 12px;
 }

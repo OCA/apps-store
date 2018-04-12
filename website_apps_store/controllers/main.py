@@ -26,11 +26,13 @@ class WebsiteSaleCustom(WebsiteSale):
         if search:
             for srch in search.split(" "):
                 domain += [
-                    '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
+                    '|', '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
                     ('description', 'ilike', srch),
                     ('description_sale', 'ilike', srch),
                     ('product_variant_ids.default_code', 'ilike', srch),
                     ('product_variant_ids.attribute_value_ids.name',
+                     'ilike', srch),
+                    ('product_variant_ids.app_description_rst_html',
                      'ilike', srch),
                     ('product_variant_ids.app_author_ids.name', 'ilike', srch),
                     ('product_variant_ids.app_summary', 'ilike', srch)]
@@ -175,7 +177,8 @@ class WebsiteSaleCustom(WebsiteSale):
         product_id = kwargs.get('product_id', False)
         product = request.env['product.product'].browse(product_id)
         vals = {
-            'technical_name': product.odoo_module_version_id.name,
+            'technical_name':
+                product.odoo_module_version_id.module_id.technical_name,
             'license': product.app_license_id.name,
             'license_url': product.app_license_id.website,
             'author': ', '.join(
@@ -195,7 +198,7 @@ class WebsiteSaleCustom(WebsiteSale):
         product = request.env['product.product'].browse(product_id)
         if not product:
             product_tmpl = request.env['product.template'].browse(tmpl_id)
-            product = product_tmpl.product_variant_ids[-1]
+            product = product_tmpl.get_version_info()
         return product.id
 
     @http.route(
