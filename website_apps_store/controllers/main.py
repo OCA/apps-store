@@ -65,6 +65,9 @@ class WebsiteSaleCustom(WebsiteSale):
         /page/<int:page>'
     ], type='http', auth="public", website=True)
     def shop(self, page=0, category=None, search='', ppg=False, **post):
+        res = super(WebsiteSaleCustom, self).shop(
+            page=page, category=category, search=search, ppg=ppg, **post)
+
         if ppg:
             try:
                 ppg = int(ppg)
@@ -78,53 +81,29 @@ class WebsiteSaleCustom(WebsiteSale):
         attrib_values = [map(int, v.split("-")) for v in attrib_list if v]
         attributes_ids = set([v[0] for v in attrib_values])
         attrib_set = set([v[1] for v in attrib_values])
-
         domain = self._get_search_domain(search, category, attrib_values)
 
         keep = QueryURL('/shop', category=category and int(category),
                         search=search, attrib=attrib_list,
                         order=post.get('order'),
                         version=post.get('version'), author=post.get('author'))
-        pricelist_context = dict(request.env.context)
-        if not pricelist_context.get('pricelist'):
-            pricelist = request.website.get_current_pricelist()
-            pricelist_context['pricelist'] = pricelist.id
-        else:
-            pricelist = request.env['product.pricelist'].browse(
-                pricelist_context['pricelist'])
-
-        request.context = dict(request.context, pricelist=pricelist.id,
-                               partner=request.env.user.partner_id)
         if post.get('version'):
-            domain += [('product_variant_ids.attribute_value_ids.name',
-                        'ilike', post.get('version'))]
+            domain += [('product_variant_ids.attribute_value_ids.id',
+                        '=', post.get('version'))]
         if post.get('author'):
-            domain += [('product_variant_ids.app_author_ids.name',
-                        'ilike', post.get('author'))]
+            domain += [('product_variant_ids.app_author_ids.id',
+                        '=', post.get('author'))]
 
         url = "/shop"
-        if search:
-            post["search"] = search
         if category:
             category = request.env['product.public.category'].browse(
                 int(category))
             url = "/shop/category/%s" % slug(category)
-        if attrib_list:
-            post['attrib'] = attrib_list
 
-        categs = request.env['product.public.category'].search(
-            [('parent_id', '=', False)])
+        category_all = request.env['product.public.category'].search([])
         versions = request.env['product.attribute.value'].search([])
         authors = request.env['odoo.author'].search([])
         Product = request.env['product.template']
-
-        parent_category_ids = []
-        if category:
-            parent_category_ids = [category.id]
-            current_category = category
-            while current_category.parent_id:
-                parent_category_ids.append(current_category.parent_id.id)
-                current_category = current_category.parent_id
 
         product_count = Product.search_count(domain)
         pager = request.website.pager(url=url, total=product_count,
@@ -143,33 +122,24 @@ class WebsiteSaleCustom(WebsiteSale):
         else:
             attributes = ProductAttribute.browse(attributes_ids)
 
-        from_currency = request.env.user.company_id.currency_id
-        to_currency = pricelist.currency_id
-        compute_currency = lambda price: from_currency.compute(
-            price, to_currency)
-
-        values = {
+        res.qcontext.update({
             'search': search,
             'category': category,
             'attrib_values': attrib_values,
             'attrib_set': attrib_set,
             'pager': pager,
-            'pricelist': pricelist,
             'products': products,
             'search_count': product_count,  # common for all searchbox
             'bins': TableCompute().process(products, ppg),
-            'rows': PPR,
-            'categories': categs,
+            'category_all': category_all,
             'versions': versions,
             'authors': authors,
+            'version': post.get('version'),
+            'author': post.get('author'),
             'attributes': attributes,
-            'compute_currency': compute_currency,
             'keep': keep,
-            'parent_category_ids': parent_category_ids,
-        }
-        if category:
-            values['main_object'] = category
-        return request.render("website_sale.products", values)
+        })
+        return res
 
     @http.route(['/shop/change_attribute_version'], type='json',
                 auth="public", website=True)

@@ -9,9 +9,11 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li t-foreach="categories" t-as="c">
-                        <t t-call="website_sale.categories_recursive" />
-                    </li>
+                    <t t-foreach="category_all" t-as="c">
+                        <li t-att-class="'active' if c.id == int(category or 0) else None">
+                            <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+                        </li>
+                    </t>
                 </ul>
             </div>
         </template>
@@ -22,11 +24,13 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li t-foreach="versions" t-as="version">
-                        <a t-att-href="keep('/shop', version=version.name)">
-                            <span t-esc="version.name"/>
-                        </a>
-                    </li>
+                    <t t-foreach="versions" t-as="v">
+                        <li t-att-class="'active' if v.id == int(version or 0) else None">
+                            <a t-att-href="keep('/shop', version=v.id)">
+                                <span t-esc="v.name"/>
+                            </a>
+                        </li>
+                    </t>
                 </ul>
             </div>
         </template>
@@ -37,11 +41,13 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li t-foreach="authors" t-as="author">
-                        <a t-att-href="keep('/shop', author=author.name)">
-                            <span t-esc="author.name"/>
-                        </a>
-                    </li>
+                    <t t-foreach="authors" t-as="auth_id">
+                        <li t-att-class="'active' if auth_id.id == int(author or 0) else None">
+                            <a t-att-href="keep('/shop', author=auth_id.id)">
+                                <span t-esc="auth_id.name"/>
+                            </a>
+                        </li>
+                    </t>
                 </ul>
             </div>
         </template>
@@ -90,7 +96,6 @@
             <xpath expr="//ul[@class='list-unstyled']" position="attributes">
                 <attribute name="t-att-style">'margin-left: 0.1em;' if product.odoo_module_id else ''</attribute>
             </xpath>
-
         </template>
 
         <template id="product" inherit_id="website_sale.product">
