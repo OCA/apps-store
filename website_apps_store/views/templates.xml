@@ -115,22 +115,22 @@
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//p[@class='css_not_available_msg bg-danger']" position="attributes">
-                <attribute name="t-if">not product.odoo_module_id</attribute>
+                <attribute name="t-if">len(product.product_variant_ids) &gt; 1 and not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//a[@class='btn btn-primary btn-lg mt8 js_check_product a-submit']" position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//hr" position="attributes">
-                <attribute name="t-if">not product.odoo_module_id</attribute>
+                <attribute name="t-if">product.availability != 'empty' and not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//div[@class='alert alert-success']" position="attributes">
-                <attribute name="t-if">not product.odoo_module_id</attribute>
+                <attribute name="t-if">product.availability == 'in_stock' and not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//div[@class='alert alert-warning']" position="attributes">
-                <attribute name="t-if">not product.odoo_module_id</attribute>
+                <attribute name="t-if">product.availability == 'warning' and not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//hr[@t-if='product.description_sale']" position="attributes">
-                <attribute name="t-if">not product.odoo_module_id</attribute>
+                <attribute name="t-if">product.description_sale and not product.odoo_module_id</attribute>
             </xpath>
             <xpath expr="//p[@t-field='product.description_sale']/.." position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
