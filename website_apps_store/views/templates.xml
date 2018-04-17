@@ -76,7 +76,7 @@
                 </t>
                 <t t-if="product.odoo_module_id">
                     <t t-foreach="product.attribute_line_ids" t-as="attr">
-                        <span t-esc="' / '.join(value.name for value in attr.value_ids)" class="font_2"/>
+                        <span t-esc="' / '.join(value.name for value in attr.value_ids.sorted(reverse=True))" class="font_2"/>
                     </t>
                 </t>
             </xpath>
@@ -89,6 +89,12 @@
         <!--Product Customization /-->
 
         <template id="variants" inherit_id="website_sale.variants">
+            <xpath expr="//ul[@class='list-unstyled']/t[@t-as='value_id']" position="attributes">
+                <attribute name="t-foreach">variant_id.value_ids.sorted(key=lambda x: x.sequence, reverse=True)</attribute>
+            </xpath>
+            <xpath expr="//select/t[@t-as='value_id']" position="attributes">
+                <attribute name="t-foreach">variant_id.value_ids.sorted(key=lambda x: x.sequence, reverse=True)</attribute>
+            </xpath>
             <xpath expr="//strong[@t-field='variant_id.attribute_id.name']" position="replace">
                 <strong t-field="variant_id.attribute_id.name" t-if="not product.odoo_module_id"/>
                 <strong t-if="product.odoo_module_id">Versions Available:</strong>
@@ -134,6 +140,9 @@
             </xpath>
             <xpath expr="//div[@id='product_details']/p[@class='text-muted']" position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//div[@id='product_details']/h1[@t-field='product.name']" position="attributes">
+                <attribute name="class">name_product</attribute>
             </xpath>
             <xpath expr="//form[@class='js_add_cart_variants']" position="after">
                 <div class="col-xs-12 set_row" t-if="product.odoo_module_id">

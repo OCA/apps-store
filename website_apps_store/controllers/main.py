@@ -147,6 +147,7 @@ class WebsiteSaleCustom(WebsiteSale):
         product_id = kwargs.get('product_id', False)
         product = request.env['product.product'].browse(product_id)
         vals = {
+            'name_product': product.name,
             'technical_name':
                 product.odoo_module_version_id.module_id.technical_name,
             'license': product.app_license_id.name,

@@ -25,8 +25,3 @@ class ProductTemplate(models.Model):
             ('product_tmpl_id', '=', self.id),
             ])
         return product
-
-
-class ProductAttributevalue(models.Model):
-    _inherit = "product.attribute.value"
-    _order = 'sequence desc'

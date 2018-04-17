@@ -66,6 +66,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
             var $repo_detail = $(".repo_detail");
             var $rst_html = $(".desc_rst");
             var $app_summary = $(".app_summary");
+            var $name_product = $(".name_product");
             var $optional_price = $parent.find(".oe_optional:first .oe_currency_value");
             var variant_ids = $ul.data("attribute_value_ids");
             var values = [];
@@ -108,6 +109,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
                             $repo_detail.text(data['repository']);
                             $rst_html.html(data['rst_html']);
                             $app_summary.text(data['app_summary']);
+                            $name_product.text(data['name_product']);
                         }
                     });
                     break;
