@@ -3,11 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
-import os
-import tempfile
-import shutil
 import base64
-import time
 
 from odoo import http
 from odoo.http import request
@@ -178,31 +174,23 @@ class WebsiteSaleCustom(WebsiteSale):
         '/shop/download_product_zip/<model("product.product"):product>',
         type='http', auth="public", website=True)
     def download_product_zip(self, product, **kwargs):
-        tmp_dir = tempfile.mkdtemp()
-        tmp_module_path = os.path.join(
-            tmp_dir, os.path.split(product.module_path)[-1])
-        module_path = product.module_path + '/'\
-            + product.odoo_module_version_id.module_id.technical_name
-        tmp_module_path = tmp_module_path + '/'\
-            + product.odoo_module_version_id.module_id.technical_name
-        shutil.copytree(module_path, tmp_module_path)
-        time_version_value = time.strftime(
-            '_%y%m%d_%H%M%S')
-        if product.attribute_value_ids:
-            time_version_value = '_%s%s' % (
-                '_'.join([name.replace('.', '_') for name in
-                          product.attribute_value_ids.mapped('name')]),
-                time_version_value)
+        attachment = request.env['ir.attachment'].search([
+            ('res_id', '=', product.id),
+            ('res_model', '=', product._name),
+        ], limit=1)
+        if not attachment:
+            product.generate_zip_file()
+            attachment = request.env['ir.attachment'].search([
+                ('res_id', '=', product.id),
+                ('res_model', '=', product._name),
+            ], limit=1)
 
-        tmp_zip_file = (os.path.join(product.name) +
-                        time_version_value)
-        shutil.make_archive(tmp_zip_file, 'zip', tmp_dir)
-        tmp_zip_file = '%s.zip' % tmp_zip_file
-        with open(tmp_zip_file, "rb") as file_obj:
-            data_encode = base64.encodestring(file_obj.read())
-        filecontent = base64.b64decode(data_encode)
-        disposition = 'attachment; filename=%s' % tmp_zip_file
-        return request.make_response(
-            filecontent, [('Content-Type', 'application/csv'),
-                          ('Content-Length', len(filecontent)),
-                          ('Content-Disposition', disposition)])
+        if attachment:
+            filecontent = base64.b64decode(attachment.datas)
+            disposition = 'attachment; filename=%s' % attachment.datas_fname
+            return request.make_response(
+                filecontent,
+                [('Content-Type', 'application/csv'),
+                 ('Content-Length', len(filecontent)),
+                 ('Content-Disposition', disposition)])
+        return False

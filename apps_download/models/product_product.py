@@ -65,7 +65,11 @@ class ProductProduct(models.Model):
 
             tmp_module_path = os.path.join(
                 tmp_dir, os.path.split(product.module_path)[-1])
-            shutil.copytree(product.module_path, tmp_module_path)
+            module_path = product.module_path + '/'\
+                + product.odoo_module_version_id.module_id.technical_name
+            tmp_module_path = tmp_module_path + '/'\
+                + product.odoo_module_version_id.module_id.technical_name
+            shutil.copytree(module_path, tmp_module_path)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')
             if product.attribute_value_ids:
