@@ -21,7 +21,8 @@ class ProductProduct(models.Model):
         'product.product', 'product_product_dependent_rel',
         'src_id', 'dest_id', string='Dependent Products'
     )
-    module_path = fields.Char(related="odoo_module_version_id.repository_branch_id.local_path")
+    module_path = fields.Char(
+        related="odoo_module_version_id.repository_branch_id.local_path")
 
     @api.constrains('dependent_product_ids')
     def check_dependent_recursion(self):
@@ -60,15 +61,17 @@ class ProductProduct(models.Model):
 
             for dependent_pro in dependent_products.filtered('module_path'):
                 tmp_module_path = os.path.join(
-                    tmp_dir, os.path.split(dependent_pro.module_path)[-1])
-                shutil.copytree(dependent_pro.module_path, tmp_module_path)
+                    tmp_dir,
+                    dependent_pro.odoo_module_version_id.technical_name)
+                shutil.copytree(
+                    dependent_pro.module_path +
+                    '/' + dependent_pro.odoo_module_version_id.technical_name,
+                    tmp_module_path)
 
             tmp_module_path = os.path.join(
-                tmp_dir, os.path.split(product.module_path)[-1])
+                tmp_dir, product.odoo_module_version_id.technical_name)
             module_path = product.module_path + '/'\
-                + product.odoo_module_version_id.module_id.technical_name
-            tmp_module_path = tmp_module_path + '/'\
-                + product.odoo_module_version_id.module_id.technical_name
+                + product.odoo_module_version_id.technical_name
             shutil.copytree(module_path, tmp_module_path)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')

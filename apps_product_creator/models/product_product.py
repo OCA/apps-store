@@ -124,7 +124,8 @@ class ProductProduct(models.Model):
                                          dep.repository_branch_id.name),
                                         ('odoo_module_version_id.module_id',
                                          '=', dep.module_id.id), ])
-                                product_ids.append(product_variant_data.id)
+                                if product_variant_data:
+                                    product_ids.append(product_variant_data.id)
                                 values.update({
                                     'dependent_product_ids': [
                                         (6, 0, product_ids)
