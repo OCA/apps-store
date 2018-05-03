@@ -10,7 +10,11 @@
                 <field name="product_template_id"/>
             </xpath>
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button type="object" class="oe_stat_button" icon="fa-arrows-v" name="action_view_products" attrs="{'invisible': [('product_qty', '=', 0)]}">
+                <button type="object"
+                        class="oe_stat_button"
+                        icon="fa-arrows-v"
+                        name="action_view_products"
+                        attrs="{'invisible': [('product_qty', '=', 0)]}">
                     <field name="product_qty" string="Products" widget="statinfo"/>
                 </button>
             </xpath>
