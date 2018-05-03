@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2017-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
@@ -14,11 +15,9 @@
     ],
     'data': [
         'data/ir_cron.xml',
+        'data/product_attribute.xml',
         'views/view_odoo_module.xml',
         'views/view_product_product.xml',
-    ],
-    'demo': [
-        'demo/product_attribute.xml',
     ],
     'installable': True,
 }
