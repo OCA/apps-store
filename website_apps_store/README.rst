@@ -37,7 +37,8 @@ Images
 Contributors
 ------------
 
-* Ruchir Shukla <ruchir@bizzappdev.com>
+* Ruchir Shukla <ruchir@bizzappdev.com
+* Divya Modi <divya.modi@bizzappdev.com>
 
 Maintainer
 ----------

@@ -190,7 +190,7 @@ class WebsiteSaleCustom(WebsiteSale):
             disposition = 'attachment; filename=%s' % attachment.datas_fname
             return request.make_response(
                 filecontent,
-                [('Content-Type', 'application/csv'),
+                [('Content-Type', 'application/zip, application/octet-stream'),
                  ('Content-Length', len(filecontent)),
                  ('Content-Disposition', disposition)])
         return False

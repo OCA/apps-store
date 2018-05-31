@@ -64,8 +64,8 @@ class ProductProduct(models.Model):
                     tmp_dir,
                     dependent_pro.odoo_module_version_id.technical_name)
                 shutil.copytree(
-                    dependent_pro.module_path +
-                    '/' + dependent_pro.odoo_module_version_id.technical_name,
+                    dependent_pro.module_path + '/' +
+                    dependent_pro.odoo_module_version_id.technical_name,
                     tmp_module_path)
 
             tmp_module_path = os.path.join(

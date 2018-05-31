@@ -4,7 +4,7 @@
 {
     "name": "Website Apps Store",
     "version": "10.0.1.0.0",
-    "author": "Bizzappdev",
+    'author': 'Odoo Community Association (OCA), BizzAppDev',
     "website": "https://github.com/OCA/apps-store",
     "license": "AGPL-3",
     "category": "Sales",
