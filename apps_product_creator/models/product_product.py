@@ -97,10 +97,11 @@ class ProductProduct(models.Model):
                 versions = self._get_version_with_attribute(
                     product.odoo_module_id.module_version_ids, attribute)
                 for version in versions:
+                    module_id = version.module_id
+                    mod_ver_ids = module_id.dependence_module_version_ids.ids
                     if version.module_id.dependence_module_version_ids:
                         dependency_modules = module_version.search([
-                            ('id', 'in',
-                             version.module_id.dependence_module_version_ids.ids),
+                            ('id', 'in', mod_ver_ids),
                             ('repository_branch_id', '=',
                              version.repository_branch_id.id)
                         ])
