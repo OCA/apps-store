@@ -71,12 +71,12 @@
                 <t t-if="product.odoo_module_id and product.product_variant_ids">
                     <br/>
                     <t t-set="author_ids" t-value="product.get_author_details()"/>
-                    <span t-esc="', '.join(author.name for author in author_ids)" class="font_2"/>
+                    <span t-esc="', '.join(author.name for author in author_ids)" class="font_12"/>
                     <br/>
                 </t>
                 <t t-if="product.odoo_module_id">
                     <t t-foreach="product.attribute_line_ids" t-as="attr">
-                        <span t-esc="' / '.join(value.name for value in attr.value_ids.sorted(reverse=True))" class="font_2"/>
+                        <span t-esc="' / '.join(value.name for value in attr.value_ids.sorted(reverse=True))" class="font_12"/>
                     </t>
                 </t>
             </xpath>
@@ -145,62 +145,62 @@
                 <attribute name="class">name_product</attribute>
             </xpath>
             <xpath expr="//form[@class='js_add_cart_variants']" position="after">
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
                     <div class="col-xs-4 zip_button">
                         <button name="download_zip" id="download_zip" t-att-data-tmpl-id="product.id">Download</button>
                     </div>
                 </div>
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 set_row">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
                         <b>Technical Name: </b>
                     </div>
-                    <div class="pull-right col-xs-8 set_row">
+                    <div class="pull-right col-xs-8 padd_0">
                         <span class="tech_detail" t-esc="product_var_id.odoo_module_version_id.module_id.technical_name"/>
                     </div>
                 </div>
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 set_row">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
                         <b>License: </b>
                     </div>
-                    <div class="pull-right col-xs-8 set_row">
+                    <div class="pull-right col-xs-8 padd_0">
                         <a t-att-href="product_var_id.app_license_id.website" class="license_url" target="_blank">
                             <span class="license_detail" t-esc="product_var_id.app_license_id.name"/>
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 set_row">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
                         <b>Author: </b>
                     </div>
-                    <div class="pull-right col-xs-8 set_row">
+                    <div class="pull-right col-xs-8 padd_0">
                         <span class="author_detail" t-esc="', '.join(author.name for author in product_var_id.app_author_ids)"/>
                     </div>
                 </div>
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 set_row">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
                         <b>Maintainer: </b>
                     </div>
-                    <div class="pull-right col-xs-8 set_row">
+                    <div class="pull-right col-xs-8 padd_0">
                         <a href="https://odoo-community.org" target="_blank">
                             <span class="main_detail">https://odoo-community.org</span>
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 set_row">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
                         <b>Website: </b>
                     </div>
-                    <div class="pull-right col-xs-8 set_row">
+                    <div class="pull-right col-xs-8 padd_0">
                         <a t-att-href="product_var_id.app_website" target="_blank">
                             <span class="website_detail" t-esc="product_var_id.app_website"/>
                         </a>
                     </div>
                 </div>
-                <div class="col-xs-12 set_row" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 set_row">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
                         <b>Repository: </b>
                     </div>
-                    <div class="pull-right col-xs-8 set_row">
+                    <div class="pull-right col-xs-8 padd_0">
                         <a t-att-href="product_var_id.app_github_url" target="_blank">
                             <span class="repo_detail" t-esc="product_var_id.app_github_url"/>
                         </a>

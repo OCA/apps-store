@@ -1,4 +1,4 @@
-.set_row{
+.padd_0{
     padding: 0;
 }
 .zip_button{
@@ -12,6 +12,6 @@
     color: black;
     background-color: #337ab4;
 }
-.font_2{
+.font_12{
     font-size: 12px;
 }
