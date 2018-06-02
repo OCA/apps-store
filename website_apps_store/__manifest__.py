@@ -18,8 +18,6 @@
         'views/assets.xml',
         'views/templates.xml',
     ],
-    "demo": [
-    ],
     'installable': True,
     'auto_install': False,
     'application': False
