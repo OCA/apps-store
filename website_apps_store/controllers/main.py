@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 BizzAppDev
+# Copyright 2018 BizzAppDev
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
