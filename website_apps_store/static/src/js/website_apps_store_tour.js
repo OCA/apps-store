@@ -12,7 +12,7 @@ var base = require("web_editor.base");
         },[
             {
                 content: "Shop",
-                trigger: ".oe_product_image img:first"
+                trigger: ".oe_product_cart a:contains('Odoo Module 1')"
             },
             {
                 content: "Select Version",
@@ -21,7 +21,6 @@ var base = require("web_editor.base");
                     $('input[type=radio]:last').attr("checked", "checked");
                 }
             },
-
             {
                 content: "Download",
                 trigger: "button:contains(Download)"
@@ -41,7 +40,7 @@ var base = require("web_editor.base");
             },
             {
                 content: "Select Version",
-                trigger: ".dropdown_version_by .dropdown-menu a:first",
+                trigger: ".dropdown_version_by .dropdown-menu a:contains('10.0')",
             },
         ]
     );
@@ -58,7 +57,7 @@ var base = require("web_editor.base");
             },
             {
                 content: "Select Author",
-                trigger: ".dropdown_author_by .dropdown-menu a:first",
+                trigger: ".dropdown_author_by .dropdown-menu a:contains('OCA')",
             },
         ]
     );
@@ -75,7 +74,7 @@ var base = require("web_editor.base");
             },
             {
                 content: "Select Category",
-                trigger: ".dropdown_category_by .dropdown-menu a:first",
+                trigger: ".dropdown_category_by .dropdown-menu a:contains('Category1')",
             },
         ]
     );
@@ -92,7 +91,6 @@ var base = require("web_editor.base");
                 run: function(){
                     $('.search-query').attr('value', 'account');
                 }
-
             },
             {
                 content: "Search Button",

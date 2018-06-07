@@ -15,6 +15,7 @@
     ],
     "summary": "Website Apps Store",
     "data": [
+        'demo/product_template.xml',
         'views/assets.xml',
         'views/templates.xml',
     ],
