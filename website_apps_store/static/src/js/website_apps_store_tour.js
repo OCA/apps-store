@@ -89,7 +89,7 @@ var base = require("web_editor.base");
                 content: "Shop",
                 trigger: ".search-query",
                 run: function(){
-                    $('.search-query').attr('value', 'account');
+                    $('.search-query').attr('value', 'Test');
                 }
             },
             {

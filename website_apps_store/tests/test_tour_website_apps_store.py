@@ -2,6 +2,7 @@
 
 from odoo import tests
 
+
 @tests.common.at_install(False)
 @tests.common.post_install(True)
 class TestUi(tests.HttpCase):
@@ -49,5 +50,3 @@ class TestUi(tests.HttpCase):
             self.tour + ".tours.module_search.ready",
             login="admin"
         )
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -53,8 +53,8 @@ class ProductProduct(models.Model):
 
     @api.multi
     def generate_zip_file(self):
-        product1 = self.env.ref('website_apps_store.product_product_100')
-        product2 = self.env.ref('website_apps_store.product_product100_b')
+        product1 = self.env.ref('apps_download.product_product_100')
+        product2 = self.env.ref('apps_download.product_product100_b')
         test_path = os.path.dirname(os.path.realpath(__file__))
         test_path = test_path.split('/models')[0]
 
