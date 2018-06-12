@@ -14,11 +14,11 @@
         'base',
         'website_sale_digital',
         'github_connector_odoo',
-        'apps_product_creator'
+        'apps_product_creator',
     ],
     "summary": "Product Download for Appstore",
     "data": [
-        'demo/product_template.xml',
+        'demo/product_template_demo.xml',
         'views/product_template_view.xml',
         'data/cron_scheduler.xml'
     ],

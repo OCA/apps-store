@@ -2,11 +2,11 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=============================
+==================
 Website Apps Store
-=============================
+==================
 
-Providing facility for display the module specific information in a standard Odoo
+Providing facility for displaying the module specific information in a standard Odoo
 e-commerce website (front-end) and download the zip file of the selected product.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas

@@ -99,50 +99,51 @@ class ProductProduct(models.Model):
                 for version in versions:
                     module_id = version.module_id
                     mod_ver_ids = module_id.dependence_module_version_ids.ids
-                    if version.module_id.dependence_module_version_ids:
-                        dependency_modules = module_version.search([
-                            ('id', 'in', mod_ver_ids),
-                            ('repository_branch_id', '=',
-                             version.repository_branch_id.id)
+                    if not version.module_id.dependence_module_version_ids:
+                        continue
+                    dependency_modules = module_version.search([
+                        ('id', 'in', mod_ver_ids),
+                        ('repository_branch_id', '=',
+                         version.repository_branch_id.id)
+                    ])
+                    product_ids = []
+                    for dep in dependency_modules:
+                        product_variant_data = product_variant.search([
+                            ('name', '=', dep.name),
+                            ('odoo_module_version_id.module_id', '=',
+                             dep.module_id.id),
+                            ('attribute_value_ids.name', '=',
+                             dep.repository_branch_id.name),
                         ])
-                        product_ids = []
-                        for dep in dependency_modules:
-                            product_variant_data = product_variant.search([
-                                ('name', '=', dep.name),
-                                ('odoo_module_version_id.module_id', '=',
-                                 dep.module_id.id),
-                                ('attribute_value_ids.name', '=',
-                                 dep.repository_branch_id.name),
-                            ])
+                        if product_variant_data:
+                            for pro in product_variant_data:
+                                product_ids.append(pro.id)
+                        if not product_variant_data:
+                            product_data = dep.module_id._create_product()
+                            product_variant_data = \
+                                product_data.product_variant_ids.search([
+                                    ('attribute_value_ids.name', '=',
+                                     dep.repository_branch_id.name),
+                                    ('odoo_module_version_id.module_id',
+                                     '=', dep.module_id.id), ])
                             if product_variant_data:
-                                for pro in product_variant_data:
-                                    product_ids.append(pro.id)
-                            if not product_variant_data:
-                                product_data = dep.module_id._create_product()
-                                product_variant_data = \
-                                    product_data.product_variant_ids.search([
-                                        ('attribute_value_ids.name', '=',
-                                         dep.repository_branch_id.name),
-                                        ('odoo_module_version_id.module_id',
-                                         '=', dep.module_id.id), ])
-                                if product_variant_data:
-                                    product_ids.append(product_variant_data.id)
-                                values.update({
-                                    'dependent_product_ids': [
-                                        (6, 0, product_ids)
-                                    ] if product_ids else False,
-                                })
-                            else:
-                                values.update({
-                                    'dependent_product_ids': [
-                                        (6, 0, product_ids)
-                                    ] if product_ids else False,
-                                })
+                                product_ids.append(product_variant_data.id)
+                            values.update({
+                                'dependent_product_ids': [
+                                    (6, 0, product_ids)
+                                ] if product_ids else False,
+                            })
+                        else:
+                            values.update({
+                                'dependent_product_ids': [
+                                    (6, 0, product_ids)
+                                ] if product_ids else False,
+                            })
 
-                # If we don't have a result, the ID will be False
-                values.update({
-                    'odoo_module_version_id': versions.id,
-                })
+                    # If we don't have a result, the ID will be False
+                    values.update({
+                        'odoo_module_version_id': version.id,
+                    })
         return True
 
     @api.model
