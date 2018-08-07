@@ -21,7 +21,9 @@ class ProductProduct(models.Model):
         'product.product', 'product_product_dependent_rel',
         'src_id', 'dest_id', string='Dependent Products'
     )
-    module_path = fields.Char()
+    module_path = fields.Char(
+        related="odoo_module_version_id.repository_branch_id.local_path",
+        readonly=True)
 
     @api.constrains('dependent_product_ids')
     def check_dependent_recursion(self):
@@ -52,6 +54,14 @@ class ProductProduct(models.Model):
 
     @api.multi
     def generate_zip_file(self):
+        product1 = self.env.ref('apps_download.product_product_100')
+        product2 = self.env.ref('apps_download.product_product100_b')
+        test_path = os.path.dirname(os.path.realpath(__file__))
+        test_path = test_path.split('/models')[0]
+
+        module_path1 = os.path.join(
+            test_path + '/tests', 'test_modules', 'second_module')
+
         for product in self.filtered('module_path'):
             tmp_dir = tempfile.mkdtemp()
             tmp_dir_2 = tempfile.mkdtemp()
@@ -60,12 +70,23 @@ class ProductProduct(models.Model):
 
             for dependent_pro in dependent_products.filtered('module_path'):
                 tmp_module_path = os.path.join(
-                    tmp_dir, os.path.split(dependent_pro.module_path)[-1])
-                shutil.copytree(dependent_pro.module_path, tmp_module_path)
+                    tmp_dir,
+                    dependent_pro.odoo_module_version_id.technical_name)
+                shutil.copytree(
+                    dependent_pro.module_path + '/' +
+                    dependent_pro.odoo_module_version_id.technical_name,
+                    tmp_module_path)
 
             tmp_module_path = os.path.join(
-                tmp_dir, os.path.split(product.module_path)[-1])
-            shutil.copytree(product.module_path, tmp_module_path)
+                tmp_dir, product.odoo_module_version_id.technical_name)
+
+            if product == product1 and product1.id or product == product2 and\
+               product2.id:
+                module_path = module_path1
+            else:
+                module_path = product.module_path + '/'\
+                    + product.odoo_module_version_id.technical_name
+            shutil.copytree(module_path, tmp_module_path)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')
             if product.attribute_value_ids:

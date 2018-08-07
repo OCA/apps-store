@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--Shop Customization/-->
+        <template id="category_display" name="Show Category by">
+            <div class="dropdown btn-group dropdown_category_by">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                    <span>Category</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <t t-foreach="category_all" t-as="c">
+                        <li t-att-class="'active' if c.id == int(category or 0) else None">
+                            <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </template>
+        <template id="version_display" name="Show Version by">
+            <div class="dropdown btn-group dropdown_version_by">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                    <span>Version</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <t t-foreach="versions" t-as="v">
+                        <li t-att-class="'active' if v.id == int(version or 0) else None">
+                            <a t-att-href="keep('/shop', version=v.id)">
+                                <span t-esc="v.name"/>
+                            </a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </template>
+        <template id="author_display" name="Show Author by">
+            <div class="dropdown btn-group dropdown_author_by">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                    <span>Author</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <t t-foreach="authors" t-as="auth_id">
+                        <li t-att-class="'active' if auth_id.id == int(author or 0) else None">
+                            <a t-att-href="keep('/shop', author=auth_id.id)">
+                                <span t-esc="auth_id.name"/>
+                            </a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </template>
+
+        <template id="sort_customize" inherit_id="website_sale.sort">
+            <xpath expr="//div[@class='dropdown btn-group dropdown_sorty_by']" position="after">
+                <t t-call="website_apps_store.category_display"/>
+                <t t-call="website_apps_store.version_display"/>
+                <t t-call="website_apps_store.author_display"/>
+            </xpath>
+        </template>
+
+        <template id="products_item_customize" inherit_id="website_sale.products_item">
+            <xpath expr="//section" position="attributes">
+                <attribute name="t-att-style">'padding-bottom: 1px;' if product.odoo_module_id else ''</attribute>
+            </xpath>
+            <xpath expr="//h5" position="attributes">
+                <attribute name="t-att-style">'margin-bottom: 4px;' if product.odoo_module_id else ''</attribute>
+            </xpath>
+            <xpath expr="//h5//a" position="after">
+                <t t-if="product.odoo_module_id and product.product_variant_ids">
+                    <br/>
+                    <t t-set="author_ids" t-value="product.get_author_details()"/>
+                    <span t-esc="', '.join(author.name for author in author_ids)" class="font_12"/>
+                    <br/>
+                </t>
+                <t t-if="product.odoo_module_id">
+                    <t t-foreach="product.attribute_line_ids" t-as="attr">
+                        <span t-esc="' / '.join(value.name for value in attr.value_ids.sorted(reverse=True))" class="font_12"/>
+                    </t>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='product_price']//span[@t-esc='product.website_price']" position="replace">
+                <span t-esc="product.website_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" t-if="not product.odoo_module_id"/>
+            </xpath>
+
+        </template>
+
+        <!--Product Customization /-->
+
+        <template id="variants" inherit_id="website_sale.variants">
+            <xpath expr="//ul[@class='list-unstyled']/t[@t-as='value_id']" position="attributes">
+                <attribute name="t-foreach">variant_id.value_ids.sorted(key=lambda x: x.sequence, reverse=True)</attribute>
+            </xpath>
+            <xpath expr="//select/t[@t-as='value_id']" position="attributes">
+                <attribute name="t-foreach">variant_id.value_ids.sorted(key=lambda x: x.sequence, reverse=True)</attribute>
+            </xpath>
+            <xpath expr="//strong[@t-field='variant_id.attribute_id.name']" position="replace">
+                <strong t-field="variant_id.attribute_id.name" t-if="not product.odoo_module_id"/>
+                <strong t-if="product.odoo_module_id">Versions Available:</strong>
+            </xpath>
+            <xpath expr="//ul[@class='list-unstyled']" position="attributes">
+                <attribute name="t-att-style">'margin-left: 0.1em;' if product.odoo_module_id else ''</attribute>
+            </xpath>
+        </template>
+
+        <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//t[@t-call='website_sale.variants']" position="before">
+                <t t-if="product.odoo_module_id">
+                    <t t-set="product_var_id" t-value="product.get_version_info()"/>
+                </t>
+                <p t-if="product.odoo_module_id" class="app_summary" t-esc="product_var_id.app_summary"/>
+            </xpath>
+            <xpath expr="//t[@t-call='website_sale.product_price']" position="attributes">
+                <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//p[@class='css_not_available_msg bg-danger']" position="attributes">
+                <attribute name="t-if">len(product.product_variant_ids) &gt; 1 and not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//a[@class='btn btn-primary btn-lg mt8 js_check_product a-submit']" position="attributes">
+                <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//hr" position="attributes">
+                <attribute name="t-if">product.availability != 'empty' and not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//div[@class='alert alert-success']" position="attributes">
+                <attribute name="t-if">product.availability == 'in_stock' and not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//div[@class='alert alert-warning']" position="attributes">
+                <attribute name="t-if">product.availability == 'warning' and not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//hr[@t-if='product.description_sale']" position="attributes">
+                <attribute name="t-if">product.description_sale and not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//p[@t-field='product.description_sale']/.." position="attributes">
+                <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//hr[3]" position="attributes">
+                <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//div[@id='product_details']/p[@class='text-muted']" position="attributes">
+                <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+            <xpath expr="//div[@id='product_details']/h1[@t-field='product.name']" position="attributes">
+                <attribute name="class">name_product</attribute>
+            </xpath>
+            <xpath expr="//form[@class='js_add_cart_variants']" position="after">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="col-xs-4 zip_button">
+                        <button name="download_zip" id="download_zip" t-att-data-tmpl-id="product.id">Download</button>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>Technical Name: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <span class="tech_detail" t-esc="product_var_id.odoo_module_version_id.module_id.technical_name"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>License: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <a t-att-href="product_var_id.app_license_id.website" class="license_url" target="_blank">
+                            <span class="license_detail" t-esc="product_var_id.app_license_id.name"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>Author: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <span class="author_detail" t-esc="', '.join(author.name for author in product_var_id.app_author_ids)"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>Maintainer: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <a href="https://odoo-community.org" target="_blank">
+                            <span class="main_detail">https://odoo-community.org</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>Website: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <a t-att-href="product_var_id.app_website" target="_blank">
+                            <span class="website_detail" t-esc="product_var_id.app_website"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>Repository: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <a t-att-href="product_var_id.app_github_url" target="_blank">
+                            <span class="repo_detail" t-esc="product_var_id.app_github_url"/>
+                        </a>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//section" position="inside">
+                <div class="desc_rst" t-if="product.odoo_module_id">
+                    <p t-esc="product_var_id.app_description_rst_html" t-options='{"widget": "html"}'/>
+                </div>
+            </xpath>
+        </template>
+        <template id="product_quantity_customize" inherit_id="website_sale.product_quantity">
+            <xpath expr="//div[@class='css_quantity input-group oe_website_spinner']" position="attributes">
+                <attribute name="t-if">not product.odoo_module_id</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>
