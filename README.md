@@ -15,6 +15,7 @@ addon | version | summary
 --- | --- | ---
 [apps_download](apps_download/) | 10.0.1.0.0 | Product Download for Appstore
 [apps_product_creator](apps_product_creator/) | 10.0.1.0.0 | Create a product variant (by version) for every module found in the Github repositories
+[website_apps_store](website_apps_store/) | 10.0.1.0.0 | Website Apps Store
 
 [//]: # (end addons)
 
