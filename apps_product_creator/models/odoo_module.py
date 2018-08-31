@@ -63,12 +63,13 @@ class OdooModule(models.Model):
             product = matching_products.filtered(
                 lambda p: p.odoo_module_id == odoo_module)
             if not product:
-                product_values = odoo_module._prepare_template()
-                new_product = product_obj.create(product_values)
-                odoo_module.write({
-                    'product_template_id': new_product.id,
-                })
-                products |= new_product
+                if not odoo_module.product_template_id:
+                    product_values = odoo_module._prepare_template()
+                    new_product = product_obj.create(product_values)
+                    odoo_module.write({
+                        'product_template_id': new_product.id,
+                    })
+                    products |= new_product
         return products
 
     @api.multi

@@ -87,16 +87,60 @@ class ProductProduct(models.Model):
         # Check if mandatory keys (for product module) are given
         if all([k in values_keys for k in check_keys]):
             product_obj = self.env['product.template']
+            module_version = self.env['odoo.module.version']
+            product_variant = self.env['product.product']
             product = product_obj.browse(values.get(product_tmpl_key, []))
             # If the product template is used to save an Odoo module
             if self._check_related_to_module(product):
                 attribute = self._get_version_attribute(values)
-                version = self._get_version_with_attribute(
+                versions = self._get_version_with_attribute(
                     product.odoo_module_id.module_version_ids, attribute)
-                # If we don't have a result, the ID will be False
-                values.update({
-                    'odoo_module_version_id': version.id,
-                })
+                for version in versions:
+                    module_id = version.module_id
+                    mod_ver_ids = module_id.dependence_module_version_ids.ids
+                    dependency_modules = module_version.search([
+                        ('id', 'in', mod_ver_ids),
+                        ('repository_branch_id', '=',
+                         version.repository_branch_id.id)
+                    ])
+                    product_ids = []
+                    for dep in dependency_modules:
+                        product_variant_data = product_variant.search([
+                            ('name', '=', dep.name),
+                            ('odoo_module_version_id.module_id', '=',
+                             dep.module_id.id),
+                            ('attribute_value_ids.name', '=',
+                             dep.repository_branch_id.name),
+                        ])
+                        if product_variant_data:
+                            for pro in product_variant_data:
+                                product_ids.append(pro.id)
+                        if not product_variant_data:
+                            product_data = dep.module_id._create_product()
+                            product_variant_data = \
+                                product_data.product_variant_ids.search([
+                                    ('attribute_value_ids.name', '=',
+                                     dep.repository_branch_id.name),
+                                    ('odoo_module_version_id.module_id',
+                                     '=', dep.module_id.id), ])
+                            if product_variant_data:
+                                product_ids.append(product_variant_data.id)
+                            values.update({
+                                'dependent_product_ids': [
+                                    (6, 0, product_ids)
+                                ] if product_ids else False,
+                            })
+                        else:
+                            values.update({
+                                'dependent_product_ids': [
+                                    (6, 0, product_ids)
+                                ] if product_ids else False,
+                            })
+
+                    # If we don't have a result, the ID will be False
+                    values.update({
+                        'odoo_module_version_id': version.id,
+                    })
         return True
 
     @api.model
