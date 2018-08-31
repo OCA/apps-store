@@ -23,8 +23,29 @@ class TestAppsProductCreator(TransactionCase):
             'repository_id': self.repository1.id,
         })
 
+        self.odoo_module2 = self.env['odoo.module'].create({
+            'technical_name': 'odoo_module2',
+        })
+
+        self.odoo_module1_version2 = self.env['odoo.module.version'].create({
+            'name': 'Odoo Module 2',
+            'technical_name': 'odoo_module2',
+            'module_id': self.odoo_module2.id,
+            'repository_branch_id': self.branch1.id,
+            'license': 'AGPL-3',
+            'summary': 'Summary Test',
+            'website': 'Website Test',
+            'description_rst': 'Description Test',
+            'version': '10.0',
+            'author': 'OCA',
+            'depends': 'base',
+            'external_dependencies': '{}',
+        })
+
         self.odoo_module1 = self.env['odoo.module'].create({
             'technical_name': 'odoo_module1',
+            'dependence_module_version_ids': [
+                (6, 0, [self.odoo_module1_version2.id])],
         })
 
         self.odoo_module1_version1 = self.env['odoo.module.version'].create({
