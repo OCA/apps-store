@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 # w0402 - deprecated module
 import ipdb  # pylint: disable=W0403

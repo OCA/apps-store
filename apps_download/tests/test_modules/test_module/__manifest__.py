@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Empty module for tests',
     'license': 'AGPL-3',

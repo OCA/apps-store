@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 
 def eval_from_param(param):
