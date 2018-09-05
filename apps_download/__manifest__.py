@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 BizzAppDev
 # Copyright 2017 AgentERP
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).

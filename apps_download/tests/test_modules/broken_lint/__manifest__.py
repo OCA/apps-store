@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Broken module for lint tests',
     'license': 'AGPL-3',

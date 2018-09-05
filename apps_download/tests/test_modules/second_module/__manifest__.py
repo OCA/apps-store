@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Second empty module for tests',
     'version': '8.0.1.0.0',
