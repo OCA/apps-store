@@ -144,7 +144,7 @@ class WebsiteSaleCustom(WebsiteSale):
                 auth="public", website=True)
     def change_product_attribute_version(self, **kwargs):
         product_id = kwargs.get('product_id', False)
-        product = request.env['product.product'].browse(product_id)
+        product = request.env['product.product'].sudo().browse(product_id)
         vals = {
             'name_product': product.name,
             'technical_name':
@@ -165,9 +165,10 @@ class WebsiteSaleCustom(WebsiteSale):
     def download_source_product(self, **kwargs):
         product_id = kwargs.get('product_id', False)
         tmpl_id = kwargs.get('product_template_id', False)
-        product = request.env['product.product'].browse(product_id)
+        product = request.env['product.product'].sudo().browse(product_id)
         if not product:
-            product_tmpl = request.env['product.template'].browse(tmpl_id)
+            product_tmpl = request.env['product.template'].sudo().browse(
+                tmpl_id)
             product = product_tmpl.get_version_info()
         return product.id
 
@@ -175,13 +176,13 @@ class WebsiteSaleCustom(WebsiteSale):
         '/shop/download_product_zip/<model("product.product"):product>',
         type='http', auth="public", website=True)
     def download_product_zip(self, product, **kwargs):
-        attachment = request.env['ir.attachment'].search([
+        attachment = request.env['ir.attachment'].sudo().search([
             ('res_id', '=', product.id),
             ('res_model', '=', product._name),
         ], limit=1)
         if not attachment:
-            product.generate_zip_file()
-            attachment = request.env['ir.attachment'].search([
+            product.sudo().generate_zip_file()
+            attachment = request.env['ir.attachment'].sudo().search([
                 ('res_id', '=', product.id),
                 ('res_model', '=', product._name),
             ], limit=1)
