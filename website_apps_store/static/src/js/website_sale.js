@@ -10,12 +10,10 @@ odoo.define('website_apps_store.website_sale', function (require) {
     require("website.content.zoomodoo");
     var _t = core._t;
 
-    console.log("========1==========");
     $('.oe_website_sale').each(function () {
         var oe_website_sale = this;
         var $product_global;
 
-        console.log("=------2========");
         function price_to_str(price) {
             var l10n = _t.database.parameters;
             var precision = 2;
