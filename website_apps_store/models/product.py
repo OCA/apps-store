@@ -22,7 +22,7 @@ class ProductTemplate(models.Model):
             for value in attr.value_ids:
                 versions.append(float(value.name))
         version = max([x for x in versions])
-        product = self.env['product.product'].search([
+        product = self.env['product.product'].sudo().search([
             ('attribute_value_ids.name', 'ilike', str(version)),
             ('product_tmpl_id', '=', self.id),
             ])
