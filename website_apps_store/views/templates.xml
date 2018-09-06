@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017-Today BizzAppDev - Ruchir Shukla <ruchir@bizzappdev.com>
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
 <odoo>
     <data>
         <!--Shop Customization/-->
@@ -120,18 +124,6 @@
             <xpath expr='//a[hasclass("js_check_product")]' position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
-            <!--xpath expr="//hr" position="attributes">
-                <attribute name="t-if">product.availability != 'empty' and not product.odoo_module_id</attribute>
-            </xpath>
-            <xpath expr="//div[@class='alert alert-success']" position="attributes">
-                <attribute name="t-if">product.availability == 'in_stock' and not product.odoo_module_id</attribute>
-            </xpath>
-            <xpath expr="//div[@class='alert alert-warning']" position="attributes">
-                <attribute name="t-if">product.availability == 'warning' and not product.odoo_module_id</attribute>
-            </xpath-->
-            <!--xpath expr="//hr[@t-if='product.description_sale']" position="attributes">
-                <attribute name="t-if">product.description_sale and not product.odoo_module_id</attribute>
-            </xpath-->
             <xpath expr="//p[@t-field='product.description_sale']/.." position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
