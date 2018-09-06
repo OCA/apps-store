@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (C) 2017-Today: BizzAppDev - Ruchir Shukla <ruchir@bizzappdev.com-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo>
-    <data>
-
         <record id="website_category1" model="product.public.category">
             <field name="name">Category1</field>
         </record>
@@ -83,6 +83,4 @@
             <field name="odoo_module_id" ref="odoo_module1"/>
             <field name="attribute_line_ids" eval="[(6,0,[ref('product_template_attribute_line_1')])]"/>
         </record>
-
-    </data>
 </odoo>
