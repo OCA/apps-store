@@ -1,3 +1,8 @@
+/**
+*    Copyright 2018 BizzAppDev
+*    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+**/
+
 odoo.define('website_apps_store.website_sale', function (require) {
     'use strict';
 
