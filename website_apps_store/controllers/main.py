@@ -1,4 +1,4 @@
-# Copyright 2018 BizzAppDev
+# Copyright 2017-2018 BizzAppDev
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging

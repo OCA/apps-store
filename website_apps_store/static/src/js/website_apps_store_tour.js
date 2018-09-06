@@ -57,7 +57,7 @@ var base = require("web_editor.base");
             },
             {
                 content: "Select Author",
-                trigger: ".dropdown_author_by .dropdown-menu a:contains('OCA')",
+                trigger: ".dropdown_author_by .dropdown-menu a:first",
             },
         ]
     );
