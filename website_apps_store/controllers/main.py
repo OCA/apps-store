@@ -98,8 +98,11 @@ class WebsiteSaleCustom(WebsiteSale):
                 int(category))
             url = "/shop/category/%s" % slug(category)
 
+        attribute_id = request.env.ref(
+            'apps_product_creator.attribute_odoo_version')
         category_all = request.env['product.public.category'].search([])
-        versions = request.env['product.attribute.value'].search([])
+        versions = request.env['product.attribute.value'].search([
+            ('attribute_id', '=', attribute_id.id)])
         authors = request.env['odoo.author'].search([])
         Product = request.env['product.template']
 
