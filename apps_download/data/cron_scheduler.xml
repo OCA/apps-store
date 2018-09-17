@@ -6,7 +6,7 @@
 -->
 <odoo>
         <record id="ir_cron_scheduler_generate_zip" model="ir.cron">
-            <field name="name">Generate all product zip</field>
+            <field name="name">Generate ZIP files for all products</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="interval_number">1</field>
             <field name="active" eval="False"/>
