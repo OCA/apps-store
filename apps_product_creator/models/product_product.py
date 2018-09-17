@@ -93,11 +93,11 @@ class ProductProduct(models.Model):
             # If the product template is used to save an Odoo module
             if self._check_related_to_module(product):
                 attribute = self._get_version_attribute(values)
-                version_ids = self._get_version_with_attribute(
+                versions = self._get_version_with_attribute(
                     product.odoo_module_id.module_version_ids, attribute)
-                for version in version_ids:
-                    module_id = version.module_id
-                    mod_ver_ids = module_id.dependence_module_version_ids.ids
+                for version in versions:
+                    module = version.module_id
+                    mod_ver_ids = module.dependence_module_version_ids.ids
                     dependency_modules = module_version.search([
                         ('id', 'in', mod_ver_ids),
                         ('repository_branch_id', '=',
