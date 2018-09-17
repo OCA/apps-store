@@ -17,9 +17,11 @@
     ],
     "summary": "Product Download for Appstore",
     "data": [
-        'demo/product_template_demo.xml',
         'views/product_template_view.xml',
         'data/cron_scheduler.xml'
+    ],
+    'demo': [
+        'demo/product_template_demo.xml',
     ],
     'installable': True,
     'auto_install': False,
