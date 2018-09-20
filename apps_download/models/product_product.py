@@ -53,20 +53,6 @@ class ProductProduct(models.Model):
 
     @api.multi
     def generate_zip_file(self):
-        """
-            Static reference of the demo product has been taken to execute
-            and run the PhantomJS test cases so it can use the test module path
-            Because in case of demo data the module path on server will be
-            different than the normal behaviour of normal products
-        """
-        product1 = self.env.ref('apps_download.product_product_100')
-        product2 = self.env.ref('apps_download.product_product100_b')
-        test_path = os.path.dirname(os.path.realpath(__file__))
-        test_path = test_path.split('/models')[0]
-
-        test_module_path = os.path.join(
-            test_path + '/tests', 'test_modules', 'second_module')
-
         for product in self.filtered('module_path'):
             tmp_dir = tempfile.mkdtemp()
             tmp_dir_2 = tempfile.mkdtemp()
@@ -84,13 +70,8 @@ class ProductProduct(models.Model):
 
             tmp_module_path = os.path.join(
                 tmp_dir, product.odoo_module_version_id.technical_name)
-
-            if product == product1 and product1.id or product == product2 and\
-               product2.id:
-                module_path = test_module_path
-            else:
-                module_path = product.module_path + '/'\
-                    + product.odoo_module_version_id.technical_name
+            module_path = product.module_path + '/'\
+                + product.odoo_module_version_id.technical_name
             shutil.copytree(module_path, tmp_module_path)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')
