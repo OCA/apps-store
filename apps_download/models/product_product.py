@@ -53,8 +53,8 @@ class ProductProduct(models.Model):
 
     @api.multi
     def _get_module_path(self):
-        return self.module_path + '/'\
-                + self.odoo_module_version_id.technical_name
+        return (self.module_path + '/' +
+                self.odoo_module_version_id.technical_name)
 
     @api.multi
     def generate_zip_file(self):
