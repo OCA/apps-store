@@ -52,6 +52,11 @@ class ProductProduct(models.Model):
         return ret_val
 
     @api.multi
+    def _get_module_path(self):
+        return self.module_path + '/'\
+                + self.odoo_module_version_id.technical_name
+
+    @api.multi
     def generate_zip_file(self):
         for product in self.filtered('module_path'):
             tmp_dir = tempfile.mkdtemp()
@@ -70,8 +75,7 @@ class ProductProduct(models.Model):
 
             tmp_module_path = os.path.join(
                 tmp_dir, product.odoo_module_version_id.technical_name)
-            module_path = product.module_path + '/'\
-                + product.odoo_module_version_id.technical_name
+            module_path = product._get_module_path()
             shutil.copytree(module_path, tmp_module_path)
             time_version_value = time.strftime(
                 '_%y%m%d_%H%M%S')
