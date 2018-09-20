@@ -11,14 +11,6 @@ class TestUi(tests.HttpCase):
         super(TestUi, self).setUp()
         self.tour = "odoo.__DEBUG__.services['web_tour.tour']"
 
-    def test_download_zip_tour(self):
-        self.phantom_js(
-            "/shop",
-            self.tour + ".run('download_zip')",
-            self.tour + ".tours.download_zip.ready",
-            login="admin"
-        )
-
     def test_select_version_search_tour(self):
         self.phantom_js(
             "/shop",
