@@ -4,6 +4,30 @@ odoo.define('website_apps_store.tour_custom', function (require) {
 var Tour = require("web_tour.tour");
 var base = require("web_editor.base");
 
+    Tour.register('download_zip', {
+        name: "Download Zip File",
+        url: '/shop',
+        test: true,
+        wait_for: base.ready()
+        },[
+            {
+                content: "Shop",
+                trigger: ".oe_product_cart a:contains('Odoo Module 1')"
+            },
+            {
+                content: "Select Version",
+                trigger: "input[type=radio]",
+                run: function(){
+                    $('input[type=radio]:last').attr("checked", "checked");
+                }
+            },
+            {
+                content: "Download",
+                trigger: "button:contains(Download)"
+            }
+        ]
+    );
+
     Tour.register('select_version_search', {
         name: "Select Version",
         url: '/shop',
