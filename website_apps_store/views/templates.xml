@@ -147,8 +147,13 @@
             </xpath>
             <xpath expr='//form[hasclass("js_add_cart_variants")]' position="after">
                 <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="col-xs-4 zip_button">
-                        <button name="download_zip" id="download_zip" t-att-data-tmpl-id="product.id">Download</button>
+                    <div class="col-xs-4 mt16 mb16">
+                        <button class="btn btn-primary btn-lg"
+                                name="download_zip"
+                                id="download_zip"
+                                t-att-data-tmpl-id="product.id">Download 
+                                    <span class="fa fa-download"/>
+                        </button>
                     </div>
                 </div>
                 <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
