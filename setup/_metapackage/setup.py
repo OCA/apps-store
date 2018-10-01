@@ -8,7 +8,9 @@ setuptools.setup(
     description="Meta package for oca-apps-store Odoo addons",
     version=version,
     install_requires=[
+        'odoo11-addon-apps_download',
         'odoo11-addon-apps_product_creator',
+        'odoo11-addon-website_apps_store',
     ],
     classifiers=[
         'Programming Language :: Python',
