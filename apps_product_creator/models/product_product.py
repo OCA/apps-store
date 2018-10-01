@@ -54,7 +54,7 @@ class ProductProduct(models.Model):
     )
     app_description_rst_html = fields.Html(
         'HTML of the RST Description',
-        compute='_compute_rst_html_desc',
+        compute='_compute_app_description_rst_html',
         readonly=True,
         store=True,
     )
