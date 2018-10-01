@@ -93,6 +93,9 @@ class OdooModule(models.Model):
             'attribute_id': attribute.id,
             'value_ids': [(6, 0, attributes.ids)],
         }
+        version_categ = self.module_version_ids.mapped('category_id')
+        category = self.env['product.public.category'].search(
+            [('name', '=', version_categ.name)], limit=1)
         values = {
             'odoo_module_id': self.id,
             'type': 'service',
@@ -103,7 +106,8 @@ class OdooModule(models.Model):
             'image': self.image,
             'attribute_line_ids': [
                 (0, 0, attribute_line_values),
-            ]
+            ],
+            'public_categ_ids': [(4, category._ids)] or None,
         }
         return values
 

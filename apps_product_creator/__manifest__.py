@@ -11,10 +11,12 @@
     'depends': [
         'github_connector_odoo',
         'product',
+        'website_sale',
     ],
     'data': [
         'data/ir_cron.xml',
         'data/product_attribute.xml',
+        'data/product_public_categ_data.xml',
         'views/view_odoo_module.xml',
         'views/view_product_product.xml',
     ],

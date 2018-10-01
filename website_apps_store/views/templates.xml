@@ -13,6 +13,9 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
+                    <li t-att-class="'active' if not category else ''">
+                        <a href="/shop">All</a>
+                    </li>
                     <t t-foreach="category_all" t-as="c">
                         <li t-att-class="'active' if c.id == int(category or 0) else None">
                             <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
@@ -38,29 +41,23 @@
                 </ul>
             </div>
         </template>
-        <template id="author_display" name="Show Author by">
-            <div class="dropdown btn-group dropdown_author_by">
-                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Author</span>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <t t-foreach="authors" t-as="auth_id">
-                        <li t-att-class="'active' if auth_id.id == int(author or 0) else None">
-                            <a t-att-href="keep('/shop', author=auth_id.id)">
-                                <span t-esc="auth_id.name"/>
-                            </a>
-                        </li>
-                    </t>
-                </ul>
-            </div>
-        </template>
 
         <template id="sort_customize" inherit_id="website_sale.sort">
             <xpath expr='//div[hasclass("dropdown_sorty_by")]' position="after">
                 <t t-call="website_apps_store.category_display"/>
                 <t t-call="website_apps_store.version_display"/>
-                <t t-call="website_apps_store.author_display"/>
+            </xpath>
+            <xpath expr="//t[@t-set='website_sale_sortable']" position="replace">
+                <t t-set="website_sale_sortable" t-value="[
+                (name_asc_label, 'name asc'),
+                (name_desc_label, 'name desc')
+            ]"/>
+            </xpath>
+        </template>
+
+        <template id="search_placeholder" inherit_id="website.website_search_box">
+            <xpath expr="//input" position="attributes">
+                <attribute name="placeholder">Name, Author, Version...</attribute>
             </xpath>
         </template>
 
@@ -148,6 +145,14 @@
                     </div>
                     <div class="pull-right col-xs-8 padd_0">
                         <span class="tech_detail" t-esc="product_var_id.odoo_module_version_id.module_id.technical_name"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id and len(product.odoo_module_id.organization_serie_ids) == 1">
+                    <div class="pull-left text-left col-xs-4 padd_0">
+                        <b>Version: </b>
+                    </div>
+                    <div class="pull-right col-xs-8 padd_0">
+                        <span class="tech_detail" t-esc="product_var_id.odoo_module_id.organization_serie_ids[0].name"/>
                     </div>
                 </div>
                 <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
