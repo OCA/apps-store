@@ -82,7 +82,7 @@ class ProductProduct(models.Model):
     @api.depends('odoo_module_version_id',
                  'odoo_module_version_id.description_rst_html')
     @api.multi
-    def _compute_rst_html_desc(self):
+    def _compute_app_description_rst_html(self):
         for product in self:
             rst_desc = product.odoo_module_version_id.description_rst_html
             if rst_desc and '<img' in rst_desc:
