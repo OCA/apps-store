@@ -40,6 +40,7 @@ Contributors
 * Ruchir Shukla <ruchir@bizzappdev.com
 * Divya Modi <divya.modi@bizzappdev.com>
 * Eric Caudal <eric.caudal@elico-corp.com>
+* Oscar Alcala <oscar@vauxoo.com>
 
 Maintainer
 ----------

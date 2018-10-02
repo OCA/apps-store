@@ -44,11 +44,36 @@
                 </ul>
             </div>
         </template>
-
+        <template id="maturity_display">
+            <div class="dropdown btn-group dropdown_maturity_by">
+                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                    <span>Maturity</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li t-att-class="'active' if not maturity else ''">
+                        <a t-att-href="keep('/shop', '')">All</a>
+                    </li>
+                    <li t-att-class="'active' if maturity == 'alpha' else ''">
+                        <a t-att-href="keep('/shop', maturity='alpha')">Alpha</a>
+                    </li>
+                    <li t-att-class="'active' if maturity == 'beta' else ''">
+                        <a t-att-href="keep('/shop', maturity='beta')">Beta</a>
+                    </li>
+                    <li t-att-class="'active' if maturity == 'production/stable' else ''">
+                        <a t-att-href="keep('/shop', maturity='production/stable')">Production/Stable</a>
+                    </li>
+                    <li t-att-class="'active' if maturity == 'mature' else ''">
+                        <a t-att-href="keep('/shop', maturity='mature')">Mature</a>
+                    </li>
+                </ul>
+            </div>            
+        </template>
         <template id="sort_customize" inherit_id="website_sale.sort">
             <xpath expr='//div[hasclass("dropdown_sorty_by")]' position="after">
                 <t t-call="website_apps_store.category_display"/>
                 <t t-call="website_apps_store.version_display"/>
+                <t t-call="website_apps_store.maturity_display"/>
             </xpath>
             <xpath expr="//t[@t-set='website_sale_sortable']" position="replace">
                 <t t-set="website_sale_sortable" t-value="[
