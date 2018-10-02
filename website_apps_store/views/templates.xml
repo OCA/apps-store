@@ -147,7 +147,6 @@
                 <t t-if="product.odoo_module_id">
                     <t t-set="product_var_id" t-value="product.get_version_info()"/>
                 </t>
-                <p t-if="product.odoo_module_id" class="app_summary" t-esc="product_var_id.app_summary"/>
             </xpath>
             <xpath expr="//t[@t-call='website_sale.product_price']" position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
@@ -181,70 +180,6 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>Technical Name: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0">
-                        <span class="tech_detail" t-esc="product_var_id.odoo_module_version_id.module_id.technical_name"/>
-                    </div>
-                </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id and len(product.odoo_module_id.organization_serie_ids) == 1">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>Version: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0">
-                        <span class="tech_detail" t-esc="product_var_id.odoo_module_id.organization_serie_ids[0].name"/>
-                    </div>
-                </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>License: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0">
-                        <a t-att-href="product_var_id.app_license_id.website" class="license_url" target="_blank">
-                            <span class="license_detail" t-esc="product_var_id.app_license_id.name"/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>Author: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0">
-                        <span class="author_detail" t-esc="', '.join(author.name for author in product_var_id.app_author_ids)"/>
-                    </div>
-                </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>Maintainer: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0">
-                        <a href="https://odoo-community.org" target="_blank">
-                            <span class="main_detail">https://odoo-community.org</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>Website: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0">
-                        <a t-att-href="product_var_id.app_website" target="_blank">
-                            <span class="website_detail" t-esc="product_var_id.app_website"/>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
-                    <div class="pull-left text-left col-xs-4 padd_0">
-                        <b>Repository: </b>
-                    </div>
-                    <div class="pull-right col-xs-8 padd_0" style="overflow-wrap:break-word;">
-                        <a t-att-href="product_var_id.app_github_url" target="_blank">
-                            <span class="repo_detail" t-esc="product_var_id.app_github_url"/>
-                        </a>
-                    </div>
-                </div>
             </xpath>
             <xpath expr="//section" position="inside">
                 <div class="desc_rst" t-if="product.odoo_module_id">
@@ -260,6 +195,97 @@
                         <img class="img img-responsive product_detail_img" t-attf-src="{{request.httprequest.url_root}}website_apps_store/static/src/img/oca.png" t-options="{'widget': 'image', 'zoom': 'image'}" t-att-alt="product.name" />
                     </span>
                 </t>
+            </xpath>
+            <xpath expr="//div[hasclass('col-sm-7')]" position="after">
+                <t t-if="product.odoo_module_id">
+                    <t t-set="product_var_id" t-value="product.get_version_info()"/>
+                </t>
+                <div class="col-sm-4">
+                <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>Technical Name: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0">
+                            <span class="tech_detail" t-esc="product_var_id.odoo_module_version_id.module_id.technical_name"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padd_0" t-if="product.odoo_module_id and len(product.odoo_module_id.organization_serie_ids) == 1">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>Version: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0">
+                            <span class="tech_detail" t-esc="product_var_id.odoo_module_id.organization_serie_ids[0].name"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>License: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0">
+                            <a t-att-href="product_var_id.app_license_id.website" class="license_url" target="_blank">
+                                <span class="license_detail" t-esc="product_var_id.app_license_id.name"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>Author: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0">
+                            <span class="author_detail" t-esc="', '.join(author.name for author in product_var_id.app_author_ids)"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>Maintainer: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0">
+                            <a href="https://odoo-community.org" target="_blank">
+                                <span class="main_detail">https://odoo-community.org</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>Website: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0">
+                            <a t-att-href="product_var_id.app_website" target="_blank">
+                                <span class="website_detail" t-esc="product_var_id.app_website"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
+                        <div class="pull-left text-left col-xs-4 padd_0">
+                            <b>Repository: </b>
+                        </div>
+                        <div class="pull-right col-xs-8 padd_0" style="overflow-wrap:break-word;">
+                            <a t-att-href="product_var_id.app_github_url" target="_blank">
+                                <span class="repo_detail" t-esc="product_var_id.app_github_url"/>
+                            </a>
+                        </div>
+                    </div>                    
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('col-sm-7')]" position="attributes">
+                <attribute name="class" remove="col-sm-7"></attribute>
+                <attribute name="class" add="col-sm-4" separator=" "></attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('row')][2]" position="before">
+                <div class="col-sm-12 text-center mb48">
+                    <t t-if="product.odoo_module_id">
+                        <t t-set="product_var_id" t-value="product.get_version_info()"/>
+                    </t>
+                    <h1 itemprop="name" t-field="product.name">Product Name</h1>
+                    <p t-if="product.odoo_module_id" class="app_summary" t-esc="product_var_id.app_summary"/>
+
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='product_details']/h1" position="replace">
+            </xpath>
+            <xpath expr="//div[@id='product_details']" position="attributes">
+                <attribute name="class" remove="col-sm-5 col-lg-4 col-lg-offset-1"></attribute>
+                <attribute name="class" add="col-sm-4" separator=" "></attribute>
             </xpath>
         </template>
         <template id="product_quantity_customize" inherit_id="website_sale.product_quantity">
