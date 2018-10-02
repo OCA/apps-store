@@ -1,0 +1,5 @@
+11.0.1.1.0 (2018-10-02)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [ADD] Added dependency on github_connector_oca to display development_status
+  (`#19 <https://github.com/OCA/apps-store/pull/19>`_)

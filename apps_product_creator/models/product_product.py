@@ -78,6 +78,12 @@ class ProductProduct(models.Model):
         related="odoo_module_version_id.github_url",
         store=True,
     )
+    app_development_status = fields.Selection(
+        'Module maturity',
+        readonly=True,
+        related="odoo_module_version_id.development_status",
+        store=True,
+    )
 
     @api.depends('odoo_module_version_id',
                  'odoo_module_version_id.description_rst_html')

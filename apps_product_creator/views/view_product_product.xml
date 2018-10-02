@@ -21,6 +21,7 @@
                         <group>
                             <field name="app_summary"/>
                             <field name="app_version"/>
+                            <field name="app_development_status"/>
                             <field name="app_github_url"/>
                         </group>
                     </group>
