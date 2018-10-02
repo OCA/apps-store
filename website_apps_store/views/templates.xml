@@ -214,7 +214,7 @@
                     <div class="pull-left text-left col-xs-4 padd_0">
                         <b>Repository: </b>
                     </div>
-                    <div class="pull-right col-xs-8 padd_0">
+                    <div class="pull-right col-xs-8 padd_0" style="overflow-wrap:break-word;">
                         <a t-att-href="product_var_id.app_github_url" target="_blank">
                             <span class="repo_detail" t-esc="product_var_id.app_github_url"/>
                         </a>
