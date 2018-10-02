@@ -40,6 +40,11 @@ msgstr ""
 
 #. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Version: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Website: </b>"
 msgstr ""
 
@@ -49,14 +54,14 @@ msgid "<span class=\"main_detail\">https://odoo-community.org</span>"
 msgstr ""
 
 #. module: website_apps_store
-#: model:ir.ui.view,arch_db:website_apps_store.author_display
-msgid "<span>Author</span>\n"
+#: model:ir.ui.view,arch_db:website_apps_store.category_display
+msgid "<span>Category</span>\n"
 "                    <span class=\"caret\"/>"
 msgstr ""
 
 #. module: website_apps_store
-#: model:ir.ui.view,arch_db:website_apps_store.category_display
-msgid "<span>Category</span>\n"
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "<span>Maturity</span>\n"
 "                    <span class=\"caret\"/>"
 msgstr ""
 
@@ -67,14 +72,51 @@ msgid "<span>Version</span>\n"
 msgstr ""
 
 #. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.category_display
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+#: model:ir.ui.view,arch_db:website_apps_store.version_display
+msgid "All"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Alpha"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Beta"
+msgstr ""
+
+#. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.product
 msgid "Download \n"
 "                                    <span class=\"fa fa-download\"/>"
 msgstr ""
 
 #. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Mature"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.search_placeholder
+msgid "Name, Author, Version..."
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.product
+msgid "Product Name"
+msgstr ""
+
+#. module: website_apps_store
 #: model:ir.model,name:website_apps_store.model_product_template
 msgid "Product Template"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Production/Stable"
 msgstr ""
 
 #. module: website_apps_store

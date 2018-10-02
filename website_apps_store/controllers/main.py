@@ -91,6 +91,9 @@ class WebsiteSaleCustom(WebsiteSale):
         if post.get('author'):
             domain += [('product_variant_ids.app_author_ids.id',
                         '=', post.get('author'))]
+        if post.get('maturity', False):
+            domain += [('product_variant_ids.app_development_status',
+                        '=', post.get('maturity'))]
 
         url = "/shop"
         if category:
@@ -139,6 +142,7 @@ class WebsiteSaleCustom(WebsiteSale):
             'author': post.get('author'),
             'attributes': attributes,
             'keep': keep,
+            'maturity': post.get('maturity'),
         })
         return res
 
