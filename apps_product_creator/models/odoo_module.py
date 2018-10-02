@@ -95,8 +95,10 @@ class OdooModule(models.Model):
             'value_ids': [(6, 0, attributes.ids)],
         }
         version_categ = self.module_version_ids.mapped('category_id')
-        category = categ_obj.search(
-            [('name', '=', version_categ.name)], limit=1)
+        category = False
+        if version_categ:
+            category = categ_obj.search(
+                [('name', '=', version_categ[0].name)], limit=1)
         if not category:
             category = self.env.ref('apps_product_creator.other')
         values = {
