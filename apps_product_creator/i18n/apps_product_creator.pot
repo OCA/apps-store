@@ -59,6 +59,11 @@ msgid "9.0"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.accounting
+msgid "Accounting"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_author_ids
 msgid "Authors"
 msgstr ""
@@ -68,6 +73,21 @@ msgstr ""
 #: model:ir.cron,cron_name:apps_product_creator.cron_update_organization
 #: model:ir.cron,name:apps_product_creator.cron_update_organization
 msgid "Create product variants for each module version"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.discuss
+msgid "Discuss"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.document_management
+msgid "Document Management"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.extra_tools
+msgid "Extra Tools"
 msgstr ""
 
 #. module: apps_product_creator
@@ -81,9 +101,19 @@ msgid "HTML of the RST Description"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.human_resources
+msgid "Human Resources"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product_image_module
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_template_image_module
 msgid "Icon Image"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.industries
+msgid "Industries"
 msgstr ""
 
 #. module: apps_product_creator
@@ -92,8 +122,23 @@ msgid "License"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.localization
+msgid "Localization"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.manufacturing
+msgid "Manufacturing"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:ir.ui.view,arch_db:apps_product_creator.product_product_form_view
 msgid "Module Informations"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_development_status
+msgid "Module maturity"
 msgstr ""
 
 #. module: apps_product_creator
@@ -109,6 +154,16 @@ msgid "Odoo Version"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.other
+msgid "Other"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.point_of_sale
+msgid "Point of Sale"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:ir.model,name:apps_product_creator.model_product_product
 msgid "Product"
 msgstr ""
@@ -120,8 +175,28 @@ msgid "Product Template"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.productivity
+msgid "Productivity"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:ir.ui.view,arch_db:apps_product_creator.odoo_module_form_view
 msgid "Products"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.project
+msgid "Project"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.purchases
+msgid "Purchases"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.sales
+msgid "Sales"
 msgstr ""
 
 #. module: apps_product_creator
@@ -141,8 +216,23 @@ msgid "Version (Manifest)"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.warehouse
+msgid "Warehouse"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.website
+msgid "Website"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_website
 msgid "Website (Manifest)"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.ecommerce
+msgid "eCommerce"
 msgstr ""
 
 #. module: apps_product_creator
