@@ -84,6 +84,7 @@ class OdooModule(models.Model):
         """
         self.ensure_one()
         attribute_obj = self.env['product.attribute.value']
+        categ_obj = self.env['product.public.category']
         series = self.module_version_ids.mapped(
             'repository_branch_id.organization_serie_id.name')
         attributes = attribute_obj.search([('name', 'in', series)])
@@ -93,6 +94,11 @@ class OdooModule(models.Model):
             'attribute_id': attribute.id,
             'value_ids': [(6, 0, attributes.ids)],
         }
+        version_categ = self.module_version_ids.mapped('category_id')
+        category = categ_obj.search(
+            [('name', '=', version_categ.name)], limit=1)
+        if not category:
+            category = self.env.ref('apps_product_creator.other')
         values = {
             'odoo_module_id': self.id,
             'type': 'service',
@@ -103,7 +109,8 @@ class OdooModule(models.Model):
             'image': self.image,
             'attribute_line_ids': [
                 (0, 0, attribute_line_values),
-            ]
+            ],
+            'public_categ_ids': [(4, category._ids)] or None,
         }
         return values
 

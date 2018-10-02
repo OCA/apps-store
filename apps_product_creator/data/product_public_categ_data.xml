@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2016-Today: Odoo Community Association (OCA)
+@author: Oscar Alcala (https://twitter.com/oscarolar)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo noupdate="1">
+    <record id="accounting" model="product.public.category">
+        <field name="name">Accounting</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="discuss" model="product.public.category">
+        <field name="name">Discuss</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="document_management" model="product.public.category">
+        <field name="name">Document Management</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="ecommerce" model="product.public.category">
+        <field name="name">eCommerce</field>
+        <field name="sequence">4</field>
+    </record>
+    <record id="human_resources" model="product.public.category">
+        <field name="name">Human Resources</field>
+        <field name="sequence">5</field>
+    </record>
+    <record id="industries" model="product.public.category">
+        <field name="name">Industries</field>
+        <field name="sequence">6</field>
+    </record>
+    <record id="localization" model="product.public.category">
+        <field name="name">Localization</field>
+        <field name="sequence">7</field>
+    </record>
+    <record id="manufacturing" model="product.public.category">
+        <field name="name">Manufacturing</field>
+        <field name="sequence">8</field>
+    </record>
+    <record id="point_of_sale" model="product.public.category">
+        <field name="name">Point of Sale</field>
+        <field name="sequence">9</field>
+    </record>
+    <record id="productivity" model="product.public.category">
+        <field name="name">Productivity</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="project" model="product.public.category">
+        <field name="name">Project</field>
+        <field name="sequence">11</field>
+    </record>
+    <record id="purchases" model="product.public.category">
+        <field name="name">Purchases</field>
+        <field name="sequence">12</field>
+    </record>
+    <record id="sales" model="product.public.category">
+        <field name="name">Sales</field>
+        <field name="sequence">13</field>
+    </record>
+    <record id="warehouse" model="product.public.category">
+        <field name="name">Warehouse</field>
+        <field name="sequence">14</field>
+    </record>
+    <record id="website" model="product.public.category">
+        <field name="name">Website</field>
+        <field name="sequence">15</field>
+    </record>
+    <record id="extra_tools" model="product.public.category">
+        <field name="name">Extra Tools</field>
+        <field name="sequence">16</field>
+    </record>
+    <record id="other" model="product.public.category">
+        <field name="name">Other</field>
+        <field name="sequence">17</field>
+    </record>
+</odoo>
