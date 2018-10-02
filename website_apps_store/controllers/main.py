@@ -191,7 +191,7 @@ class WebsiteSaleCustom(WebsiteSale):
 
         if attachment:
             filecontent = base64.b64decode(attachment.datas)
-            disposition = 'attachment; filename=%s' % attachment.datas_fname
+            disposition = 'attachment; filename="%s"' % attachment.datas_fname
             return request.make_response(
                 filecontent,
                 [('Content-Type', 'application/zip, application/octet-stream'),
