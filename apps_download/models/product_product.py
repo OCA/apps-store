@@ -94,8 +94,8 @@ class ProductProduct(models.Model):
                     data_encode = base64.encodestring(file_obj.read())
                     self.env['ir.attachment'].create({
                         'datas': data_encode,
-                        'datas_fname':  (product.name + time_version_value +
-                                         '.zip'),
+                        'datas_fname':  (product.name.replace(" ", '-') +
+                                         time_version_value + '.zip'),
                         'type': 'binary',
                         'name': product.name + time_version_value + '.zip',
                         'res_model': product._name,
