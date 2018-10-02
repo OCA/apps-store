@@ -2,6 +2,28 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 from odoo import tools
+import lxml
+
+
+def urljoin(*args):
+    """
+    Joins given arguments into an url. Trailing but not leading slashes are
+    stripped for each argument.
+    """
+
+    return "/".join(map(lambda x: str(x).rstrip('/'), args))
+
+
+def hook_github_image_url(rst_desc, github_url):
+    html_node = lxml.html.fromstring(rst_desc)
+    github_url = github_url.replace('/tree/', '/blob/')
+    for node in html_node.xpath('//img'):
+        if not node.attrib['src'].startswith("/"):
+            continue
+        node.attrib['src'] = urljoin(
+            github_url, '/'.join(node.attrib['src'].split("/")[2:]),
+            '?raw=true')
+    return lxml.html.tostring(html_node)
 
 
 class ProductProduct(models.Model):
@@ -32,8 +54,8 @@ class ProductProduct(models.Model):
     )
     app_description_rst_html = fields.Html(
         'HTML of the RST Description',
+        compute='_compute_app_description_rst_html',
         readonly=True,
-        related="odoo_module_version_id.description_rst_html",
         store=True,
     )
     app_version = fields.Char(
@@ -56,6 +78,23 @@ class ProductProduct(models.Model):
         related="odoo_module_version_id.github_url",
         store=True,
     )
+    app_development_status = fields.Selection(
+        'Module maturity',
+        readonly=True,
+        related="odoo_module_version_id.development_status",
+        store=True,
+    )
+
+    @api.depends('odoo_module_version_id',
+                 'odoo_module_version_id.description_rst_html')
+    @api.multi
+    def _compute_app_description_rst_html(self):
+        for product in self:
+            rst_desc = product.odoo_module_version_id.description_rst_html
+            if rst_desc and '<img' in rst_desc:
+                rst_desc = hook_github_image_url(
+                    rst_desc, product.app_github_url)
+            product.app_description_rst_html = rst_desc
 
     @api.model
     def create(self, values):

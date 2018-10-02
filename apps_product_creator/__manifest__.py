@@ -4,11 +4,12 @@
     'name': 'Github product creator',
     'summary': 'Create a product variant (by version) for every module found '
                'in the Github repositories',
-    'version': '11.0.1.0.0',
+    'version': '11.0.1.1.0',
     'category': 'Connector',
     'license': 'AGPL-3',
     'author': 'Odoo Community Association (OCA)',
     'depends': [
+        'github_connector_oca',
         'github_connector_odoo',
         'product',
         'website_sale',

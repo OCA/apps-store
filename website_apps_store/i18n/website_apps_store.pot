@@ -68,7 +68,8 @@ msgstr ""
 
 #. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.product
-msgid "Download"
+msgid "Download \n"
+"                                    <span class=\"fa fa-download\"/>"
 msgstr ""
 
 #. module: website_apps_store
