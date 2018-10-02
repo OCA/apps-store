@@ -45,23 +45,6 @@ var base = require("web_editor.base");
         ]
     );
 
-    Tour.register('select_author_search', {
-        name: "Select Author",
-        url: '/shop',
-        test: true,
-        wait_for: base.ready()
-        },[
-            {
-                content: "Shop",
-                trigger: ".dropdown_author_by a.dropdown-toggle"
-            },
-            {
-                content: "Select Author",
-                trigger: ".dropdown_author_by .dropdown-menu a:first",
-            },
-        ]
-    );
-
     Tour.register('select_category_search', {
         name: "Select Category",
         url: '/shop',

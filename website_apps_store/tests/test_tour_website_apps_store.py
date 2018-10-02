@@ -39,14 +39,6 @@ class TestUi(tests.HttpCase):
             login="admin"
         )
 
-    def test_select_author_search_tour(self):
-        self.phantom_js(
-            "/shop",
-            self.tour + ".run('select_author_search')",
-            self.tour + ".tours.select_author_search.ready",
-            login="admin"
-        )
-
     def test_select_category_search_tour(self):
         self.phantom_js(
             "/shop",

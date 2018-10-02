@@ -28,27 +28,13 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
+                    <li t-att-class="'active' if not version else None">
+                        <a t-att-href="keep('/shop', version='')">All</a>
+                    </li>
                     <t t-foreach="versions" t-as="v">
                         <li t-att-class="'active' if v.id == int(version or 0) else None">
                             <a t-att-href="keep('/shop', version=v.id)">
                                 <span t-esc="v.name"/>
-                            </a>
-                        </li>
-                    </t>
-                </ul>
-            </div>
-        </template>
-        <template id="author_display" name="Show Author by">
-            <div class="dropdown btn-group dropdown_author_by">
-                <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Author</span>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <t t-foreach="authors" t-as="auth_id">
-                        <li t-att-class="'active' if auth_id.id == int(author or 0) else None">
-                            <a t-att-href="keep('/shop', author=auth_id.id)">
-                                <span t-esc="auth_id.name"/>
                             </a>
                         </li>
                     </t>
@@ -60,7 +46,6 @@
             <xpath expr='//div[hasclass("dropdown_sorty_by")]' position="after">
                 <t t-call="website_apps_store.category_display"/>
                 <t t-call="website_apps_store.version_display"/>
-                <t t-call="website_apps_store.author_display"/>
             </xpath>
         </template>
 
