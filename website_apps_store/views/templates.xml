@@ -67,7 +67,7 @@
                         <a t-att-href="keep('/shop', maturity='mature')">Mature</a>
                     </li>
                 </ul>
-            </div>            
+            </div>
         </template>
         <template id="sort_customize" inherit_id="website_sale.sort">
             <xpath expr='//div[hasclass("dropdown_sorty_by")]' position="after">
@@ -175,7 +175,7 @@
                         <button class="btn btn-primary btn-lg"
                                 name="download_zip"
                                 id="download_zip"
-                                t-att-data-tmpl-id="product.id">Download 
+                                t-att-data-tmpl-id="product.id">Download
                                     <span class="fa fa-download"/>
                         </button>
                     </div>
@@ -264,7 +264,7 @@
                                 <span class="repo_detail" t-esc="product_var_id.app_github_url"/>
                             </a>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </xpath>
             <xpath expr="//div[hasclass('col-sm-7')]" position="attributes">
