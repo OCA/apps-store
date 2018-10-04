@@ -36,6 +36,11 @@ A variant is also created for every version of the module.
 Changelog
 =========
 
+11.0.1.1.2 (2018-10-02)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Publish the modules automatically on the website
+
 11.0.1.1.0 (2018-10-02)
 ~~~~~~~~~~~~~~~~~~~~~~~
 

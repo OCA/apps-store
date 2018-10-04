@@ -113,6 +113,7 @@ class OdooModule(models.Model):
                 (0, 0, attribute_line_values),
             ],
             'public_categ_ids': [(4, category._ids)] or None,
+            'website_published': True,
         }
         return values
 
