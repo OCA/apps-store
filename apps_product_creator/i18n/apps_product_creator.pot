@@ -240,3 +240,8 @@ msgstr ""
 msgid "odoo.module"
 msgstr ""
 
+#. module: apps_product_creator
+#: model:ir.model,name:apps_product_creator.model_odoo_module_version
+msgid "odoo.module.version"
+msgstr ""
+
