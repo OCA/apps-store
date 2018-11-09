@@ -175,10 +175,12 @@ class OdooModule(models.Model):
         modules = self.search([('product_template_id', '=', False),
                                ('module_version_qty', '!=', 0)])
         modules.action_create_product()
+        # Calling Update product for updating/creating new product Variants
+        # based on new versions added
+        modules = self.search([('module_version_qty', '!=', 0)])
+        modules.action_update_product()
         return True
 
     @api.model
     def cron_update_product(self):
-        modules = self.search([('module_version_qty', '!=', 0)])
-        modules.action_update_product()
         return True

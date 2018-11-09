@@ -4,7 +4,7 @@
 <odoo noupdate="1">
 
         <record id="cron_update_organization" model="ir.cron">
-            <field name="name">Create product variants for each module version</field>
+            <field name="name">Create/Update product variants for each module version</field>
             <field name="interval_number">1</field>
             <field name="active" eval="False"/>
             <field name="user_id" ref="base.user_root"/>
@@ -14,19 +14,6 @@
             <field name="model_id" ref="model_odoo_module"/>
             <field name="state">code</field>
             <field name="code">model.cron_create_product()</field>
-        </record>
-
-        <record id="cron_update_product" model="ir.cron">
-            <field name="name">Update product variants for new module version</field>
-            <field name="interval_number">1</field>
-            <field name="active" eval="False"/>
-            <field name="user_id" ref="base.user_root"/>
-            <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
-            <field name="model_id" ref="model_odoo_module"/>
-            <field name="state">code</field>
-            <field name="code">model.cron_update_product()</field>
         </record>
 
 </odoo>
