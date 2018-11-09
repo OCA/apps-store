@@ -80,7 +80,7 @@ class OdooModule(models.Model):
     def _update_product(self):
         attribute = self.env.ref(
             'apps_product_creator.attribute_odoo_version')
-        pro_att_val = self.env['product.attribute.value']
+        attribute_val = self.env['product.attribute.value']
         modules = self.filtered(lambda m: m.product_template_id)
         self._update_series_product_attribute_values()
         for module in modules:
@@ -92,7 +92,7 @@ class OdooModule(models.Model):
             att_vals = att_line.mapped('value_ids.name')
             to_update_vals = list(set(series) - set(att_vals))
             for to_update_val in to_update_vals:
-                att_val = pro_att_val.search(
+                att_val = attribute_val.search(
                     [('name', '=', to_update_val),
                      ('attribute_id', '=', attribute.id)],
                     limit=1)
@@ -103,13 +103,13 @@ class OdooModule(models.Model):
     def _update_series_product_attribute_values(self):
         attribute = self.env.ref(
             'apps_product_creator.attribute_odoo_version')
-        pro_att_val = self.env['product.attribute.value']
+        attribute_val = self.env['product.attribute.value']
         series = self.env['github.organization.serie'].search([])
         for serie in series:
-            pro_att_val = pro_att_val.search(
+            attribute_val = attribute_val.search(
                 [('name', '=', serie.name)], limit=1)
-            if not pro_att_val:
-                pro_att_val.create({
+            if not attribute_val:
+                attribute_val.create({
                     'name': serie.name,
                     'attribute_id': attribute.id
                 })
