@@ -9,6 +9,7 @@ from odoo.http import request
 from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -23,7 +24,9 @@ class WebsiteSaleCustom(WebsiteSale):
         if search:
             for srch in search.split(" "):
                 domain += [
-                    '|', '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
+                    '|', '|', '|', '|', '|', '|', '|', '|',
+                    ('name', 'ilike', srch),
+                    ('technical_name', 'ilike', srch),
                     ('description', 'ilike', srch),
                     ('description_sale', 'ilike', srch),
                     ('product_variant_ids.default_code', 'ilike', srch),
@@ -54,13 +57,7 @@ class WebsiteSaleCustom(WebsiteSale):
 
         return domain
 
-    @http.route([
-        '/shop',
-        '/shop/page/<int:page>',
-        '/shop/category/<model("product.public.category"):category>',
-        '/shop/category/<model("product.public.category"):category>\
-        /page/<int:page>'
-    ], type='http', auth="public", website=True)
+    @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         res = super(WebsiteSaleCustom, self).shop(
             page=page, category=category, search=search, ppg=ppg, **post)
@@ -84,6 +81,7 @@ class WebsiteSaleCustom(WebsiteSale):
         keep = QueryURL('/shop', category=category and int(category),
                         search=search, attrib=attrib_list,
                         order=post.get('order'),
+                        maturity=post.get('maturity'),
                         version=post.get('version'), author=post.get('author'))
         if post.get('version'):
             domain += [('product_variant_ids.attribute_value_ids.id',
@@ -96,6 +94,11 @@ class WebsiteSaleCustom(WebsiteSale):
                         '=', post.get('maturity'))]
 
         url = "/shop"
+        if search:
+            post["search"] = search
+        if attrib_list:
+            post['attrib'] = attrib_list
+
         if category:
             category = request.env['product.public.category'].browse(
                 int(category))
@@ -166,22 +169,34 @@ class WebsiteSaleCustom(WebsiteSale):
         }
         return vals
 
-    @http.route('/shop/cart/download_source', type='json',
-                auth="public", website=True)
-    def download_source_product(self, **kwargs):
-        product_id = kwargs.get('product_id', False)
-        tmpl_id = kwargs.get('product_template_id', False)
-        product = request.env['product.product'].sudo().browse(product_id)
-        if not product:
-            product_tmpl = request.env['product.template'].sudo().browse(
-                tmpl_id)
-            product = product_tmpl.get_version_info()
-        return product.id
+    def validate_recaptcha(self, captcha):
+        """ Function for validating Recaptcha """
+        captcha_obj = request.env['website.form.recaptcha']
+        ip_addr = request.httprequest.environ.get('HTTP_X_FORWARDED_FOR')
+        if ip_addr:
+            ip_addr = ip_addr.split(',')[0]
+        else:
+            ip_addr = request.httprequest.remote_addr
+        try:
+            captcha_obj.action_validate(
+                captcha, ip_addr
+            )
+        except ValidationError:
+            raise ValidationError([captcha_obj.RESPONSE_ATTR])
 
     @http.route(
-        '/shop/download_product_zip/<model("product.product"):product>',
+        ['/shop/download_product_zip/<model("product.template"):product_tmpl>'
+         '/<model("product.product"):product>/'
+         '<string:google_captcha>',
+         '/shop/download_product_zip/<model("product.template"):product_tmpl>/'
+         '<string:google_captcha>'],
         type='http', auth="public", website=True)
-    def download_product_zip(self, product, **kwargs):
+    def download_product_zip(self, product_tmpl, product=False,
+                             google_captcha='', **kwargs):
+        self.validate_recaptcha(google_captcha)
+        if not product:
+            product = product_tmpl.get_version_info()
+
         attachment = request.env['ir.attachment'].sudo().search([
             ('res_id', '=', product.id),
             ('res_model', '=', product._name),
@@ -196,6 +211,8 @@ class WebsiteSaleCustom(WebsiteSale):
         if attachment:
             filecontent = base64.b64decode(attachment.datas)
             disposition = 'attachment; filename="%s"' % attachment.datas_fname
+            # increasing count for the product download
+            product.sudo().download_count = product.sudo().download_count + 1
             return request.make_response(
                 filecontent,
                 [('Content-Type', 'application/zip, application/octet-stream'),

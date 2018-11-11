@@ -8,13 +8,19 @@
         <!--Shop Customization/-->
         <template id="category_display" name="Show Category by">
             <div class="dropdown btn-group dropdown_category_by">
+                <t t-set="selected_category" t-value="False"/>
+                <t t-foreach="category_all" t-as="cat">
+                    <t t-if="cat.id == int(category or 0)"
+                        t-set="selected_category" t-value="cat"/>
+                </t>
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Category</span>
+                    <span>Category : <t t-esc="(selected_category and
+                            selected_category.name) or 'All'"/></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li t-att-class="'active' if not category else ''">
-                        <a href="/shop">All</a>
+                        <a t-att-href="keep('/shop/', category='')">All</a>
                     </li>
                     <t t-foreach="category_all" t-as="c">
                         <li t-att-class="'active' if c.id == int(category or 0) else None">
@@ -26,12 +32,18 @@
         </template>
         <template id="version_display" name="Show Version by">
             <div class="dropdown btn-group dropdown_version_by">
+                <t t-set="selected_version" t-value="False"/>
+                <t t-foreach="versions" t-as="ver">
+                    <t t-if="ver.id == int(version or 0)"
+                        t-set="selected_version" t-value="ver"/>
+                </t>
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Version</span>
+                    <span>Version : <t t-esc="(selected_version and
+                            selected_version.name) or 'All'"/></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li t-att-class="'active' if not version else None">
+                    <li t-att-class="'active' if not version else ''">
                         <a t-att-href="keep('/shop', version='')">All</a>
                     </li>
                     <t t-foreach="versions" t-as="v">
@@ -46,13 +58,22 @@
         </template>
         <template id="maturity_display">
             <div class="dropdown btn-group dropdown_maturity_by">
+                <t t-set="selected_maturity" t-value="False"/>
+                    <t t-if="maturity == 'alpha'"
+                        t-set="selected_maturity" t-value="'Alpha'"/>
+                    <t t-if="maturity == 'beta'"
+                        t-set="selected_maturity" t-value="'Beta'"/>
+                    <t t-if="maturity == 'production/stable'"
+                        t-set="selected_maturity" t-value="'Production/Stable'"/>
+                    <t t-if="maturity == 'mature'"
+                        t-set="selected_maturity" t-value="'Mature'"/>
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Maturity</span>
+                    <span>Maturity : <t t-esc="selected_maturity or 'All'"/></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li t-att-class="'active' if not maturity else ''">
-                        <a t-att-href="keep('/shop', '')">All</a>
+                        <a t-att-href="keep('/shop', maturity='')">All</a>
                     </li>
                     <li t-att-class="'active' if maturity == 'alpha' else ''">
                         <a t-att-href="keep('/shop', maturity='alpha')">Alpha</a>
@@ -75,10 +96,16 @@
                 <t t-call="website_apps_store.version_display"/>
                 <t t-call="website_apps_store.maturity_display"/>
             </xpath>
+            <xpath expr="//t[@t-set='website_sale_sortable']" position="before">
+                <t t-set="download_count_desc_label">Download Count - Max to Min</t>
+                <t t-set="download_count_asc_label">Download Count - Min to Max</t>
+            </xpath>
             <xpath expr="//t[@t-set='website_sale_sortable']" position="replace">
                 <t t-set="website_sale_sortable" t-value="[
                 (name_asc_label, 'name asc'),
-                (name_desc_label, 'name desc')
+                (name_desc_label, 'name desc'),
+                (download_count_desc_label, 'total_download_count desc'),
+                (download_count_asc_label, 'total_download_count asc'),
             ]"/>
             </xpath>
         </template>
@@ -98,6 +125,8 @@
             </xpath>
             <xpath expr="//h5//a" position="after">
                 <t t-if="product.odoo_module_id and product.product_variant_ids">
+                    <br />
+                    <span t-esc="product.technical_name" class="font_12"/>
                     <br/>
                     <t t-set="author_ids" t-value="product.get_author_details()"/>
                     <span t-esc="', '.join(author.name for author in author_ids)" class="font_12"/>
@@ -108,6 +137,13 @@
                         <span t-esc="' / '.join(value.name for value in attr.value_ids.sorted(reverse=True))" class="font_12"/>
                     </t>
                 </t>
+
+                <!--Sort by Download counts-->
+                <div class="pull-right">
+                    <span class="fa fa-download"></span>
+                    <sapn t-esc="product.total_download_count"></sapn>
+                </div>
+
             </xpath>
             <xpath expr='//div[hasclass("product_price")]//span[@t-esc="product.website_price"]' position="replace">
                 <span t-esc="product.website_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" t-if="not product.odoo_module_id"/>
@@ -159,7 +195,13 @@
             <xpath expr="//div[@id='product_details']/h1[@t-field='product.name']" position="attributes">
                 <attribute name="class">name_product</attribute>
             </xpath>
-            <xpath expr='//form[hasclass("js_add_cart_variants")]' position="after">
+            <xpath expr='//form[hasclass("js_add_cart_variants")]'
+                position="after">
+                <div class="form-group form-field o_website_form_required_custom">
+                    <div class="col-md-7 col-sm-8">
+                        <span class="o_website_form_recaptcha" />
+                    </div>
+                </div>
                 <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
                     <div class="col-xs-4 mt16 mb16">
                         <button class="btn btn-primary btn-lg"

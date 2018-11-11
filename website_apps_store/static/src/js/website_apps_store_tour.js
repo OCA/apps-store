@@ -82,4 +82,25 @@ var base = require("web_editor.base");
         ]
     );
 
+    Tour.register('technical_name_search', {
+        name: "Select Product(Module) by Technical Name",
+        url: '/shop',
+        test: true,
+        wait_for: base.ready()
+        },[
+            {
+                content: "Shop",
+                trigger: ".search-query",
+                run: function(){
+                    $('.search-query').attr('value', 'odoo_module1');
+                }
+            },
+            {
+                content: "Search Button",
+                trigger: ".oe_search_button",
+            },
+        ]
+    );
+
+
 });
