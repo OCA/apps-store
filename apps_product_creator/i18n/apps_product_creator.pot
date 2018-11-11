@@ -72,7 +72,7 @@ msgstr ""
 #: model:ir.actions.server,name:apps_product_creator.cron_update_organization_ir_actions_server
 #: model:ir.cron,cron_name:apps_product_creator.cron_update_organization
 #: model:ir.cron,name:apps_product_creator.cron_update_organization
-msgid "Create product variants for each module version"
+msgid "Create/Update product variants for each module version"
 msgstr ""
 
 #. module: apps_product_creator
