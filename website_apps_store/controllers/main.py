@@ -23,7 +23,9 @@ class WebsiteSaleCustom(WebsiteSale):
         if search:
             for srch in search.split(" "):
                 domain += [
-                    '|', '|', '|', '|', '|', '|', '|', ('name', 'ilike', srch),
+                    '|', '|', '|', '|', '|', '|', '|', '|',
+                    ('name', 'ilike', srch),
+                    ('technical_name', 'ilike', srch),
                     ('description', 'ilike', srch),
                     ('description_sale', 'ilike', srch),
                     ('product_variant_ids.default_code', 'ilike', srch),
