@@ -47,6 +47,10 @@ class OdooModule(models.Model):
         self._create_product()
 
     @api.multi
+    def action_update_product(self):
+        self._update_product()
+
+    @api.multi
     def _create_product(self):
         """
         Create the product template related to the module in current recordset.
@@ -71,6 +75,44 @@ class OdooModule(models.Model):
                     })
                     products |= new_product
         return products
+
+    @api.multi
+    def _update_product(self):
+        attribute = self.env.ref(
+            'apps_product_creator.attribute_odoo_version')
+        attribute_val = self.env['product.attribute.value']
+        modules = self.filtered(lambda m: m.product_template_id)
+        self._update_series_product_attribute_values()
+        for module in modules:
+            series = module.module_version_ids.mapped(
+                'repository_branch_id.organization_serie_id.name')
+            product = module.product_template_id
+            att_line = product.attribute_line_ids.filtered(
+                lambda a: a.attribute_id.id == attribute.id)
+            att_vals = att_line.mapped('value_ids.name')
+            to_update_vals = list(set(series) - set(att_vals))
+            for to_update_val in to_update_vals:
+                att_val = attribute_val.search(
+                    [('name', '=', to_update_val),
+                     ('attribute_id', '=', attribute.id)],
+                    limit=1)
+                att_line.write({'value_ids': [[4, att_val.id]]})
+                product.create_variant_ids()
+
+    @api.model
+    def _update_series_product_attribute_values(self):
+        attribute = self.env.ref(
+            'apps_product_creator.attribute_odoo_version')
+        attribute_val = self.env['product.attribute.value']
+        series = self.env['github.organization.serie'].search([])
+        for serie in series:
+            attribute_val = attribute_val.search(
+                [('name', '=', serie.name)], limit=1)
+            if not attribute_val:
+                attribute_val.create({
+                    'name': serie.name,
+                    'attribute_id': attribute.id
+                })
 
     @api.multi
     def _prepare_template(self):
@@ -133,4 +175,12 @@ class OdooModule(models.Model):
         modules = self.search([('product_template_id', '=', False),
                                ('module_version_qty', '!=', 0)])
         modules.action_create_product()
+        # Calling Update product for updating/creating new product Variants
+        # based on new versions added
+        modules = self.search([('module_version_qty', '!=', 0)])
+        modules.action_update_product()
+        return True
+
+    @api.model
+    def cron_update_product(self):
         return True
