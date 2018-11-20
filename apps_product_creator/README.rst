@@ -74,6 +74,7 @@ Contributors
 * François Honoré <francois.honore@acsone.eu>
 * Nicola Malcontenti <nicola.malcontenti@agilebg.com>
 * Roel Adriaans <roel@road-support.nl>
+* Ruchir Shukla <ruchir@bizzappdev.com>
 
 Other credits
 ~~~~~~~~~~~~~
