@@ -17,5 +17,5 @@ class ProductTemplate(models.Model):
 
     def get_version_info(self):
         products = self.product_variant_ids.sorted(
-            lambda a: a.attribute_value_ids.sequence)
+            lambda a: a.attribute_value_ids.sequence,  reverse=True)
         return products[0]
