@@ -6,6 +6,7 @@
 odoo.define('website_apps_store.website_sale', function (require) {
     'use strict';
 
+      console.log("222222222222@@")
     require('web.dom_ready');
     var base = require("web_editor.base");
     var ajax = require('web.ajax');
@@ -14,6 +15,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
     var config = require('web.config');
     require("website.content.zoomodoo");
     var _t = core._t;
+
 
     $('.oe_website_sale').each(function () {
         var oe_website_sale = this;
@@ -30,6 +32,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
             formatted[0] = utils.insert_thousand_seps(formatted[0]);
             return formatted.join(l10n.decimal_point);
         }
+
 
         function update_product_image(event_source, product_id) {
             var $img;
@@ -156,15 +159,33 @@ odoo.define('website_apps_store.website_sale', function (require) {
 
         $('#download_zip').on('click', function(ev){
             var product_template_id = $(this).data('tmpl-id');
+            event.preventDefault();
 
             ajax.jsonRpc("/shop/cart/download_source", 'call', {
                     'product_id': $product_global,
+                    'g-recaptcha-response': $('#g-recaptcha-response').val(),
                     'product_template_id': product_template_id,
                 }).then(function (data) {
+                  console.log(":::::::",data)
                     if(data){
                         window.location.href = "/shop/download_product_zip/" + data;
                     }
+                }).fail(function (data){
+
                 });
         });
+      var $captchas = $('.o_website_form_recaptcha');
+      console.log($captchas);
+        ajax.post('/website/recaptcha/', {}).then(
+            function (result) {
+                var data = JSON.parse(result);
+                $captchas.append($(
+                    '<div class="g-recaptcha" data-sitekey="' + data.site_key + '"></div>'
+                ));
+                if ($captchas.length) {
+                    $.getScript('https://www.google.com/recaptcha/api.js');
+                }
+            }
+        );
     });
 });

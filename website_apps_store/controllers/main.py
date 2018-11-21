@@ -9,6 +9,7 @@ from odoo.http import request
 from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers.main import WebsiteSale, TableCompute
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -174,6 +175,19 @@ class WebsiteSaleCustom(WebsiteSale):
     def download_source_product(self, **kwargs):
         product_id = kwargs.get('product_id', False)
         tmpl_id = kwargs.get('product_template_id', False)
+        captcha_obj = request.env['website.form.recaptcha']
+        ip_addr = request.httprequest.environ.get('HTTP_X_FORWARDED_FOR')
+        if ip_addr:
+            ip_addr = ip_addr.split(',')[0]
+        else:
+            ip_addr = request.httprequest.remote_addr
+        try:
+            captcha_obj.action_validate(
+                kwargs.get(captcha_obj.RESPONSE_ATTR), ip_addr
+            )
+        except ValidationError:
+            print ("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+            raise ValidationError([captcha_obj.RESPONSE_ATTR])
         product = request.env['product.product'].sudo().browse(product_id)
         if not product:
             product_tmpl = request.env['product.template'].sudo().browse(

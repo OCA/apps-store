@@ -180,7 +180,13 @@
             <xpath expr="//div[@id='product_details']/h1[@t-field='product.name']" position="attributes">
                 <attribute name="class">name_product</attribute>
             </xpath>
-            <xpath expr='//form[hasclass("js_add_cart_variants")]' position="after">
+            <xpath expr='//form[hasclass("js_add_cart_variants")]'
+                position="after">
+                <div class="form-group form-field o_website_form_required_custom">
+                    <div class="col-md-7 col-sm-8">
+                        <span class="o_website_form_recaptcha" />
+                    </div>
+                </div>
                 <div class="col-xs-12 padd_0" t-if="product.odoo_module_id">
                     <div class="col-xs-4 mt16 mb16">
                         <button class="btn btn-primary btn-lg"
