@@ -9,6 +9,7 @@
     "category": "Sales",
     "depends": [
         'website_sale',
+        'website_form_recaptcha',
         'apps_download',
         'apps_product_creator',
     ],

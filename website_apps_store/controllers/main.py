@@ -186,7 +186,6 @@ class WebsiteSaleCustom(WebsiteSale):
                 kwargs.get(captcha_obj.RESPONSE_ATTR), ip_addr
             )
         except ValidationError:
-            print ("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
             raise ValidationError([captcha_obj.RESPONSE_ATTR])
         product = request.env['product.product'].sudo().browse(product_id)
         if not product:
