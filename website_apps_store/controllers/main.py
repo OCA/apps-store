@@ -86,6 +86,7 @@ class WebsiteSaleCustom(WebsiteSale):
         keep = QueryURL('/shop', category=category and int(category),
                         search=search, attrib=attrib_list,
                         order=post.get('order'),
+                        maturity=post.get('maturity'),
                         version=post.get('version'), author=post.get('author'))
         if post.get('version'):
             domain += [('product_variant_ids.attribute_value_ids.id',
