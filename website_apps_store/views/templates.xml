@@ -8,13 +8,19 @@
         <!--Shop Customization/-->
         <template id="category_display" name="Show Category by">
             <div class="dropdown btn-group dropdown_category_by">
+                <t t-set="selected_category" t-value="False"/>
+                <t t-foreach="category_all" t-as="cat">
+                    <t t-if="cat.id == int(category or 0)"
+                        t-set="selected_category" t-value="cat"/>
+                </t>
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Category</span>
+                    <span>Category : <t t-esc="(selected_category and
+                            selected_category.name) or 'All'"/></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li t-att-class="'active' if not category else ''">
-                        <a href="/shop">All</a>
+                        <a t-att-href="keep('/shop/', category='')">All</a>
                     </li>
                     <t t-foreach="category_all" t-as="c">
                         <li t-att-class="'active' if c.id == int(category or 0) else None">
@@ -26,12 +32,18 @@
         </template>
         <template id="version_display" name="Show Version by">
             <div class="dropdown btn-group dropdown_version_by">
+                <t t-set="selected_version" t-value="False"/>
+                <t t-foreach="versions" t-as="ver">
+                    <t t-if="ver.id == int(version or 0)"
+                        t-set="selected_version" t-value="ver"/>
+                </t>
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Version</span>
+                    <span>Version : <t t-esc="(selected_version and
+                            selected_version.name) or 'All'"/></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li t-att-class="'active' if not version else None">
+                    <li t-att-class="'active' if not version else ''">
                         <a t-att-href="keep('/shop', version='')">All</a>
                     </li>
                     <t t-foreach="versions" t-as="v">
@@ -46,13 +58,22 @@
         </template>
         <template id="maturity_display">
             <div class="dropdown btn-group dropdown_maturity_by">
+                <t t-set="selected_maturity" t-value="False"/>
+                    <t t-if="maturity == 'alpha'"
+                        t-set="selected_maturity" t-value="'Alpha'"/>
+                    <t t-if="maturity == 'beta'"
+                        t-set="selected_maturity" t-value="'Beta'"/>
+                    <t t-if="maturity == 'production/stable'"
+                        t-set="selected_maturity" t-value="'Production/Stable'"/>
+                    <t t-if="maturity == 'mature'"
+                        t-set="selected_maturity" t-value="'Mature'"/>
                 <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                    <span>Maturity</span>
+                    <span>Maturity : <t t-esc="selected_maturity or 'All'"/></span>
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li t-att-class="'active' if not maturity else ''">
-                        <a t-att-href="keep('/shop', '')">All</a>
+                        <a t-att-href="keep('/shop', maturity='')">All</a>
                     </li>
                     <li t-att-class="'active' if maturity == 'alpha' else ''">
                         <a t-att-href="keep('/shop', maturity='alpha')">Alpha</a>
