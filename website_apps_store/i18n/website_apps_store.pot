@@ -55,24 +55,6 @@ msgstr ""
 
 #. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.category_display
-msgid "<span>Category</span>\n"
-"                    <span class=\"caret\"/>"
-msgstr ""
-
-#. module: website_apps_store
-#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
-msgid "<span>Maturity</span>\n"
-"                    <span class=\"caret\"/>"
-msgstr ""
-
-#. module: website_apps_store
-#: model:ir.ui.view,arch_db:website_apps_store.version_display
-msgid "<span>Version</span>\n"
-"                    <span class=\"caret\"/>"
-msgstr ""
-
-#. module: website_apps_store
-#: model:ir.ui.view,arch_db:website_apps_store.category_display
 #: model:ir.ui.view,arch_db:website_apps_store.maturity_display
 #: model:ir.ui.view,arch_db:website_apps_store.version_display
 msgid "All"
@@ -89,6 +71,11 @@ msgid "Beta"
 msgstr ""
 
 #. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.category_display
+msgid "Category :"
+msgstr ""
+
+#. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.product
 msgid "Download\n"
 "                                    <span class=\"fa fa-download\"/>"
@@ -97,6 +84,11 @@ msgstr ""
 #. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Mature"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Maturity :"
 msgstr ""
 
 #. module: website_apps_store
@@ -117,6 +109,11 @@ msgstr ""
 #. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Production/Stable"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.version_display
+msgid "Version :"
 msgstr ""
 
 #. module: website_apps_store
