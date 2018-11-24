@@ -96,10 +96,16 @@
                 <t t-call="website_apps_store.version_display"/>
                 <t t-call="website_apps_store.maturity_display"/>
             </xpath>
+            <xpath expr="//t[@t-set='website_sale_sortable']" position="before">
+                <t t-set="download_count_desc_label">Download Count - Max to Min</t>
+                <t t-set="download_count_asc_label">Download Count - Min to Max</t>
+            </xpath>
             <xpath expr="//t[@t-set='website_sale_sortable']" position="replace">
                 <t t-set="website_sale_sortable" t-value="[
                 (name_asc_label, 'name asc'),
-                (name_desc_label, 'name desc')
+                (name_desc_label, 'name desc'),
+                (download_count_desc_label, 'total_download_count desc'),
+                (download_count_asc_label, 'total_download_count asc'),
             ]"/>
             </xpath>
         </template>
@@ -129,6 +135,13 @@
                         <span t-esc="' / '.join(value.name for value in attr.value_ids.sorted(reverse=True))" class="font_12"/>
                     </t>
                 </t>
+
+                <!--Sort by Download counts-->
+                <div class="pull-right">
+                    <span class="fa fa-download"></span>
+                    <sapn t-esc="product.total_download_count"></sapn>
+                </div>
+
             </xpath>
             <xpath expr='//div[hasclass("product_price")]//span[@t-esc="product.website_price"]' position="replace">
                 <span t-esc="product.website_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" t-if="not product.odoo_module_id"/>
