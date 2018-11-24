@@ -158,21 +158,17 @@ odoo.define('website_apps_store.website_sale', function (require) {
         });
 
         $('#download_zip').on('click', function(ev){
-            var product_template_id = $(this).data('tmpl-id');
-            event.preventDefault();
-
-            ajax.jsonRpc("/shop/cart/download_source", 'call', {
-                    'product_id': $product_global,
-                    'g-recaptcha-response': $('#g-recaptcha-response').val(),
-                    'product_template_id': product_template_id,
-                }).then(function (data) {
-                  console.log(":::::::",data)
-                    if(data){
-                        window.location.href = "/shop/download_product_zip/" + data;
-                    }
-                }).fail(function (data){
-
-                });
+          var product_template_id = $(this).data('tmpl-id');
+          event.preventDefault();
+          var google_captcha = $('#g-recaptcha-response').val();
+          grecaptcha.reset();
+          if (!google_captcha)
+            return ;
+          if ($product_global){
+              window.location.href = "/shop/download_product_zip/" + product_template_id + '/' + $product_global + '/' + google_captcha;
+          }else{
+              window.location.href = "/shop/download_product_zip/" + product_template_id + '/' + google_captcha;
+          }
         });
       var $captchas = $('.o_website_form_recaptcha');
       console.log($captchas);
