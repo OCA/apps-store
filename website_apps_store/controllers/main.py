@@ -56,13 +56,7 @@ class WebsiteSaleCustom(WebsiteSale):
 
         return domain
 
-    @http.route([
-        '/shop',
-        '/shop/page/<int:page>',
-        '/shop/category/<model("product.public.category"):category>',
-        '/shop/category/<model("product.public.category"):category>\
-        /page/<int:page>'
-    ], type='http', auth="public", website=True)
+    @http.route()
     def shop(self, page=0, category=None, search='', ppg=False, **post):
         res = super(WebsiteSaleCustom, self).shop(
             page=page, category=category, search=search, ppg=ppg, **post)
