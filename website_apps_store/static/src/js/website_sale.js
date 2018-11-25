@@ -160,11 +160,11 @@ odoo.define('website_apps_store.website_sale', function (require) {
           var product_template_id = $(this).data('tmpl-id');
           event.preventDefault();
           var google_captcha = $('#g-recaptcha-response').val();
+          if (!google_captcha)
+            return ;
           if (grecaptcha !== 'undefined'){
             grecaptcha.reset();
           }
-          if (!google_captcha)
-            return ;
           if ($product_global){
               window.location.href = "/shop/download_product_zip/" + product_template_id + '/' + $product_global + '/' + google_captcha;
           }else{
