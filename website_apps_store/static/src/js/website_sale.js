@@ -6,7 +6,6 @@
 odoo.define('website_apps_store.website_sale', function (require) {
     'use strict';
 
-      console.log("222222222222@@")
     require('web.dom_ready');
     var base = require("web_editor.base");
     var ajax = require('web.ajax');
@@ -171,7 +170,6 @@ odoo.define('website_apps_store.website_sale', function (require) {
           }
         });
       var $captchas = $('.o_website_form_recaptcha');
-      console.log($captchas);
         ajax.post('/website/recaptcha/', {}).then(
             function (result) {
                 var data = JSON.parse(result);

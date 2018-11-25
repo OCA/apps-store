@@ -183,7 +183,6 @@ class WebsiteSaleCustom(WebsiteSale):
                 captcha, ip_addr
             )
         except ValidationError:
-
             raise ValidationError([captcha_obj.RESPONSE_ATTR])
 
     @http.route(
