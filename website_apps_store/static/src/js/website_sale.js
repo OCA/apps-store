@@ -160,7 +160,9 @@ odoo.define('website_apps_store.website_sale', function (require) {
           var product_template_id = $(this).data('tmpl-id');
           event.preventDefault();
           var google_captcha = $('#g-recaptcha-response').val();
-          grecaptcha.reset();
+          if (grecaptcha !== 'undefined'){
+            grecaptcha.reset();
+          }
           if (!google_captcha)
             return ;
           if ($product_global){
