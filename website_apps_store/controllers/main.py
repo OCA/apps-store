@@ -93,6 +93,11 @@ class WebsiteSaleCustom(WebsiteSale):
                         '=', post.get('maturity'))]
 
         url = "/shop"
+        if search:
+            post["search"] = search
+        if attrib_list:
+            post['attrib'] = attrib_list
+
         if category:
             category = request.env['product.public.category'].browse(
                 int(category))
