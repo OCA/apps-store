@@ -15,6 +15,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
     require("website.content.zoomodoo");
     var _t = core._t;
 
+
     $('.oe_website_sale').each(function () {
         var oe_website_sale = this;
         var $product_global;
@@ -30,6 +31,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
             formatted[0] = utils.insert_thousand_seps(formatted[0]);
             return formatted.join(l10n.decimal_point);
         }
+
 
         function update_product_image(event_source, product_id) {
             var $img;
@@ -155,16 +157,31 @@ odoo.define('website_apps_store.website_sale', function (require) {
         });
 
         $('#download_zip').on('click', function(ev){
-            var product_template_id = $(this).data('tmpl-id');
-
-            ajax.jsonRpc("/shop/cart/download_source", 'call', {
-                    'product_id': $product_global,
-                    'product_template_id': product_template_id,
-                }).then(function (data) {
-                    if(data){
-                        window.location.href = "/shop/download_product_zip/" + data;
-                    }
-                });
+          var product_template_id = $(this).data('tmpl-id');
+          event.preventDefault();
+          var google_captcha = $('#g-recaptcha-response').val();
+          if (!google_captcha)
+            return ;
+          if (grecaptcha !== 'undefined'){
+            grecaptcha.reset();
+          }
+          if ($product_global){
+              window.location.href = "/shop/download_product_zip/" + product_template_id + '/' + $product_global + '/' + google_captcha;
+          }else{
+              window.location.href = "/shop/download_product_zip/" + product_template_id + '/' + google_captcha;
+          }
         });
+      var $captchas = $('.o_website_form_recaptcha');
+        ajax.post('/website/recaptcha/', {}).then(
+            function (result) {
+                var data = JSON.parse(result);
+                $captchas.append($(
+                    '<div class="g-recaptcha" data-sitekey="' + data.site_key + '"></div>'
+                ));
+                if ($captchas.length) {
+                    $.getScript('https://www.google.com/recaptcha/api.js');
+                }
+            }
+        );
     });
 });
