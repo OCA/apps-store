@@ -82,6 +82,21 @@ msgid "Download\n"
 msgstr ""
 
 #. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product_download_count
+msgid "Download Count"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.sort_customize
+msgid "Download Count - Max to Min"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.ui.view,arch_db:website_apps_store.sort_customize
+msgid "Download Count - Min to Max"
+msgstr ""
+
+#. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Mature"
 msgstr ""
@@ -97,6 +112,11 @@ msgid "Name, Author, Version..."
 msgstr ""
 
 #. module: website_apps_store
+#: model:ir.model,name:website_apps_store.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.product
 msgid "Product Name"
 msgstr ""
@@ -109,6 +129,12 @@ msgstr ""
 #. module: website_apps_store
 #: model:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Production/Stable"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product_total_download_count
+#: model:ir.model.fields,field_description:website_apps_store.field_product_template_total_download_count
+msgid "Total Download Count"
 msgstr ""
 
 #. module: website_apps_store
