@@ -119,6 +119,8 @@
             </xpath>
             <xpath expr="//h5//a" position="after">
                 <t t-if="product.odoo_module_id and product.product_variant_ids">
+                    <br />
+                    <span t-esc="product.technical_name" class="font_12"/>
                     <br/>
                     <t t-set="author_ids" t-value="product.get_author_details()"/>
                     <span t-esc="', '.join(author.name for author in author_ids)" class="font_12"/>
