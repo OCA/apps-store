@@ -54,3 +54,11 @@ class TestUi(tests.HttpCase):
             self.tour + ".tours.module_search.ready",
             login="admin"
         )
+
+    def test_technical_name_search_tour(self):
+        self.phantom_js(
+            "/shop",
+            self.tour + ".run('technical_name_search')",
+            self.tour + ".tours.technical_name_search.ready",
+            login="admin"
+        )
