@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Website Apps Store",
-    "version": "11.0.3.0.0",
+    "version": "11.0.3.0.1",
     'author': 'Odoo Community Association (OCA), BizzAppDev',
     "website": "https://github.com/OCA/apps-store",
     "license": "AGPL-3",
@@ -17,6 +17,9 @@
     "data": [
         'views/assets.xml',
         'views/templates.xml',
+    ],
+    'demo': [
+        'demo/product_template_demo.xml',
     ],
     'installable': True,
     'auto_install': False,
