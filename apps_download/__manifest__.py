@@ -18,7 +18,7 @@
     "summary": "Product Download for Appstore",
     "data": [
         'views/product_template_view.xml',
-        'data/cron_scheduler.xml'
+        'data/cron_scheduler.xml',
     ],
     'demo': [
         'demo/product_template_demo.xml',
