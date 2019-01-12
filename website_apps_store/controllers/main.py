@@ -212,7 +212,7 @@ class WebsiteSaleCustom(WebsiteSale):
             filecontent = base64.b64decode(attachment.datas)
             disposition = 'attachment; filename="%s"' % attachment.datas_fname
             # increasing count for the product download
-            product.download_count = product.download_count + 1
+            product.sudo().download_count = product.sudo().download_count + 1
             return request.make_response(
                 filecontent,
                 [('Content-Type', 'application/zip, application/octet-stream'),
