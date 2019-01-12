@@ -158,7 +158,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
 
         $('#download_zip').on('click', function(ev){
           var product_template_id = $(this).data('tmpl-id');
-          event.preventDefault();
+          ev.preventDefault();
           var google_captcha = $('#g-recaptcha-response').val();
           if (!google_captcha)
             return ;
