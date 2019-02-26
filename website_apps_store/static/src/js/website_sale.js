@@ -171,7 +171,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
               window.location.href = "/shop/download_product_zip/" + product_template_id + '/' + google_captcha;
           }
         });
-      var $captchas = $('.o_website_form_recaptcha');
+        var $captchas = $('.o_website_form_recaptcha');
         ajax.post('/website/recaptcha/', {}).then(
             function (result) {
                 var data = JSON.parse(result);
@@ -183,5 +183,27 @@ odoo.define('website_apps_store.website_sale', function (require) {
                 }
             }
         );
+        if ($('.oe_website_sale .dropdown_sorty_by').length) {
+            // this method allow to keep current get param from the action, with new search query
+            $('.oe_website_sale .o_website_sale_search').on('submit', function (event) {
+                var $this = $(this);
+                if (!$this.is(".disabled")) {
+                    event.preventDefault();
+                    var oldurl = $this.attr('action');
+                    oldurl += (oldurl.indexOf("?")===-1) ? "?" : "";
+                    var search = $this.find('input.search-query');
+                    var $search_all_terms = $this.find('input.search-terms');
+                    var search_all;
+                    if ($search_all_terms.prop("checked") == true){
+                        search_all = true;
+                    }
+                    else {
+                        search_all = false;
+                    }
+                    window.location = oldurl + '&' + search.attr('name') + '=' + encodeURIComponent(search.val()) 
+                    + '&' + $search_all_terms.attr('name') + '=' + encodeURIComponent(search_all);
+                }
+            });
+        }
     });
 });

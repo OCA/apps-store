@@ -5,7 +5,6 @@
 -->
 <odoo>
     <data>
-        <!--Shop Customization/-->
         <template id="category_display" name="Show Category by">
             <div class="dropdown btn-group dropdown_category_by">
                 <t t-set="selected_category" t-value="False"/>
@@ -111,11 +110,18 @@
         </template>
 
         <template id="search_placeholder" inherit_id="website.website_search_box">
-            <xpath expr="//input" position="attributes">
+            <xpath expr="//div[hasclass('input-group')]" position="before">
+                <div style="float: left; padding: 0px 10px 0px 10px;" class="input-group">
+                    <span style="float: left; padding: 5px 10px 0px 0px;">Search All Terms: </span>
+                        <input type="checkbox" name="search_all_terms" class="search-terms form-control" placeholder="tick checkbox" t-att-checked="'checked' if search_all_terms == 'true' else None" style="margin: 0px;FLOAT: left;width: auto;"/>
+                </div>
+            </xpath>
+            
+            <xpath expr="//input[@name='search']" position="attributes">
                 <attribute name="placeholder">Name, Author, Version...</attribute>
             </xpath>
         </template>
-
+        
         <template id="products_item_customize" inherit_id="website_sale.products_item">
             <xpath expr="//section" position="attributes">
                 <attribute name="t-att-style">'padding-bottom: 1px;' if product.odoo_module_id else ''</attribute>
@@ -169,11 +175,16 @@
         </template>
 
         <template id="product" inherit_id="website_sale.product">
+            <xpath expr="//t[@t-call='website_sale.search']/.." position="attributes">
+                <attribute name="class">col-sm-5 mb8</attribute>
+            </xpath>
+
             <xpath expr="//t[@t-call='website_sale.variants']" position="before">
                 <t t-if="product.odoo_module_id">
                     <t t-set="product_var_id" t-value="product.get_version_info()"/>
                 </t>
             </xpath>
+
             <xpath expr="//t[@t-call='website_sale.product_price']" position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
@@ -218,6 +229,7 @@
                     <p t-esc="product_var_id.app_description_rst_html" t-options='{"widget": "html"}'/>
                 </div>
             </xpath>
+            
             <xpath expr="//div[hasclass('col-sm-7')]" position="after">
                 <t t-if="product.odoo_module_id">
                     <t t-set="product_var_id" t-value="product.get_version_info()"/>

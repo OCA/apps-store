@@ -19,10 +19,16 @@ PPR = 4   # Products Per Row
 
 class WebsiteSaleCustom(WebsiteSale):
 
-    def _get_search_domain(self, search, category, attrib_values):
+    def _get_search_domain(self, search, category, attrib_values,
+                           search_all_terms=''):
         domain = request.website.sale_product_domain()
         if search:
-            for srch in search.split(" "):
+            words = []
+            if search_all_terms in ['false', '0', 'False', False, 0]:
+                words = [search]
+            else:
+                words = search.split(" ")
+            for srch in words:
                 domain += [
                     '|', '|', '|', '|', '|', '|', '|', '|',
                     ('name', 'ilike', srch),
@@ -38,7 +44,6 @@ class WebsiteSaleCustom(WebsiteSale):
                     ('product_variant_ids.app_summary', 'ilike', srch)]
         if category:
             domain += [('public_categ_ids', 'child_of', int(category))]
-
         if attrib_values:
             attrib = None
             ids = []
@@ -54,14 +59,14 @@ class WebsiteSaleCustom(WebsiteSale):
                     ids = [value[1]]
             if attrib:
                 domain += [('attribute_line_ids.value_ids', 'in', ids)]
-
         return domain
 
     @http.route()
-    def shop(self, page=0, category=None, search='', ppg=False, **post):
+    def shop(self, page=0, category=None, search='', search_all_terms='',
+             ppg=False, **post):
         res = super(WebsiteSaleCustom, self).shop(
-            page=page, category=category, search=search, ppg=ppg, **post)
-
+            page=page, category=category, search=search,
+            ppg=ppg, **post)
         if ppg:
             try:
                 ppg = int(ppg)
@@ -76,13 +81,15 @@ class WebsiteSaleCustom(WebsiteSale):
             [int(x) for x in v.split("-")] for v in attrib_list if v]
         attributes_ids = {v[0] for v in attrib_values}
         attrib_set = {v[1] for v in attrib_values}
-        domain = self._get_search_domain(search, category, attrib_values)
+        domain = self._get_search_domain(search, category, attrib_values,
+                                         search_all_terms)
 
         keep = QueryURL('/shop', category=category and int(category),
                         search=search, attrib=attrib_list,
                         order=post.get('order'),
                         maturity=post.get('maturity'),
-                        version=post.get('version'), author=post.get('author'))
+                        version=post.get('version'), author=post.get('author'),
+                        search_all_terms=post.get('search_all_terms'))
         if post.get('version'):
             domain += [('product_variant_ids.attribute_value_ids.id',
                         '=', post.get('version'))]
@@ -92,7 +99,6 @@ class WebsiteSaleCustom(WebsiteSale):
         if post.get('maturity', False):
             domain += [('product_variant_ids.app_development_status',
                         '=', post.get('maturity'))]
-
         url = "/shop"
         if search:
             post["search"] = search
@@ -146,6 +152,7 @@ class WebsiteSaleCustom(WebsiteSale):
             'attributes': attributes,
             'keep': keep,
             'maturity': post.get('maturity'),
+            'search_all_terms': search_all_terms,
         })
         return res
 
