@@ -118,6 +118,7 @@ odoo.define('website_apps_store.website_sale', function (require) {
                             $author_detail.text(data['author']);
                             $website_detail.text(data['website']);
                             $repo_detail.text(data['repository']);
+                            $repo_detail.parent()[0].href = data['repository'];
                             $rst_html.html(data['rst_html']);
                             $app_summary.text(data['app_summary']);
                             $name_product.text(data['name_product']);
