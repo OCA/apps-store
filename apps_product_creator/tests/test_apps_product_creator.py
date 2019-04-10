@@ -13,14 +13,22 @@ class TestAppsProductCreator(TransactionCase):
             'github_login': 'login',
         })
 
+        self.organization_serie1 = self.env[
+            'github.organization.serie'].create({
+                'name': '12.0',
+                'sequence': 1,
+                'organization_id': self.organization1.id,
+            })
+
         self.repository1 = self.env['github.repository'].create({
             'name': 'Repository1',
             'organization_id': self.organization1.id,
         })
 
         self.branch1 = self.env['github.repository.branch'].create({
-            'name': 'master',
+            'name': '12.0',
             'repository_id': self.repository1.id,
+            'organization_id': self.organization1.id,
         })
 
         self.odoo_module2 = self.env['odoo.module'].create({

@@ -31,7 +31,7 @@ class ProductProduct(models.Model):
 
     odoo_module_version_id = fields.Many2one(
         'odoo.module.version',
-        'Odoo Module',
+        'Odoo Module Version',
     )
     app_license_id = fields.Many2one(
         comodel_name='odoo.license',

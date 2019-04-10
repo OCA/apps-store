@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module_product_qty
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__product_qty
 msgid "# of Products"
 msgstr "Nº de productos"
 
@@ -32,6 +32,11 @@ msgstr "10.0"
 #: model:product.attribute.value,name:apps_product_creator.odoo_version_110
 msgid "11.0"
 msgstr "11.0"
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_120
+msgid "12.0"
+msgstr ""
 
 #. module: apps_product_creator
 #: model:product.attribute.value,name:apps_product_creator.odoo_version_50
@@ -69,7 +74,7 @@ msgid "Accounting"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_author_ids
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_author_ids
 msgid "Authors"
 msgstr "Autores"
 
@@ -96,12 +101,12 @@ msgid "Extra Tools"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_github_url
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_github_url
 msgid "Github URL"
 msgstr "URL de github"
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_description_rst_html
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_description_rst_html
 msgid "HTML of the RST Description"
 msgstr ""
 
@@ -111,8 +116,8 @@ msgid "Human Resources"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_image_module
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_template_image_module
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__image_module
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__image_module
 msgid "Icon Image"
 msgstr "Icono"
 
@@ -122,7 +127,7 @@ msgid "Industries"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_license_id
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_license_id
 msgid "License"
 msgstr "Licencia"
 
@@ -137,22 +142,30 @@ msgid "Manufacturing"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.ui.view,arch_db:apps_product_creator.product_product_form_view
+#: model_terms:ir.ui.view,arch_db:apps_product_creator.product_product_form_view
 msgid "Module Informations"
 msgstr "Informaciones del módulo"
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_development_status
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_development_status
 #, fuzzy
 msgid "Module maturity"
 msgstr "Informaciones del módulo"
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_odoo_module_id
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_odoo_module_version_id
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_template_odoo_module_id
+#: model:ir.model,name:apps_product_creator.model_odoo_module
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__odoo_module_id
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__odoo_module_id
 msgid "Odoo Module"
 msgstr "Módulo Odoo"
+
+#. module: apps_product_creator
+#: model:ir.model,name:apps_product_creator.model_odoo_module_version
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__odoo_module_version_id
+#, fuzzy
+#| msgid "Odoo Version"
+msgid "Odoo Module Version"
+msgstr "Versión Odoo"
 
 #. module: apps_product_creator
 #: model:product.attribute,name:apps_product_creator.attribute_odoo_version
@@ -176,7 +189,7 @@ msgstr "Producto"
 
 #. module: apps_product_creator
 #: model:ir.model,name:apps_product_creator.model_product_template
-#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module_product_template_id
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__product_template_id
 msgid "Product Template"
 msgstr "Plantilla de producto"
 
@@ -187,7 +200,7 @@ msgid "Productivity"
 msgstr "Producto"
 
 #. module: apps_product_creator
-#: model:ir.ui.view,arch_db:apps_product_creator.odoo_module_form_view
+#: model_terms:ir.ui.view,arch_db:apps_product_creator.odoo_module_form_view
 msgid "Products"
 msgstr "Productos"
 
@@ -207,18 +220,18 @@ msgid "Sales"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_summary
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_summary
 msgid "Summary (Manifest)"
 msgstr "Resumen (Manifiesto)"
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_technical_name
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_template_technical_name
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__technical_name
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__technical_name
 msgid "Technical Name"
 msgstr "Nombre técnic"
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_version
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_version
 msgid "Version (Manifest)"
 msgstr "Versión (Manifiesto)"
 
@@ -233,7 +246,7 @@ msgid "Website"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product_app_website
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_website
 msgid "Website (Manifest)"
 msgstr "Página web (Manifiesto)"
 
@@ -242,13 +255,9 @@ msgstr "Página web (Manifiesto)"
 msgid "eCommerce"
 msgstr ""
 
-#. module: apps_product_creator
-#: model:ir.model,name:apps_product_creator.model_odoo_module
-msgid "odoo.module"
-msgstr "odoo.module"
+#~ msgid "odoo.module"
+#~ msgstr "odoo.module"
 
-#. module: apps_product_creator
-#: model:ir.model,name:apps_product_creator.model_odoo_module_version
 #, fuzzy
-msgid "odoo.module.version"
-msgstr "odoo.module"
+#~ msgid "odoo.module.version"
+#~ msgstr "odoo.module"

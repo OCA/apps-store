@@ -5,3 +5,4 @@
 * Nicola Malcontenti <nicola.malcontenti@agilebg.com>
 * Roel Adriaans <roel@road-support.nl>
 * Ruchir Shukla <ruchir@bizzappdev.com>
+* Victor M.M. Torres <victor.martin@tecnativa.com>

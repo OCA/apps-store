@@ -46,5 +46,9 @@
         <field name="name">11.0</field>
         <field name="attribute_id" ref="attribute_odoo_version"/>
     </record>
+    <record id="odoo_version_120" model="product.attribute.value">
+        <field name="name">12.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version"/>
+    </record>
 
 </odoo>
