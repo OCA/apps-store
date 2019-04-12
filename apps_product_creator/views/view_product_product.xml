@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Copyright (C) 2017-Today: Odoo Community Association (OCA)-->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
+<odoo>
+
+    <record id="product_product_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Module Informations"
+                      id="module_informations"
+                      attrs="{'invisible':[('odoo_module_version_id','=',False)]}">
+                    <group>
+                        <group>
+                            <field name="odoo_module_version_id"/>
+                            <field name="app_author_ids" widget="many2many_tags"/>
+                            <field name="app_website"/>
+                            <field name="app_license_id"/>
+                        </group>
+                        <group>
+                            <field name="app_summary"/>
+                            <field name="app_version"/>
+                            <field name="app_development_status"/>
+                            <field name="app_github_url"/>
+                        </group>
+                    </group>
+                    <group col="4">
+                        <field name="app_description_rst_html" colspan="4" nolabel="1" class="oe_styling_v8"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
