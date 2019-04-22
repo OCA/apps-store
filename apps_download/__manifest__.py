@@ -1,9 +1,10 @@
-# Copyright 2017-2018 BizzAppDev
-# Copyright 2017 AgentERP
+# Copyright 2017-2019 BizzAppDev
+# Copyright 2017-2019 AgentERP
+# Copyright 2017-2019 Elico Corp
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Product Download for Appstore",
-    "version": "11.0.2.0.1",
+    "version": "12.0.1.0.0",
     "author": "BizzAppDev, AgentERP, Elico Corp, "
     "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/apps-store",
