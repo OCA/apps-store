@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017-Today BizzAppDev - Ruchir Shukla <ruchir@bizzappdev.com>
+    Copyright 2017-Today AgentERP - Georg Notter <georg.notter@agenterp.com>
+    Copyright 2017-Today Elico Corp - (https://www.elico-corp.com)
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+        <record id="view_product_product_view_dependent_form" model="ir.ui.view">
+            <field name="name">product.product.form</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Module Dependencies">
+                        <separator string="Modules Dependencies" colspan="4"/>
+                        <field name="dependent_product_ids" colspan="4" nolabel="1"/>
+                        <button string="Get all Dependencies" type="object" name="generate_zip_file"/>
+                        <field name="module_path"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+</odoo>

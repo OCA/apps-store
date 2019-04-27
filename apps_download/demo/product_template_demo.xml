@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017-Today BizzAppDev - Ruchir Shukla <ruchir@bizzappdev.com>
+    Copyright 2017-Today AgentERP - Georg Notter <georg.notter@agenterp.com>
+    Copyright 2017-Today Elico Corp - (https://www.elico-corp.com)
+    License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+        <record id="website_category1" model="product.public.category">
+            <field name="name">Category1</field>
+        </record>
+
+        <record id="github_organization1" model="github.organization">
+            <field name="name">Organization1</field>
+            <field name="github_login">login</field>
+        </record>
+
+        <record id="github_repository1" model="github.repository">
+            <field name="name">Repository1</field>
+            <field name="organization_id" ref="github_organization1"/>
+        </record>
+
+        <record id="github_repository_branch1" model="github.repository.branch">
+            <field name="name">Master</field>
+            <field name="repository_id" ref="github_repository1"/>
+        </record>
+
+        <record id="odoo_module1" model="odoo.module">
+            <field name="technical_name">odoo_module1</field>
+        </record>
+
+        <record id="odoo_module2" model="odoo.module">
+            <field name="technical_name">odoo_module2</field>
+        </record>
+
+        <record id="odoo_module_version1" model="odoo.module.version">
+            <field name="name">Odoo Module 1</field>
+            <field name="technical_name">odoo_module1</field>
+            <field name="module_id" ref="odoo_module1"/>
+            <field name="repository_branch_id" ref="github_repository_branch1"/>
+            <field name="license">AGPL-3</field>
+            <field name="summary">Summary Test</field>
+            <field name="website">Website Test</field>
+            <field name="description_rst">Description Test</field>
+            <field name="version">10.0</field>
+            <field name="author">OCA</field>
+            <field name="depends">base</field>
+            <field name="external_dependencies">{}</field>
+        </record>
+
+        <record id="odoo_module_version2" model="odoo.module.version">
+            <field name="name">Odoo Module 2</field>
+            <field name="technical_name">odoo_module2</field>
+            <field name="module_id" ref="odoo_module2"/>
+            <field name="repository_branch_id" ref="github_repository_branch1"/>
+            <field name="license">AGPL-3</field>
+            <field name="summary">Summary Test</field>
+            <field name="website">Website Test</field>
+            <field name="description_rst">Description Test</field>
+            <field name="version">11.0</field>
+            <field name="author">OCA</field>
+            <field name="depends">base</field>
+            <field name="external_dependencies">{}</field>
+        </record>
+
+        <record id="product_product_100" model="product.product">
+            <field name="name">Odoo Module 1</field>
+            <field name="type">service</field>
+            <field name="public_categ_ids" eval="[(6,0,[ref('website_category1')])]"/>
+            <field name="website_published" eval="True"/>
+            <field name="attribute_value_ids"
+                   eval="[(6,0,[ref('apps_product_creator.odoo_version_100')])]"/>
+            <field name="odoo_module_version_id" ref="odoo_module_version1"/>
+        </record>
+
+        <record id="product_product100_b" model="product.product">
+            <field name="product_tmpl_id" ref="product_product_100_product_template"/>
+            <field name="attribute_value_ids"
+                   eval="[(6,0,[ref('apps_product_creator.odoo_version_110')])]"/>
+            <field name="odoo_module_version_id" ref="odoo_module_version2"/>
+        </record>
+
+        <record id="product_template_attribute_line_1"
+                model="product.template.attribute.line">
+            <field name="product_tmpl_id"
+                   ref="product_product_100_product_template"/>
+            <field name="attribute_id"
+                   ref="apps_product_creator.attribute_odoo_version"/>
+            <field name="value_ids"
+                   eval="[(6,0,[ref('apps_product_creator.odoo_version_100'), ref('apps_product_creator.odoo_version_110')])]"/>
+        </record>
+
+        <record id="product_product_100_product_template" model="product.template">
+            <field name="odoo_module_id" ref="odoo_module1"/>
+            <field name="attribute_line_ids"
+                   eval="[(6,0,[ref('product_template_attribute_line_1')])]"/>
+        </record>
+</odoo>
