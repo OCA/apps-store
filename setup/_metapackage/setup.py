@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-apps-store Odoo addons",
     version=version,
     install_requires=[
+        'odoo12-addon-apps_download',
         'odoo12-addon-apps_product_creator',
     ],
     classifiers=[
