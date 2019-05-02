@@ -120,10 +120,10 @@
             <xpath expr="//section" position="attributes">
                 <attribute name="t-att-style">'padding-bottom: 1px;' if product.odoo_module_id else ''</attribute>
             </xpath>
-            <xpath expr="//h5" position="attributes">
+            <xpath expr="//h6" position="attributes">
                 <attribute name="t-att-style">'margin-bottom: 4px;' if product.odoo_module_id else ''</attribute>
             </xpath>
-            <xpath expr="//h5//a" position="after">
+            <xpath expr="//h6//a[1]" position="after">
                 <t t-if="product.odoo_module_id and product.product_variant_ids">
                     <br />
                     <span t-esc="product.technical_name" class="font_12"/>
@@ -145,35 +145,15 @@
                 </div>
 
             </xpath>
-            <xpath expr='//div[hasclass("product_price")]//span[@t-esc="product.website_price"]' position="replace">
-                <span t-esc="product.website_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" t-if="not product.odoo_module_id"/>
+            <xpath expr='//div[hasclass("product_price")]//span[1]' position="replace">
+                <span t-if="combination_info['price'] and not product.odoo_module_id" t-esc="combination_info['price']" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
             </xpath>
+
         </template>
 
         <!--Product Customization /-->
 
-        <template id="variants" inherit_id="website_sale.variants">
-            <xpath expr='//ul[hasclass("list-unstyled")]/t[@t-as="value_id"]' position="attributes">
-                <attribute name="t-foreach">variant_id.value_ids.sorted(key=lambda x: x.sequence, reverse=True)</attribute>
-            </xpath>
-            <xpath expr="//select/t[@t-as='value_id']" position="attributes">
-                <attribute name="t-foreach">variant_id.value_ids.sorted(key=lambda x: x.sequence, reverse=True)</attribute>
-            </xpath>
-            <xpath expr="//strong[@t-field='variant_id.attribute_id.name']" position="replace">
-                <strong t-field="variant_id.attribute_id.name" t-if="not product.odoo_module_id"/>
-                <strong t-if="product.odoo_module_id">Versions Available:</strong>
-            </xpath>
-            <xpath expr='//ul[hasclass("list-unstyled")]' position="attributes">
-                <attribute name="t-att-style">'margin-left: 0.1em;' if product.odoo_module_id else ''</attribute>
-            </xpath>
-        </template>
-
         <template id="product" inherit_id="website_sale.product">
-            <xpath expr="//t[@t-call='website_sale.variants']" position="before">
-                <t t-if="product.odoo_module_id">
-                    <t t-set="product_var_id" t-value="product.get_version_info()"/>
-                </t>
-            </xpath>
             <xpath expr="//t[@t-call='website_sale.product_price']" position="attributes">
                 <attribute name="t-if">not product.odoo_module_id</attribute>
             </xpath>
@@ -195,7 +175,8 @@
             <xpath expr="//div[@id='product_details']/h1[@t-field='product.name']" position="attributes">
                 <attribute name="class">name_product</attribute>
             </xpath>
-            <xpath expr='//form[hasclass("js_add_cart_variants")]'
+
+            <xpath expr='//form[@t-if="product._is_add_to_cart_possible()"]'
                 position="after">
                 <div class="form-group form-field o_website_form_required_custom">
                     <div class="col-md-7 col-sm-8">
@@ -213,12 +194,14 @@
                     </div>
                 </div>
             </xpath>
+
             <xpath expr="//section" position="inside">
                 <div class="desc_rst" t-if="product.odoo_module_id">
                     <p t-esc="product_var_id.app_description_rst_html" t-options='{"widget": "html"}'/>
                 </div>
             </xpath>
-            <xpath expr="//div[hasclass('col-sm-7')]" position="after">
+
+            <xpath expr="//div[hasclass('col-md-6')]" position="after">
                 <t t-if="product.odoo_module_id">
                     <t t-set="product_var_id" t-value="product.get_version_info()"/>
                 </t>
@@ -289,10 +272,12 @@
                     </div>
                 </div>
             </xpath>
-            <xpath expr="//div[hasclass('col-sm-7')]" position="attributes">
-                <attribute name="class" remove="col-sm-7"></attribute>
-                <attribute name="class" add="col-sm-4" separator=" "></attribute>
+
+            <xpath expr="//div[hasclass('col-md-6')]" position="attributes">
+                <attribute name="class" remove="col-md-6"></attribute>
+                <attribute name="class" add="col-md-4" separator=" "></attribute>
             </xpath>
+
             <xpath expr="//div[hasclass('row')][2]" position="before">
                 <div class="col-sm-12 text-center mb48">
                     <t t-if="product.odoo_module_id">
