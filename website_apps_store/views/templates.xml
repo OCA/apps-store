@@ -148,6 +148,9 @@
             <xpath expr='//div[hasclass("product_price")]//span[@t-esc="product.website_price"]' position="replace">
                 <span t-esc="product.website_price" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}" t-if="not product.odoo_module_id"/>
             </xpath>
+            <xpath expr="//span[@itemprop='image']" position="attributes">
+                <attribute name="t-options">{'widget': 'image', 'resize': None, 'zoom': 'image'}</attribute>
+            </xpath>
         </template>
 
         <!--Product Customization /-->
