@@ -13,14 +13,22 @@ class TestWebsiteAppsStore(TransactionCase):
             'github_login': 'login',
         })
 
+        self.organization_serie2 = self.env[
+            'github.organization.serie'].create({
+                'name': '12.0',
+                'sequence': 1,
+                'organization_id': self.organization2.id,
+            })
+
         self.repository2 = self.env['github.repository'].create({
-            'name': 'Repository2',
+            'name': 'Repository1',
             'organization_id': self.organization2.id,
         })
 
         self.branch2 = self.env['github.repository.branch'].create({
-            'name': 'master',
+            'name': '12.0',
             'repository_id': self.repository2.id,
+            'organization_id': self.organization2.id,
         })
 
         self.odoo_module2 = self.env['odoo.module'].create({
@@ -50,12 +58,6 @@ class TestWebsiteAppsStore(TransactionCase):
         self.assertFalse(self.odoo_module2.product_template_id)
         self.odoo_module2.action_create_product()
         self.assertTrue(self.odoo_module2.product_template_id)
-        self.odoo_module2.product_template_id.write({
-            'attribute_line_ids': [(0, 0, {
-                'attribute_id': self.attribute.id,
-                'value_ids': [(6, 0, [self.version.id])],
-            })]
-        })
         action = self.odoo_module2.action_view_products()
         self.assertEqual(
             self.odoo_module2.product_template_id.product_variant_ids.ids[0],

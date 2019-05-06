@@ -6,7 +6,7 @@ var base = require("web_editor.base");
 
     Tour.register('download_zip', {
         name: "Download Zip File",
-        url: '/shop',
+        url: '/shop/page/2',
         test: true,
         wait_for: base.ready()
         },[

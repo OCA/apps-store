@@ -18,14 +18,9 @@ class ProductTemplate(models.Model):
         compute="_compute_total_download_count", store=True)
 
     def get_author_details(self):
-        author_ids = []
-        for variant in self.product_variant_ids:
-            for author in variant.app_author_ids:
-                if author not in author_ids:
-                    author_ids.append(author)
-        return author_ids
+        return self.mapped('product_variant_ids.app_author_ids')
 
     def get_version_info(self):
         products = self.product_variant_ids.sorted(
-            lambda a: a.attribute_value_ids.sequence,  reverse=True)
+            lambda a: a.attribute_value_ids.sequence, reverse=True)
         return products[0]
