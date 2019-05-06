@@ -26,13 +26,13 @@ class TestUi(tests.HttpCase):
             'second_module')
         with mock.patch(mock_get_module_path) as mock_func:
             mock_func.return_value = test_module_path
-            self.phantom_js(
-                "/shop", self.tour + ".run('download_zip')",
+            self.browser_js(
+                "/shop/page/2", self.tour + ".run('download_zip')",
                 self.tour + ".tours.download_zip.ready", login="admin"
             )
 
     def test_select_version_search_tour(self):
-        self.phantom_js(
+        self.browser_js(
             "/shop",
             self.tour + ".run('select_version_search')",
             self.tour + ".tours.select_version_search.ready",
@@ -40,7 +40,7 @@ class TestUi(tests.HttpCase):
         )
 
     def test_select_category_search_tour(self):
-        self.phantom_js(
+        self.browser_js(
             "/shop",
             self.tour + ".run('select_category_search')",
             self.tour + ".tours.select_category_search.ready",
@@ -48,7 +48,7 @@ class TestUi(tests.HttpCase):
         )
 
     def test_module_search_tour(self):
-        self.phantom_js(
+        self.browser_js(
             "/shop",
             self.tour + ".run('module_search')",
             self.tour + ".tours.module_search.ready",
@@ -56,7 +56,7 @@ class TestUi(tests.HttpCase):
         )
 
     def test_technical_name_search_tour(self):
-        self.phantom_js(
+        self.browser_js(
             "/shop",
             self.tour + ".run('technical_name_search')",
             self.tour + ".tours.technical_name_search.ready",
