@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo12-addon-apps_download',
         'odoo12-addon-apps_product_creator',
+        'odoo12-addon-website_apps_store',
     ],
     classifiers=[
         'Programming Language :: Python',
