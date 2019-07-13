@@ -39,6 +39,16 @@ msgid "12.0"
 msgstr ""
 
 #. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_130
+msgid "13.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_140
+msgid "14.0"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:product.attribute.value,name:apps_product_creator.odoo_version_50
 msgid "5.0"
 msgstr "5.0"
