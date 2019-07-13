@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Copyright (C) 2017-Today: Odoo Community Association (OCA)-->
+<!--Copyright 2017-Today Odoo Community Association (OCA)
+    Copyright 2019 Tecnativa - Pedro M. Baeza -->
 <!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
 <odoo noupdate="1">
 
@@ -46,8 +47,19 @@
         <field name="name">11.0</field>
         <field name="attribute_id" ref="attribute_odoo_version"/>
     </record>
+
     <record id="odoo_version_120" model="product.attribute.value">
         <field name="name">12.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version"/>
+    </record>
+
+    <record id="odoo_version_130" model="product.attribute.value">
+        <field name="name">13.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version"/>
+    </record>
+
+    <record id="odoo_version_140" model="product.attribute.value">
+        <field name="name">14.0</field>
         <field name="attribute_id" ref="attribute_odoo_version"/>
     </record>
 
