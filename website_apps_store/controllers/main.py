@@ -178,7 +178,7 @@ class WebsiteSaleCustom(WebsiteSale):
         else:
             ip_addr = request.httprequest.remote_addr
         try:
-            captcha_obj.action_validate(
+            captcha_obj.validate_response(
                 captcha, ip_addr
             )
         except ValidationError:
