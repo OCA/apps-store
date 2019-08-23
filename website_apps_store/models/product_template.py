@@ -24,3 +24,41 @@ class ProductTemplate(models.Model):
         products = self.product_variant_ids.sorted(
             lambda a: a.attribute_value_ids.sequence, reverse=True)
         return products[0]
+
+    @api.multi
+    def _get_combination_info(self, combination=False, product_id=False,
+                              add_qty=1, pricelist=False,
+                              parent_combination=False, only_template=False):
+        vals = super()._get_combination_info(
+            combination=combination, product_id=product_id, add_qty=add_qty,
+            pricelist=pricelist, parent_combination=parent_combination,
+            only_template=only_template)
+        if not vals['product_id']:
+            return vals
+        product = self.env['product.product'].browse(vals['product_id'])
+        if product.odoo_module_id:
+            vals.update({
+                'is_odoo_module': True,
+                'name_product': product.name,
+                'technical_name':
+                    product.odoo_module_version_id.module_id.technical_name,
+                'license': product.app_license_id.name,
+                'license_url': product.app_license_id.website,
+                'author': ', '.join(
+                    author.name for author in product.app_author_ids),
+                'website': product.app_website,
+                'repository': product.app_github_url,
+                'rst_html': product.app_description_rst_html,
+                'app_summary': product.app_summary,
+            })
+        return vals
+
+    @api.multi
+    def _get_first_possible_combination(self, parent_combination=None,
+                                        necessary_values=None):
+        """Override method to load last version first in app store"""
+        values = list(self._get_possible_combinations(
+            parent_combination, necessary_values))
+        if not any(values):
+            return self.env['product.template.attribute.value']
+        return values[-1]
