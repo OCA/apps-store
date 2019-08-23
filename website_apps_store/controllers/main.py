@@ -149,26 +149,6 @@ class WebsiteSaleCustom(WebsiteSale):
         })
         return res
 
-    @http.route(['/shop/change_attribute_version'], type='json',
-                auth="public", website=True)
-    def change_product_attribute_version(self, **kwargs):
-        product_id = kwargs.get('product_id', False)
-        product = request.env['product.product'].sudo().browse(product_id)
-        vals = {
-            'name_product': product.name,
-            'technical_name':
-                product.odoo_module_version_id.module_id.technical_name,
-            'license': product.app_license_id.name,
-            'license_url': product.app_license_id.website,
-            'author': ', '.join(
-                author.name for author in product.app_author_ids),
-            'website': product.app_website,
-            'repository': product.app_github_url,
-            'rst_html': product.app_description_rst_html,
-            'app_summary': product.app_summary,
-        }
-        return vals
-
     def validate_recaptcha(self, captcha):
         """ Function for validating Recaptcha """
         captcha_obj = request.env['website.form.recaptcha']
