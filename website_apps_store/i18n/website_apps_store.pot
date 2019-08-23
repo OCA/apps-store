@@ -72,7 +72,7 @@ msgstr ""
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
-msgid "Category :"
+msgid "Category:"
 msgstr ""
 
 #. module: website_apps_store
@@ -103,7 +103,7 @@ msgstr ""
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
-msgid "Maturity :"
+msgid "Maturity:"
 msgstr ""
 
 #. module: website_apps_store
@@ -139,6 +139,6 @@ msgstr ""
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
-msgid "Version :"
+msgid "Version:"
 msgstr ""
 
