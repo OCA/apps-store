@@ -19,11 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: apps_download
-#: model:product.public.category,name:apps_download.website_category1
-msgid "Category1"
-msgstr ""
-
-#. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product__dependent_product_ids
 msgid "Dependent Products"
 msgstr "Productos dependientes"
@@ -78,13 +73,6 @@ msgid "Modules Dependencies"
 msgstr "Dependencia de módulos"
 
 #. module: apps_download
-#: model:product.product,name:apps_download.product_product100_b
-#: model:product.product,name:apps_download.product_product_100
-#: model:product.template,name:apps_download.product_product100_b_product_template
-msgid "Odoo Module 1"
-msgstr ""
-
-#. module: apps_download
 #: model:ir.model,name:apps_download.model_product_product
 msgid "Product"
 msgstr "Producto"
@@ -95,20 +83,6 @@ msgstr "Producto"
 #, python-format
 msgid "Title"
 msgstr "Título"
-
-#. module: apps_download
-#: model:product.product,uom_name:apps_download.product_product100_b
-#: model:product.product,uom_name:apps_download.product_product_100
-#: model:product.template,uom_name:apps_download.product_product100_b_product_template
-msgid "Unit(s)"
-msgstr ""
-
-#. module: apps_download
-#: model:product.product,weight_uom_name:apps_download.product_product100_b
-#: model:product.product,weight_uom_name:apps_download.product_product_100
-#: model:product.template,weight_uom_name:apps_download.product_product100_b_product_template
-msgid "kg"
-msgstr ""
 
 #~ msgid "Module path"
 #~ msgstr "Ruta del módulo"
