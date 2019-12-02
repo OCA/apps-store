@@ -172,8 +172,8 @@
                         <span class="o_website_form_recaptcha" />
                     </div>
                 </div>
-                <div class="col-xs-12 p-0" t-if="product.odoo_module_id">
-                    <div class="col-xs-4 mt16 mb16">
+                <div class="col-md-12 p-0" t-if="product.odoo_module_id">
+                    <div class="col-md-4 mt16 mb16">
                         <button class="btn btn-primary btn-lg"
                                 name="download_zip"
                                 id="download_zip"
@@ -207,10 +207,10 @@
                     </div>
                     <div class="col-md-12 p-0" t-if="product.odoo_module_id and len(product.odoo_module_id.organization_serie_ids) == 1">
                         <div class="row">
-                            <div class="col-xs-4 p-0">
+                            <div class="col-md-4 p-0">
                                 <b>Version: </b>
                             </div>
-                            <div class="col-xs-8 p-0">
+                            <div class="col-md-8 p-0">
                                 <span class="tech_detail" t-esc="product_var_id.odoo_module_id.organization_serie_ids[0].name"/>
                             </div>
                         </div>
