@@ -6,53 +6,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2020-06-08 22:19+0000\n"
+"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Author: </b>"
-msgstr ""
+msgstr "<b>Autore: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>License: </b>"
-msgstr ""
+msgstr "<b>Licenza: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Maintainer: </b>"
-msgstr ""
+msgstr "<b>Manutentore: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Repository: </b>"
-msgstr ""
+msgstr "<b>Repository: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Technical Name: </b>"
-msgstr ""
+msgstr "<b>Nome tecnico: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Version: </b>"
-msgstr ""
+msgstr "<b>Versione: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<b>Website: </b>"
-msgstr ""
+msgstr "<b>Sito web: </b>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "<span class=\"main_detail\">https://odoo-community.org</span>"
-msgstr ""
+msgstr "<span class=\"main_detail\">https://odoo-community.org</span>"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
@@ -64,28 +66,30 @@ msgstr ""
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Alpha"
-msgstr ""
+msgstr "Alfa"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Beta"
-msgstr ""
+msgstr "Beta"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
 msgid "Category:"
-msgstr ""
+msgstr "Categoria:"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "Download\n"
 "                                    <span class=\"fa fa-download\"/>"
 msgstr ""
+"Scarica\n"
+"                                    <span class=\"fa fa-download\"/>"
 
 #. module: website_apps_store
 #: model:ir.model.fields,field_description:website_apps_store.field_product_product__download_count
 msgid "Download Count"
-msgstr ""
+msgstr "Numero scaricamenti"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.sort_customize
@@ -100,45 +104,45 @@ msgstr ""
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Mature"
-msgstr ""
+msgstr "Maturo"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Maturity:"
-msgstr ""
+msgstr "Maturità:"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.search_placeholder
 msgid "Name, Author, Version..."
-msgstr ""
+msgstr "Nome, autore, versione..."
 
 #. module: website_apps_store
 #: model:ir.model,name:website_apps_store.model_product_product
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
 msgid "Product Name"
-msgstr ""
+msgstr "Nome prodotto"
 
 #. module: website_apps_store
 #: model:ir.model,name:website_apps_store.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Modello prodotto"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
 msgid "Production/Stable"
-msgstr ""
+msgstr "Produzione/stabile"
 
 #. module: website_apps_store
 #: model:ir.model.fields,field_description:website_apps_store.field_product_product__total_download_count
 #: model:ir.model.fields,field_description:website_apps_store.field_product_template__total_download_count
 msgid "Total Download Count"
-msgstr ""
+msgstr "Numero totale scaricamenti"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
 msgid "Version:"
-msgstr ""
+msgstr "Versione:"
