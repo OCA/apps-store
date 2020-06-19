@@ -23,6 +23,7 @@ class ProductProduct(models.Model):
     module_path = fields.Char(
         related="odoo_module_version_id.repository_branch_id.local_path",
         readonly=True)
+    module_zip_generate_date = fields.Datetime(index=True, readonly=True)
 
     @api.constrains('dependent_product_ids')
     def check_dependent_recursion(self):
@@ -64,6 +65,13 @@ class ProductProduct(models.Model):
             dependent_products = product.create_dependency_list()
             dependent_products = dependent_products[product.id]
 
+            self.env['ir.attachment'].search(
+                [
+                    ('res_model', '=', product._name),
+                    ('res_id', '=', product.id),
+                    ('name', 'like', '%s%%.zip' % product.name),
+                ]
+            ).unlink()
             for dependent_pro in dependent_products.filtered('module_path'):
                 tmp_module_path = os.path.join(
                     tmp_dir,
@@ -102,6 +110,7 @@ class ProductProduct(models.Model):
                         'res_id': product.id,
                         'product_downloadable': True,
                     })
+                    product.module_zip_generate_date = fields.Datetime.now()
                 except Exception as exc:
                     _logger.error('Error creating attachment %s Error is: %s' %
                                   (tmp_zip_file, exc.message))
@@ -119,4 +128,6 @@ class ProductProduct(models.Model):
 
     @api.model
     def generate_zip_file_batch(self):
-        self.search([]).generate_zip_file()
+        self.search(
+            [], order='module_zip_generate_date DESC', limit=500
+        ).generate_zip_file()
