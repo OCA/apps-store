@@ -8,19 +8,20 @@ def assign_new_version_attribute_xml_id(env):
     """This checks if 12.0 attribute has been manually added in previous
     version, so assigning the XML-ID for avoiding duplicate constraint error.
     """
-    attrib = env.ref('apps_product_creator.attribute_odoo_version')
-    value = env['product.attribute.value'].search([
-        ('attribute_id', '=', attrib.id),
-        ('name', '=', '12.0'),
-    ])
+    attrib = env.ref("apps_product_creator.attribute_odoo_version")
+    value = env["product.attribute.value"].search(
+        [("attribute_id", "=", attrib.id), ("name", "=", "12.0")]
+    )
     if value:
-        env['ir.model.data'].create({
-            'module': 'apps_product_creator',
-            'name': 'odoo_version_120',
-            'model': value._name,
-            'res_id': value.id,
-            'noupdate': True,
-        })
+        env["ir.model.data"].create(
+            {
+                "module": "apps_product_creator",
+                "name": "odoo_version_120",
+                "model": value._name,
+                "res_id": value.id,
+                "noupdate": True,
+            }
+        )
 
 
 @openupgrade.migrate()
