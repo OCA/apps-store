@@ -4,20 +4,12 @@ from odoo import fields, models
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    odoo_module_id = fields.Many2one(
-        'odoo.module',
-        'Odoo Module',
-        readonly=True,
-    )
+    odoo_module_id = fields.Many2one("odoo.module", "Odoo Module", readonly=True,)
     technical_name = fields.Char(
-        "Technical Name",
-        related="odoo_module_id.technical_name",
-        store=True,
+        "Technical Name", related="odoo_module_id.technical_name", store=True,
     )
     image_module = fields.Binary(
-        'Icon Image',
-        readonly=True,
-        related="odoo_module_id.image",
+        "Icon Image", readonly=True, related="odoo_module_id.image",
     )
