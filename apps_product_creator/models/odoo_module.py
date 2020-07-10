@@ -16,31 +16,25 @@ class OdooModule(models.Model):
         "# of Products", compute="_compute_product_qty", store=True
     )
 
-    @api.multi
     def action_view_products(self):
         action = self.env.ref("product.product_normal_action_sell")
         result = action.read()[0]
-        product_ids = sum(
-            [m.product_template_id.product_variant_ids.ids for m in self], []
-        )
+        product_ids = self.mapped("product_template_id.product_variant_ids").ids
         # choose the view_mode accordingly
         if len(product_ids) > 1:
-            result["domain"] = "[('id','in',[" + ",".join(map(str, product_ids)) + "])]"
+            result["domain"] = "[('id','in', %s)]" % str(product_ids)
         elif len(product_ids) == 1:
             res = self.env.ref("product.product_normal_form_view", False)
             result["views"] = [(res and res.id or False, "form")]
-            result["res_id"] = product_ids and product_ids[0] or False
+            result["res_id"] = product_ids[0]
         return result
 
-    @api.multi
     def action_create_product(self):
         self._create_product()
 
-    @api.multi
     def action_update_product(self):
         self._update_product()
 
-    @api.multi
     def _create_product(self):
         """
         Create the product template related to the module in current recordset.
@@ -57,21 +51,17 @@ class OdooModule(models.Model):
             product = matching_products.filtered(
                 lambda p: p.odoo_module_id == odoo_module
             )
-            if not product:
-                if not odoo_module.product_template_id:
-                    product_values = odoo_module._prepare_template()
-                    new_product = product_obj.create(product_values)
-                    odoo_module.write(
-                        {"product_template_id": new_product.id}
-                    )
-                    products |= new_product
+            if not product and not odoo_module.product_template_id:
+                product_values = odoo_module._prepare_template()
+                new_product = product_obj.create(product_values)
+                odoo_module.write({"product_template_id": new_product.id})
+                products |= new_product
         return products
 
-    @api.multi
     def _update_product(self):
         attribute = self.env.ref("apps_product_creator.attribute_odoo_version")
         attribute_val = self.env["product.attribute.value"]
-        modules = self.filtered(lambda m: m.product_template_id)
+        modules = self.filtered("product_template_id")
         self._update_series_product_attribute_values()
         for module in modules:
             series = module.module_version_ids.mapped(
@@ -83,13 +73,11 @@ class OdooModule(models.Model):
             )
             att_vals = att_line.mapped("value_ids.name")
             to_update_vals = list(set(series) - set(att_vals))
-            for to_update_val in to_update_vals:
-                att_val = attribute_val.search(
-                    [("name", "=", to_update_val), ("attribute_id", "=", attribute.id)],
-                    limit=1,
-                )
-                att_line.write({"value_ids": [[4, att_val.id]]})
-                product.create_variant_ids()
+            att_val_ids = attribute_val.search(
+                [("name", "in", to_update_vals), ("attribute_id", "=", attribute.id)]
+            )
+            att_line.write({"value_ids": [[4, record.id] for record in att_val_ids]})
+            product._create_variant_ids()
 
     @api.model
     def _update_series_product_attribute_values(self):
@@ -101,7 +89,6 @@ class OdooModule(models.Model):
             if not attribute_val:
                 attribute_val.create({"name": serie.name, "attribute_id": attribute.id})
 
-    @api.multi
     def _prepare_template(self):
         """
         Create the dict to create a product.template recordset based on the
@@ -136,22 +123,19 @@ class OdooModule(models.Model):
             "purchase_ok": False,
             "list_price": 0,
             "standard_price": 0,
-            "image": self.image,
+            "image_1920": self.image,
             "attribute_line_ids": [(0, 0, attribute_line_values)],
             "public_categ_ids": [(4, category._ids)] or None,
             "website_published": True,
         }
         return values
 
-    @api.multi
     def write(self, values):
-        to_update = bool(values.get("image", False))
-        result = super(OdooModule, self).write(values)
+        to_update = "image" in values
+        result = super().write(values)
         if to_update:
-            for odoo_module in self.filtered(lambda x: x.product_template_id):
-                odoo_module.product_template_id.write(
-                    {"image": odoo_module.image}
-                )
+            for odoo_module in self.filtered("product_template_id"):
+                odoo_module.product_template_id.write({"image_1920": odoo_module.image})
         return result
 
     @api.model
