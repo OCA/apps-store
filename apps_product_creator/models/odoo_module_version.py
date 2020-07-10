@@ -1,12 +1,11 @@
 # Copyright (C) 2017-Today: Odoo Community Association (OCA), BizzAppDev
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import api, models
+from odoo import models
 
 
 class OdooModuleVersion(models.Model):
     _inherit = "odoo.module.version"
 
-    @api.multi
     def _process_clean_module_version(self):
         product_obj = self.env["product.product"]
         for module_version in self:

@@ -45,6 +45,7 @@ class TestAppsProductCreator(TransactionCase):
                 "author": "OCA",
                 "depends": "base",
                 "external_dependencies": "{}",
+                "full_module_path": "/repo/10.0/odoo_module_2",
             }
         )
 
@@ -71,6 +72,7 @@ class TestAppsProductCreator(TransactionCase):
                 "author": "OCA",
                 "depends": "base",
                 "external_dependencies": "{}",
+                "full_module_path": "/repo/10.0/odoo_module_1",
             }
         )
 
