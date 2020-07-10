@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import lxml
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 
 
 def urljoin(*args):
@@ -69,9 +69,9 @@ class ProductProduct(models.Model):
         relation="product_module_author_rel",
         column1="product_id",
         column2="author_id",
-        multi="author",
         related="odoo_module_version_id.author_ids",
         store=True,
+        ondelete="cascade",
     )
     app_github_url = fields.Char(
         "Github URL",
@@ -89,7 +89,6 @@ class ProductProduct(models.Model):
     @api.depends(
         "odoo_module_version_id", "odoo_module_version_id.description_rst_html"
     )
-    @api.multi
     def _compute_app_description_rst_html(self):
         for product in self:
             rst_desc = product.odoo_module_version_id.description_rst_html
@@ -100,7 +99,7 @@ class ProductProduct(models.Model):
     @api.model
     def create(self, values):
         self._manage_product_module(values)
-        return super(ProductProduct, self).create(values)
+        return super().create(values)
 
     @api.model
     def _manage_product_module(self, values):
@@ -167,9 +166,8 @@ class ProductProduct(models.Model):
                             ]
                         )
                         if product_variant_data:
-                            for pro in product_variant_data:
-                                product_ids.append(pro.id)
-                        if not product_variant_data:
+                            product_ids += product_variant_data.ids
+                        else:
                             prd_data = dep.module_id._create_product()
                             product_variant_data = prd_data.product_variant_ids.search(
                                 [
@@ -187,26 +185,16 @@ class ProductProduct(models.Model):
                             )
                             if product_variant_data:
                                 product_ids.append(product_variant_data.id)
-                            values.update(
-                                {
-                                    "dependent_product_ids": [(6, 0, product_ids)]
-                                    if product_ids
-                                    else False,
-                                }
-                            )
-                        else:
-                            values.update(
-                                {
-                                    "dependent_product_ids": [(6, 0, product_ids)]
-                                    if product_ids
-                                    else False,
-                                }
-                            )
+                    values.update(
+                        {
+                            "dependent_product_ids": [(6, 0, product_ids)]
+                            if product_ids
+                            else False,
+                        }
+                    )
 
                     # If we don't have a result, the ID will be False
-                    values.update(
-                        {"odoo_module_version_id": version.id}
-                    )
+                    values.update({"odoo_module_version_id": version.id})
         return True
 
     @api.model
@@ -259,34 +247,3 @@ class ProductProduct(models.Model):
             lambda a: a.attribute_id.id == version_attribute.id
         )
         return attribute
-
-    @api.multi
-    @api.depends(
-        "image_variant",
-        "product_tmpl_id.image",
-        "image_module",
-        "odoo_module_version_id",
-    )
-    def _compute_images(self):
-        products = self.filtered(lambda p: p.odoo_module_version_id and p.image_module)
-        other_products = self.filtered(lambda p: p not in products)
-        for product in products:
-            if self._context.get("bin_size"):
-                product.image_medium = product.image_module
-                product.image_small = product.image_module
-                product.image = product.image_module
-            else:
-                resized_images = tools.image_get_resized_images(
-                    product.image_module, return_big=True, avoid_resize_medium=True
-                )
-                product.image_medium = resized_images.get("image_medium")
-                product.image_small = resized_images.get("image_small")
-                product.image = resized_images.get("image")
-            if not product.image_medium:
-                product.image_medium = product.product_tmpl_id.image_medium
-            if not product.image_small:
-                product.image_small = product.product_tmpl_id.image_small
-            if not product.image:
-                product.image = product.product_tmpl_id.image
-        if other_products:
-            super(ProductProduct, other_products)._compute_images()
