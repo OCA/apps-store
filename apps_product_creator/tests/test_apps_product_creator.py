@@ -1,12 +1,14 @@
 # Copyright (C) 2017-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo.tests.common import TransactionCase
+from odoo.tools import config
 
 
 class TestAppsProductCreator(TransactionCase):
     def setUp(self):
         super(TestAppsProductCreator, self).setUp()
-
+        # Trick this configuration value for avoiding an error
+        config["source_code_local_path"] = "/tmp/"
         self.organization1 = self.env["github.organization"].create(
             {"name": "Organization 1", "github_login": "login"}
         )
