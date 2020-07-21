@@ -1,0 +1,258 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* apps_product_creator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__product_qty
+msgid "# of Products"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_100
+msgid "10.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_110
+msgid "11.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_120
+msgid "12.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_130
+msgid "13.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_140
+msgid "14.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_50
+msgid "5.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_60
+msgid "6.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_61
+msgid "6.1"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_70
+msgid "7.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_80
+msgid "8.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute.value,name:apps_product_creator.odoo_version_90
+msgid "9.0"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.accounting
+msgid "Accounting"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_author_ids
+msgid "Authors"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.actions.server,name:apps_product_creator.cron_update_organization_ir_actions_server
+#: model:ir.cron,cron_name:apps_product_creator.cron_update_organization
+#: model:ir.cron,name:apps_product_creator.cron_update_organization
+msgid "Create/Update product variants for each module version"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.discuss
+msgid "Discuss"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.document_management
+msgid "Document Management"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.extra_tools
+msgid "Extra Tools"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_github_url
+msgid "Github URL"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_description_rst_html
+msgid "HTML of the RST Description"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.human_resources
+msgid "Human Resources"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__image_module
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__image_module
+msgid "Icon Image"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.industries
+msgid "Industries"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_license_id
+msgid "License"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.localization
+msgid "Localization"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.manufacturing
+msgid "Manufacturing"
+msgstr ""
+
+#. module: apps_product_creator
+#: model_terms:ir.ui.view,arch_db:apps_product_creator.product_product_form_view
+msgid "Module Informations"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_development_status
+msgid "Module maturity"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model,name:apps_product_creator.model_odoo_module
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__odoo_module_id
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__odoo_module_id
+msgid "Odoo Module"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model,name:apps_product_creator.model_odoo_module_version
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__odoo_module_version_id
+msgid "Odoo Module Version"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.attribute,name:apps_product_creator.attribute_odoo_version
+msgid "Odoo Version"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.other
+msgid "Other"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.point_of_sale
+msgid "Point of Sale"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model,name:apps_product_creator.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model,name:apps_product_creator.model_product_template
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__product_template_id
+msgid "Product Template"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.productivity
+msgid "Productivity"
+msgstr ""
+
+#. module: apps_product_creator
+#: model_terms:ir.ui.view,arch_db:apps_product_creator.odoo_module_form_view
+msgid "Products"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.project
+msgid "Project"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.purchases
+msgid "Purchases"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.sales
+msgid "Sales"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_summary
+msgid "Summary (Manifest)"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__technical_name
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__technical_name
+msgid "Technical Name"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_version
+msgid "Version (Manifest)"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.warehouse
+msgid "Warehouse"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.website
+msgid "Website"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_website
+msgid "Website (Manifest)"
+msgstr ""
+
+#. module: apps_product_creator
+#: model:product.public.category,name:apps_product_creator.ecommerce
+msgid "eCommerce"
+msgstr ""
+
