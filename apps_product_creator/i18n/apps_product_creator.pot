@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* apps_product_creator
+# 	* apps_product_creator
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -118,12 +118,6 @@ msgstr ""
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.human_resources
 msgid "Human Resources"
-msgstr ""
-
-#. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__image_module
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__image_module
-msgid "Icon Image"
 msgstr ""
 
 #. module: apps_product_creator
@@ -255,4 +249,3 @@ msgstr ""
 #: model:product.public.category,name:apps_product_creator.ecommerce
 msgid "eCommerce"
 msgstr ""
-
