@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* apps_product_creator
+# 	* apps_product_creator
 #
 msgid ""
 msgstr ""
@@ -122,12 +122,6 @@ msgstr "HTML della descrizione RST"
 #: model:product.public.category,name:apps_product_creator.human_resources
 msgid "Human Resources"
 msgstr "Risorse umane"
-
-#. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__image_module
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__image_module
-msgid "Icon Image"
-msgstr "Immagine icona"
 
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.industries
@@ -258,3 +252,6 @@ msgstr "Sito web (manifest)"
 #: model:product.public.category,name:apps_product_creator.ecommerce
 msgid "eCommerce"
 msgstr "E-commerce"
+
+#~ msgid "Icon Image"
+#~ msgstr "Immagine icona"
