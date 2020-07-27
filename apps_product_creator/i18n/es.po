@@ -126,12 +126,6 @@ msgid "Human Resources"
 msgstr ""
 
 #. module: apps_product_creator
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__image_module
-#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__image_module
-msgid "Icon Image"
-msgstr "Icono"
-
-#. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.industries
 msgid "Industries"
 msgstr ""
@@ -264,6 +258,9 @@ msgstr "Página web (Manifiesto)"
 #: model:product.public.category,name:apps_product_creator.ecommerce
 msgid "eCommerce"
 msgstr ""
+
+#~ msgid "Icon Image"
+#~ msgstr "Icono"
 
 #~ msgid "odoo.module"
 #~ msgstr "odoo.module"
