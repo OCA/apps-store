@@ -20,19 +20,27 @@ msgstr ""
 "X-Generator: Weblate 3.10\n"
 
 #. module: apps_download
+#: model:product.template.attribute.value,name:apps_download.product_template_100_attribute_odoo_version_value_100
+msgid "10.0"
+msgstr ""
+
+#. module: apps_download
+#: model:product.template.attribute.value,name:apps_download.product_template_100_attribute_odoo_version_value_110
+msgid "11.0"
+msgstr ""
+
+#. module: apps_download
+#: model:product.public.category,name:apps_download.website_category1
+msgid "Category1"
+msgstr ""
+
+#. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product__dependent_product_ids
 msgid "Dependent Products"
 msgstr "Productos dependientes"
 
 #. module: apps_download
-#: code:addons/apps_download/tests/test_modules/broken_lint/case_fields.py:9
-#: code:addons/apps_download/tests/test_modules/broken_lint/case_fields.py:16
-#, python-format
-msgid "Description"
-msgstr "Descripción"
-
-#. module: apps_download
-#: code:addons/apps_download/models/product_product.py:31
+#: code:addons/apps_download/models/product_product.py:0
 #, python-format
 msgid "Error: You cannot create recursive dependency."
 msgstr "Error: No se puede crear una dependencia recursiva."
@@ -49,12 +57,6 @@ msgstr "Generar archivos ZIP para todos los productos"
 #, fuzzy
 msgid "Get all Dependencies"
 msgstr "Obtener todas las dependencias"
-
-#. module: apps_download
-#: code:addons/apps_download/tests/test_modules/broken_lint/case_fields.py:22
-#, python-format
-msgid "Hello world"
-msgstr "Hola mundo"
 
 #. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product__module_path
@@ -74,16 +76,37 @@ msgid "Modules Dependencies"
 msgstr "Dependencia de módulos"
 
 #. module: apps_download
+#: model:product.product,name:apps_download.product_product_100
+#: model:product.product,name:apps_download.product_product_100b
+#: model:product.template,name:apps_download.product_product_100b_product_template
+msgid "Odoo Module 1"
+msgstr ""
+
+#. module: apps_download
+#: model:product.attribute,name:apps_download.attribute_odoo_version
+msgid "Odoo Version"
+msgstr ""
+
+#. module: apps_download
 #: model:ir.model,name:apps_download.model_product_product
 msgid "Product"
 msgstr "Producto"
 
 #. module: apps_download
-#: code:addons/apps_download/tests/test_modules/broken_lint/case_fields.py:8
-#: code:addons/apps_download/tests/test_modules/broken_lint/case_fields.py:15
-#, python-format
-msgid "Title"
-msgstr "Título"
+#: model:product.product,uom_name:apps_download.product_product_100
+#: model:product.product,uom_name:apps_download.product_product_100b
+#: model:product.template,uom_name:apps_download.product_product_100b_product_template
+msgid "Units"
+msgstr ""
+
+#~ msgid "Description"
+#~ msgstr "Descripción"
+
+#~ msgid "Hello world"
+#~ msgstr "Hola mundo"
+
+#~ msgid "Title"
+#~ msgstr "Título"
 
 #~ msgid "Module path"
 #~ msgstr "Ruta del módulo"
