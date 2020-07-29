@@ -44,7 +44,6 @@ class ProductProduct(models.Model):
             res |= self.child_dependency(child.dependent_product_ids)
         return res
 
-    @api.multi
     def create_dependency_list(self):
         ret_val = {}
         for product in self:
@@ -55,11 +54,9 @@ class ProductProduct(models.Model):
                 )
         return ret_val
 
-    @api.multi
     def _get_module_path(self):
         return self.module_path + "/" + self.odoo_module_version_id.technical_name
 
-    @api.multi
     def generate_zip_file(self):
         for product in self.filtered("module_path"):
             tmp_dir = tempfile.mkdtemp()
@@ -119,20 +116,21 @@ class ProductProduct(models.Model):
                 except Exception as exc:
                     _logger.error(
                         "Error creating attachment %s Error is: %s"
-                        % (tmp_zip_file, exc.message)
+                        % (tmp_zip_file, str(exc))
                     )
             try:
                 shutil.rmtree(tmp_dir)
             except OSError as exc:
                 _logger.warning(
-                    "Could not remove Tempdir {}, Errormsg {}".format(tmp_dir, exc.message)
+                    "Could not remove Tempdir {}, Errormsg {}".format(tmp_dir, str(exc))
                 )
             try:
                 shutil.rmtree(tmp_dir_2)
             except OSError as exc:
                 _logger.warning(
-                    "Could not remove Tempdir 2 %s, Errormsg %s"
-                    % (tmp_dir, exc.message)
+                    "Could not remove Tempdir 2 {}, Errormsg {}".format(
+                        tmp_dir, str(exc)
+                    )
                 )
 
     @api.model
