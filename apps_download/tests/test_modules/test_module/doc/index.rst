@@ -6,4 +6,3 @@ Test module
 
 This module was written to check the test of rst syntax.
 This is a rst file without syntax error.
-
