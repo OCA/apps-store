@@ -1,14 +1,7 @@
-
 import openerp
-
 from openerp import api
 from openerp.api import one
-
-from openerp.exceptions import Warning as UserError
-from openerp.exceptions import Warning as OtherName
-from openerp.exceptions import Warning
-from openerp.exceptions import AccessError as AE, \
-    ValidationError, Warning as UserError2
+from openerp.exceptions import AccessError as AE, ValidationError, Warning as UserError2
 
 
 class UseUnusedImport(object):
@@ -41,7 +34,6 @@ class WOApiOne(object):
 
 
 class ApiOneMultiTogether(object):
-
     @api.multi
     @api.one
     def copy():

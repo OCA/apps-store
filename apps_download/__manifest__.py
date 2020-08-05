@@ -5,26 +5,20 @@
 {
     "name": "Product Download for Appstore",
     "version": "12.0.1.0.0",
-    "author": "BizzAppDev, AgentERP, Elico Corp, "
-    "Odoo Community Association (OCA)",
+    "author": "BizzAppDev, AgentERP, Elico Corp, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/apps-store",
     "license": "AGPL-3",
     "category": "Sales",
     "depends": [
-        'base',
-        'website_sale_digital',
-        'github_connector_odoo',
-        'apps_product_creator',
+        "base",
+        "website_sale_digital",
+        "github_connector_odoo",
+        "apps_product_creator",
     ],
     "summary": "Product Download for Appstore",
-    "data": [
-        'views/product_template_view.xml',
-        'data/cron_scheduler.xml',
-    ],
-    'demo': [
-        'demo/product_template_demo.xml',
-    ],
-    'installable': True,
-    'auto_install': False,
-    'application': False
+    "data": ["views/product_template_view.xml", "data/cron_scheduler.xml",],
+    "demo": ["demo/product_template_demo.xml",],
+    "installable": True,
+    "auto_install": False,
+    "application": False,
 }
