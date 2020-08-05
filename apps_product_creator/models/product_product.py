@@ -117,7 +117,7 @@ class ProductProduct(models.Model):
         :return: bool
         """
         product_tmpl_key = "product_tmpl_id"
-        attr_key = "attribute_value_ids"
+        attr_key = "product_template_attribute_value_ids"
         check_keys = [
             product_tmpl_key,
             attr_key,
@@ -159,7 +159,7 @@ class ProductProduct(models.Model):
                                     dep.module_id.id,
                                 ),
                                 (
-                                    "attribute_value_ids.name",
+                                    "product_template_attribute_value_ids.name",
                                     "=",
                                     dep.repository_branch_id.name,
                                 ),
@@ -172,7 +172,7 @@ class ProductProduct(models.Model):
                             product_variant_data = prd_data.product_variant_ids.search(
                                 [
                                     (
-                                        "attribute_value_ids.name",
+                                        "product_template_attribute_value_ids.name",
                                         "=",
                                         dep.repository_branch_id.name,
                                     ),
@@ -231,9 +231,9 @@ class ProductProduct(models.Model):
         :param values: dict
         :return: product.attribute.value recordset (0 or 1 recordset)
         """
-        attr_obj = self.env["product.attribute.value"]
+        attr_obj = self.env["product.template.attribute.value"]
         attr_xml_id = "apps_product_creator.attribute_odoo_version"
-        attr_key = "attribute_value_ids"
+        attr_key = "product_template_attribute_value_ids"
         version_attribute = self.env.ref(attr_xml_id)
         attr_raw_ids = values.get(attr_key, [])
         attr_ids = []
@@ -244,6 +244,6 @@ class ProductProduct(models.Model):
         attributes = attr_obj.browse(attr_ids)
         # We should have 0 or 1 result maximum. Because we compare id.
         attribute = attributes.filtered(
-            lambda a: a.attribute_id.id == version_attribute.id
+            lambda a: a.product_attribute_value_id.id == version_attribute.id
         )
-        return attribute
+        return attribute.product_attribute_value_id

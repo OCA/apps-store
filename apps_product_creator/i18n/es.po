@@ -167,7 +167,6 @@ msgstr "Módulo Odoo"
 #: model:ir.model,name:apps_product_creator.model_odoo_module_version
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product__odoo_module_version_id
 #, fuzzy
-#| msgid "Odoo Version"
 msgid "Odoo Module Version"
 msgstr "Versión Odoo"
 
