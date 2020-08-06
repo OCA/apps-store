@@ -7,7 +7,6 @@ from odoo import api, fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    @api.multi
     @api.depends("product_variant_ids", "product_variant_ids.download_count")
     def _compute_total_download_count(self):
         for product in self:
@@ -24,11 +23,11 @@ class ProductTemplate(models.Model):
 
     def get_version_info(self):
         products = self.product_variant_ids.sorted(
-            lambda a: a.attribute_value_ids.sequence, reverse=True
+            lambda a: a._get_combination_info_variant().get("attribute_seq", 0),
+            reverse=True,
         )
         return products[0]
 
-    @api.multi
     def _get_combination_info(
         self,
         combination=False,
@@ -65,11 +64,11 @@ class ProductTemplate(models.Model):
                     "repository": product.app_github_url,
                     "rst_html": product.app_description_rst_html,
                     "app_summary": product.app_summary,
+                    "attribute_seq": combination.attribute_id.sequence,
                 }
             )
         return vals
 
-    @api.multi
     def _get_first_possible_combination(
         self, parent_combination=None, necessary_values=None
     ):
