@@ -19,7 +19,9 @@ PPR = 4  # Products Per Row
 
 
 class WebsiteSaleCustom(WebsiteSale):
-    def _get_search_domain(self, search, category, attrib_values):
+    def _get_search_domain(
+        self, search, category, attrib_values, search_in_description=True
+    ):
         domain = request.website.sale_product_domain()
         if search:
             for srch in search.split(" "):
@@ -37,7 +39,11 @@ class WebsiteSaleCustom(WebsiteSale):
                     ("description", "ilike", srch),
                     ("description_sale", "ilike", srch),
                     ("product_variant_ids.default_code", "ilike", srch),
-                    ("product_variant_ids.attribute_value_ids.name", "ilike", srch),
+                    (
+                        "product_variant_ids.product_template_attribute_value_ids.name",
+                        "ilike",
+                        srch,
+                    ),
                     ("product_variant_ids.app_description_rst_html", "ilike", srch),
                     ("product_variant_ids.app_author_ids.name", "ilike", srch),
                     ("product_variant_ids.app_summary", "ilike", srch),
@@ -95,9 +101,11 @@ class WebsiteSaleCustom(WebsiteSale):
             author=post.get("author"),
         )
         if post.get("version"):
-            domain += [
-                ("product_variant_ids.attribute_value_ids.id", "=", post.get("version"))
-            ]
+            field_name = (
+                "product_variant_ids.product_template_attribute_value_ids"
+                + ".product_attribute_value_id.id"
+            )
+            domain += [(field_name, "=", post.get("version"),)]
         if post.get("author"):
             domain += [
                 ("product_variant_ids.app_author_ids.id", "=", post.get("author"))
