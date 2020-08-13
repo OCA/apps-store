@@ -1,0 +1,144 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_apps_store
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Author: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>License: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Maintainer: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Repository: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Technical Name: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Version: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Website: </b>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<span class=\"main_detail\">https://odoo-community.org</span>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+#: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
+msgid "All"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Alpha"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Beta"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
+msgid "Category:"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "Download\n"
+"                                    <span class=\"fa fa-download\"/>"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product__download_count
+msgid "Download Count"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.sort_customize
+msgid "Download Count - Max to Min"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.sort_customize
+msgid "Download Count - Min to Max"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Mature"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Maturity:"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.search_placeholder
+msgid "Name, Author, Version..."
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model,name:website_apps_store.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "Product Name"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model,name:website_apps_store.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Production/Stable"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product__total_download_count
+#: model:ir.model.fields,field_description:website_apps_store.field_product_template__total_download_count
+msgid "Total Download Count"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
+msgid "Version:"
+msgstr ""
+
