@@ -112,6 +112,7 @@ Contributors
 
   * Victor M.M. Torres
   * Carlos Roca
+  * Alexandre D. Díaz
 
 Other credits
 ~~~~~~~~~~~~~
