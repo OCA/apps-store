@@ -91,7 +91,6 @@ msgstr "Produto"
 #: model:product.product,uom_name:apps_download.product_product_100b
 #: model:product.template,uom_name:apps_download.product_product_100b_product_template
 #, fuzzy
-#| msgid "Unit(s)"
 msgid "Units"
 msgstr "Unidade(s)"
 
