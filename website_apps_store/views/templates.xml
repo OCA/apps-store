@@ -239,11 +239,6 @@
                     t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"
                 />
             </xpath>
-            <xpath expr="//span[@t-field='product.image_1920']" position="attributes">
-                <attribute
-                    name="t-options"
-                >{'widget': 'image', 'resize': None, 'zoom': 'image', 'preview_image': 'image_1024' if product_image_big else 'image_256'}</attribute>
-            </xpath>
         </template>
         <!-- Product Detail Page Customization -->
         <template id="product" inherit_id="website_sale.product">
