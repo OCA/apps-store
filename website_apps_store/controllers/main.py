@@ -189,7 +189,7 @@ class WebsiteSaleCustom(WebsiteSale):
         else:
             ip_addr = request.httprequest.remote_addr
         try:
-            captcha_obj.validate_response(captcha, ip_addr)
+            captcha_obj._validate_response(captcha, ip_addr)
         except ValidationError:
             raise ValidationError([captcha_obj.RESPONSE_ATTR])
 
