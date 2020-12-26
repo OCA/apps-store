@@ -211,7 +211,6 @@ class WebsiteSaleCustom(WebsiteSale):
         self.validate_recaptcha(google_captcha)
         if not product:
             product = product_tmpl.get_version_info()
-
         attachment = (
             request.env["ir.attachment"]
             .sudo()
@@ -230,12 +229,11 @@ class WebsiteSaleCustom(WebsiteSale):
                     limit=1,
                 )
             )
-
         if attachment:
             filecontent = base64.b64decode(attachment.datas)
-            disposition = 'attachment; filename="%s"' % attachment.datas_fname
-            # increasing count for the product download
-            product.sudo().download_count = product.sudo().download_count + 1
+            disposition = 'attachment; filename="%s"' % attachment.name
+            # increasing count for the product downloadg
+            product.sudo().download_count += 1
             return request.make_response(
                 filecontent,
                 [
