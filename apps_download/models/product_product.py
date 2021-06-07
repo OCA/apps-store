@@ -81,13 +81,11 @@ class ProductProduct(models.Model):
             module_path = product._get_module_path()
             shutil.copytree(module_path, tmp_module_path)
             time_version_value = time.strftime("_%y%m%d_%H%M%S")
-            if product.attribute_value_ids:
+            attr_values = product.product_template_attribute_value_ids
+            if attr_values:
                 time_version_value = "_{}{}".format(
                     "_".join(
-                        [
-                            name.replace(".", "_")
-                            for name in product.attribute_value_ids.mapped("name")
-                        ]
+                        [name.replace(".", "_") for name in attr_values.mapped("name")]
                     ),
                     time_version_value,
                 )
