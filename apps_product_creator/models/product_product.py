@@ -244,6 +244,7 @@ class ProductProduct(models.Model):
         attributes = attr_obj.browse(attr_ids)
         # We should have 0 or 1 result maximum. Because we compare id.
         attribute = attributes.filtered(
-            lambda a: a.product_attribute_value_id.id == version_attribute.id
+            lambda a: a.product_attribute_value_id.attribute_id.id
+            == version_attribute.id
         )
         return attribute.product_attribute_value_id
