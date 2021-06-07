@@ -10,7 +10,7 @@ import tempfile
 import time
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -79,7 +79,16 @@ class ProductProduct(models.Model):
                 tmp_dir, product.odoo_module_version_id.technical_name
             )
             module_path = product._get_module_path()
-            shutil.copytree(module_path, tmp_module_path)
+            try:
+                shutil.copytree(module_path, tmp_module_path)
+            except FileNotFoundError:
+                raise UserError(
+                    _(
+                        "Module code not downloaded yet."
+                        " Please initialize the code in the associated"
+                        " Github Repository Branch by downloading the source code."
+                    )
+                )
             time_version_value = time.strftime("_%y%m%d_%H%M%S")
             attr_values = product.product_template_attribute_value_ids
             if attr_values:
