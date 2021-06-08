@@ -85,6 +85,13 @@ class ProductProduct(models.Model):
         related="odoo_module_version_id.development_status",
         store=True,
     )
+    dependent_product_ids = fields.Many2many(
+        "product.product",
+        "product_product_dependent_rel",
+        "src_id",
+        "dest_id",
+        string="Dependent Products",
+    )
 
     @api.depends(
         "odoo_module_version_id", "odoo_module_version_id.description_rst_html"
