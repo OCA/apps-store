@@ -32,11 +32,6 @@ msgid "Category1"
 msgstr ""
 
 #. module: apps_download
-#: model:ir.model.fields,field_description:apps_download.field_product_product__dependent_product_ids
-msgid "Dependent Products"
-msgstr ""
-
-#. module: apps_download
 #: code:addons/apps_download/models/product_product.py:0
 #, python-format
 msgid "Error: You cannot create recursive dependency."
@@ -63,6 +58,14 @@ msgstr "Percorso locale"
 #: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
 msgid "Module Dependencies"
 msgstr "Dipendenze modulo"
+
+#. module: apps_download
+#: code:addons/apps_download/models/product_product.py:0
+#, python-format
+msgid ""
+"Module code not downloaded yet. Please initialize the code in the associated "
+"Github Repository Branch by downloading the source code."
+msgstr ""
 
 #. module: apps_download
 #: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
