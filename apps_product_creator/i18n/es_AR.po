@@ -94,6 +94,11 @@ msgid "Create/Update product variants for each module version"
 msgstr "Crear o Actualizar variantes de producto de cada versión del módulo"
 
 #. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__dependent_product_ids
+msgid "Dependent Products"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.discuss
 msgid "Discuss"
 msgstr "Discutir"
