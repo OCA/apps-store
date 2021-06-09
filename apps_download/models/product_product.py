@@ -10,7 +10,7 @@ import tempfile
 import time
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -18,13 +18,6 @@ _logger = logging.getLogger(__name__)
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    dependent_product_ids = fields.Many2many(
-        "product.product",
-        "product_product_dependent_rel",
-        "src_id",
-        "dest_id",
-        string="Dependent Products",
-    )
     module_path = fields.Char(
         related="odoo_module_version_id.repository_branch_id.local_path", readonly=True
     )
@@ -79,15 +72,22 @@ class ProductProduct(models.Model):
                 tmp_dir, product.odoo_module_version_id.technical_name
             )
             module_path = product._get_module_path()
-            shutil.copytree(module_path, tmp_module_path)
+            try:
+                shutil.copytree(module_path, tmp_module_path)
+            except FileNotFoundError:
+                raise UserError(
+                    _(
+                        "Module code not downloaded yet."
+                        " Please initialize the code in the associated"
+                        " Github Repository Branch by downloading the source code."
+                    )
+                )
             time_version_value = time.strftime("_%y%m%d_%H%M%S")
-            if product.attribute_value_ids:
+            attr_values = product.product_template_attribute_value_ids
+            if attr_values:
                 time_version_value = "_{}{}".format(
                     "_".join(
-                        [
-                            name.replace(".", "_")
-                            for name in product.attribute_value_ids.mapped("name")
-                        ]
+                        [name.replace(".", "_") for name in attr_values.mapped("name")]
                     ),
                     time_version_value,
                 )

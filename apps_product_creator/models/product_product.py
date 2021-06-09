@@ -85,6 +85,13 @@ class ProductProduct(models.Model):
         related="odoo_module_version_id.development_status",
         store=True,
     )
+    dependent_product_ids = fields.Many2many(
+        "product.product",
+        "product_product_dependent_rel",
+        "src_id",
+        "dest_id",
+        string="Dependent Products",
+    )
 
     @api.depends(
         "odoo_module_version_id", "odoo_module_version_id.description_rst_html"
@@ -244,6 +251,7 @@ class ProductProduct(models.Model):
         attributes = attr_obj.browse(attr_ids)
         # We should have 0 or 1 result maximum. Because we compare id.
         attribute = attributes.filtered(
-            lambda a: a.product_attribute_value_id.id == version_attribute.id
+            lambda a: a.product_attribute_value_id.attribute_id.id
+            == version_attribute.id
         )
         return attribute.product_attribute_value_id
