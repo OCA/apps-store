@@ -101,7 +101,7 @@ class ProductProduct(models.Model):
                     self.env["ir.attachment"].create(
                         {
                             "datas": data_encode,
-                            "datas_fname": (
+                            "store_fname": (
                                 product.name.replace(" ", "-")
                                 + time_version_value
                                 + ".zip"
