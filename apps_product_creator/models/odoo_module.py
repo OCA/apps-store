@@ -11,7 +11,10 @@ class OdooModule(models.Model):
         for module in self:
             module.product_qty = len(module.product_template_id.product_variant_ids)
 
-    product_template_id = fields.Many2one("product.template", "Product Template",)
+    product_template_id = fields.Many2one(
+        "product.template",
+        "Product Template",
+    )
     product_qty = fields.Integer(
         "# of Products", compute="_compute_product_qty", store=True
     )

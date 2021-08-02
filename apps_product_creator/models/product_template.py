@@ -6,7 +6,13 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    odoo_module_id = fields.Many2one("odoo.module", "Odoo Module", readonly=True,)
+    odoo_module_id = fields.Many2one(
+        "odoo.module",
+        "Odoo Module",
+        readonly=True,
+    )
     technical_name = fields.Char(
-        "Technical Name", related="odoo_module_id.technical_name", store=True,
+        "Technical Name",
+        related="odoo_module_id.technical_name",
+        store=True,
     )
