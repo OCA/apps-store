@@ -81,7 +81,7 @@ class ProductProduct(models.Model):
         store=True,
     )
     app_development_status = fields.Selection(
-        "Module maturity",
+        string="Module maturity",
         readonly=True,
         related="odoo_module_version_id.development_status",
         store=True,

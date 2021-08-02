@@ -23,4 +23,4 @@ class OdooModuleVersion(models.Model):
                 product.product_tmpl_id.write(
                     {"active": False, "website_published": False}
                 )
-        return super(OdooModuleVersion, self)._process_clean_module_version()
+        return super()._process_clean_module_version()
