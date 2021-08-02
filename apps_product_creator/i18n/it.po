@@ -257,6 +257,3 @@ msgstr "Sito web (manifest)"
 #: model:product.public.category,name:apps_product_creator.ecommerce
 msgid "eCommerce"
 msgstr "E-commerce"
-
-#~ msgid "Icon Image"
-#~ msgstr "Immagine icona"

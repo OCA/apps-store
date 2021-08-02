@@ -6,11 +6,11 @@ from odoo.tools import config
 
 class TestAppsProductCreator(TransactionCase):
     def setUp(self):
-        super(TestAppsProductCreator, self).setUp()
+        super().setUp()
         # Trick this configuration value for avoiding an error
         config["source_code_local_path"] = "/tmp/"
         self.organization1 = self.env["github.organization"].create(
-            {"name": "Organization 1", "github_login": "login"}
+            {"name": "Organization 1", "github_name": "login"}
         )
 
         self.organization_serie1 = self.env["github.organization.serie"].create(

@@ -262,13 +262,3 @@ msgstr "Página web (Manifiesto)"
 #: model:product.public.category,name:apps_product_creator.ecommerce
 msgid "eCommerce"
 msgstr ""
-
-#~ msgid "Icon Image"
-#~ msgstr "Icono"
-
-#~ msgid "odoo.module"
-#~ msgstr "odoo.module"
-
-#, fuzzy
-#~ msgid "odoo.module.version"
-#~ msgstr "odoo.module"
