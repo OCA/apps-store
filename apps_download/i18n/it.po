@@ -95,9 +95,3 @@ msgstr "Prodotto"
 #: model:product.template,uom_name:apps_download.product_product_100b_product_template
 msgid "Units"
 msgstr ""
-
-#~ msgid "Description"
-#~ msgstr "Descrizione"
-
-#~ msgid "Title"
-#~ msgstr "Titolo"

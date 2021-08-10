@@ -101,18 +101,3 @@ msgstr "Producto"
 #: model:product.template,uom_name:apps_download.product_product_100b_product_template
 msgid "Units"
 msgstr ""
-
-#~ msgid "Dependent Products"
-#~ msgstr "Productos dependientes"
-
-#~ msgid "Description"
-#~ msgstr "Descripción"
-
-#~ msgid "Hello world"
-#~ msgstr "Hola mundo"
-
-#~ msgid "Title"
-#~ msgstr "Título"
-
-#~ msgid "Module path"
-#~ msgstr "Ruta del módulo"

@@ -12,7 +12,7 @@ class TestAppDownload(TransactionCase):
     """Test for the Add download"""
 
     def setUp(self):
-        super(TestAppDownload, self).setUp()
+        super().setUp()
         test_path = os.path.dirname(os.path.realpath(__file__))
         module_path = os.path.join(test_path, "test_modules", "broken_lint")
         self.sub_child_product = self.env["product.product"].create(

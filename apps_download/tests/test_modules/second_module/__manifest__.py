@@ -1,3 +1,4 @@
+# pylint: disable=manifest-version-format
 {
     "name": "Second empty module for tests",
     "version": "13.0.1.0.0",
