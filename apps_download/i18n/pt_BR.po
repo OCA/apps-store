@@ -96,18 +96,3 @@ msgstr "Produto"
 #, fuzzy
 msgid "Units"
 msgstr "Unidade(s)"
-
-#~ msgid "Dependent Products"
-#~ msgstr "Produtos dependentes"
-
-#~ msgid "Description"
-#~ msgstr "Descrição"
-
-#~ msgid "Hello world"
-#~ msgstr "Olá mundo"
-
-#~ msgid "Title"
-#~ msgstr "Título"
-
-#~ msgid "kg"
-#~ msgstr "kg"

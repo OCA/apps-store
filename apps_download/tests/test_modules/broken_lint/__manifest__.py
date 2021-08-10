@@ -1,3 +1,4 @@
+# pylint: disable=manifest-version-format
 {
     "name": "Broken module for lint tests",
     "license": "AGPL-3",
