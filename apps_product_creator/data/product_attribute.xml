@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2017-Today Odoo Community Association (OCA)
+    Copyright 2019 Tecnativa - Pedro M. Baeza -->
+<!--License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).-->
+<odoo noupdate="1">
+    <record id="attribute_odoo_version" model="product.attribute">
+        <field name="name">Odoo Version</field>
+    </record>
+    <record id="odoo_version_50" model="product.attribute.value">
+        <field name="name">5.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_60" model="product.attribute.value">
+        <field name="name">6.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_61" model="product.attribute.value">
+        <field name="name">6.1</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_70" model="product.attribute.value">
+        <field name="name">7.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_80" model="product.attribute.value">
+        <field name="name">8.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_90" model="product.attribute.value">
+        <field name="name">9.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_100" model="product.attribute.value">
+        <field name="name">10.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_110" model="product.attribute.value">
+        <field name="name">11.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_120" model="product.attribute.value">
+        <field name="name">12.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_130" model="product.attribute.value">
+        <field name="name">13.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_140" model="product.attribute.value">
+        <field name="name">14.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+</odoo>
