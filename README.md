@@ -15,7 +15,11 @@ TODO: add repo description.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[apps_product_creator](apps_product_creator/) | 14.0.1.0.0 | Create a product variant (by version) for every module found in the Github repositories
 
 [//]: # (end addons)
 
