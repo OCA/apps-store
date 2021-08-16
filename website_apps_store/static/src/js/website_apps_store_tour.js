@@ -1,4 +1,4 @@
-odoo.define("website_apps_store.tour_custom", function(require) {
+odoo.define("website_apps_store.tour_custom", function (require) {
     "use strict";
 
     var Tour = require("web_tour.tour");
@@ -20,7 +20,7 @@ odoo.define("website_apps_store.tour_custom", function(require) {
             {
                 content: "Select Version",
                 trigger: "input[type=radio]",
-                run: function() {
+                run: function () {
                     $("input[type=radio]:last").attr("checked", "checked");
                 },
             },
@@ -83,7 +83,7 @@ odoo.define("website_apps_store.tour_custom", function(require) {
             {
                 content: "Shop",
                 trigger: ".search-query",
-                run: function() {
+                run: function () {
                     $(".search-query").attr("value", "Test");
                 },
             },
@@ -106,7 +106,7 @@ odoo.define("website_apps_store.tour_custom", function(require) {
             {
                 content: "Shop",
                 trigger: ".search-query",
-                run: function() {
+                run: function () {
                     $(".search-query").attr("value", "odoo_module1");
                 },
             },
