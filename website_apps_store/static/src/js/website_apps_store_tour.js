@@ -5,9 +5,9 @@ odoo.define("website_apps_store.tour_custom", function (require) {
     var base = require("web_editor.base");
 
     Tour.register(
-        "download_zip",
+        "successfully_download_zip",
         {
-            name: "Download Zip File",
+            name: "Download Zip File - successfully",
             url: "/shop/page/2",
             test: true,
             wait_for: base.ready(),
@@ -15,7 +15,7 @@ odoo.define("website_apps_store.tour_custom", function (require) {
         [
             {
                 content: "Shop",
-                trigger: ".oe_product_cart a:contains('Odoo Module 1')",
+                trigger: ".oe_product_cart a:contains('Odoo Module')",
             },
             {
                 content: "Select Version",
@@ -26,7 +26,42 @@ odoo.define("website_apps_store.tour_custom", function (require) {
             },
             {
                 content: "Download",
-                trigger: "button:contains(Download)",
+                trigger: "#download_zip",
+            },
+            {
+                content: "No failure, we are in the same page",
+                trigger: "#product_detail",
+            },
+        ]
+    );
+
+    Tour.register(
+        "download_zip_failed",
+        {
+            name: "Download Zip File - Failed",
+            url: "/shop/page/2",
+            test: true,
+            wait_for: base.ready(),
+        },
+        [
+            {
+                content: "Shop",
+                trigger: ".oe_product_cart a:contains('Odoo Module')",
+            },
+            {
+                content: "Select Version",
+                trigger: "input[type=radio]",
+                run: function () {
+                    $("input[type=radio]:last").attr("checked", "checked");
+                },
+            },
+            {
+                content: "Download",
+                trigger: "#download_zip",
+            },
+            {
+                content: "Suspicious",
+                trigger: "#wrap.wrap-download-zip-failed",
             },
         ]
     );
@@ -66,7 +101,7 @@ odoo.define("website_apps_store.tour_custom", function (require) {
             },
             {
                 content: "Select Category",
-                trigger: ".dropdown_category_by .dropdown-menu a:contains('Category1')",
+                trigger: ".dropdown_category_by .dropdown-menu a:contains('Category')",
             },
         ]
     );
@@ -91,6 +126,10 @@ odoo.define("website_apps_store.tour_custom", function (require) {
                 content: "Search Button",
                 trigger: ".oe_search_button",
             },
+            {
+                content: "There is one or more products as a search result",
+                trigger: "#products_grid td.oe_product a:contains('Odoo Module')",
+            },
         ]
     );
 
@@ -107,12 +146,16 @@ odoo.define("website_apps_store.tour_custom", function (require) {
                 content: "Shop",
                 trigger: ".search-query",
                 run: function () {
-                    $(".search-query").attr("value", "odoo_module1");
+                    $(".search-query").attr("value", "odoo_module");
                 },
             },
             {
                 content: "Search Button",
                 trigger: ".oe_search_button",
+            },
+            {
+                content: "There is one or more products as a search result",
+                trigger: "#products_grid td.oe_product a:contains('Odoo Module')",
             },
         ]
     );

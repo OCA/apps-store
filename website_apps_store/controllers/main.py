@@ -4,8 +4,8 @@
 import base64
 import logging
 
-from odoo import http
-from odoo.exceptions import ValidationError
+from odoo import _, http
+from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
 
 from odoo.addons.http_routing.models.ir_http import slug
@@ -71,9 +71,7 @@ class WebsiteSaleCustom(WebsiteSale):
 
     @http.route()
     def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super(WebsiteSaleCustom, self).shop(
-            page=page, category=category, search=search, ppg=ppg, **post
-        )
+        res = super().shop(page=page, category=category, search=search, ppg=ppg, **post)
 
         if ppg:
             try:
@@ -186,35 +184,39 @@ class WebsiteSaleCustom(WebsiteSale):
         )
         return res
 
-    def validate_recaptcha(self, captcha):
-        """ Function for validating Recaptcha """
-        captcha_obj = request.env["website.form.recaptcha"]
-        ip_addr = request.httprequest.environ.get("HTTP_X_FORWARDED_FOR")
-        if ip_addr:
-            ip_addr = ip_addr.split(",")[0]
-        else:
-            ip_addr = request.httprequest.remote_addr
-        try:
-            captcha_obj._validate_response(captcha, ip_addr)
-        except ValidationError:
-            raise ValidationError([captcha_obj.RESPONSE_ATTR])
-
     @http.route(
         [
             '/shop/download_product_zip/<model("product.template"):product_tmpl>'
             '/<model("product.product"):product>/'
-            "<string:google_captcha>",
+            "<string:recaptcha_token_response>",
             '/shop/download_product_zip/<model("product.template"):product_tmpl>/'
-            "<string:google_captcha>",
+            "<string:recaptcha_token_response>",
         ],
         type="http",
         auth="public",
         website=True,
     )
     def download_product_zip(
-        self, product_tmpl, product=False, google_captcha="", **kwargs
+        self, product_tmpl, product=False, recaptcha_token_response="", **kwargs
     ):
-        self.validate_recaptcha(google_captcha)
+        request.params["recaptcha_token_response"] = recaptcha_token_response
+        try:
+            # The except clause below should not let what has been done inside
+            # here be committed. It should not either roll back everything in
+            # this controller method. Instead, we use a savepoint to roll back
+            # what has been done inside the try clause.
+            with request.env.cr.savepoint():
+                if request.env["ir.http"]._verify_request_recaptcha_token(
+                    "download_product_zip"
+                ):
+                    return self._handle_download_product_zip(product_tmpl, product)
+            error = _("Suspicious activity detected by <b>Google reCaptcha<b/>.")
+        except (ValidationError, UserError) as e:
+            error = e.args[0]
+        values = {"error_msg": error}
+        return request.render("website_apps_store.suspicious_product_download", values)
+
+    def _handle_download_product_zip(self, product_tmpl, product):
         if not product:
             product = product_tmpl.get_version_info()
         attachment = (

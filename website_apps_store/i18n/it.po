@@ -145,10 +145,3 @@ msgstr "Numero totale scaricamenti"
 #: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
 msgid "Version:"
 msgstr "Versione:"
-
-#~ msgid ""
-#~ "Download\n"
-#~ "                                    <span class=\"fa fa-download\"/>"
-#~ msgstr ""
-#~ "Scarica\n"
-#~ "                                    <span class=\"fa fa-download\"/>"

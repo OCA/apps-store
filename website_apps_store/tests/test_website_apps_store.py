@@ -5,10 +5,10 @@ from odoo.tests.common import TransactionCase
 
 class TestWebsiteAppsStore(TransactionCase):
     def setUp(self):
-        super(TestWebsiteAppsStore, self).setUp()
+        super().setUp()
 
         self.organization2 = self.env["github.organization"].create(
-            {"name": "Organization 2", "github_login": "login"}
+            {"name": "Organization 2", "github_name": "login"}
         )
 
         self.organization_serie2 = self.env["github.organization.serie"].create(
