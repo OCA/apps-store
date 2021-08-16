@@ -4,7 +4,7 @@
  *    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
  **/
 
-odoo.define("website_apps_store.website_sale", function(require) {
+odoo.define("website_apps_store.website_sale", function (require) {
     "use strict";
 
     require("web.dom_ready");
@@ -17,10 +17,10 @@ odoo.define("website_apps_store.website_sale", function(require) {
             "click #download_zip": "_onClickDownload",
         }),
 
-        init: function() {
+        init: function () {
             this._super.apply(this, arguments);
             const $captchas = $(".o_website_form_recaptcha");
-            ajax.post("/website/recaptcha/", {}).then(result => {
+            ajax.post("/website/recaptcha/", {}).then((result) => {
                 const data = JSON.parse(result);
                 $captchas.append(
                     $(`<div class="g-recaptcha" data-sitekey="${data.site_key}"></div>`)
@@ -31,7 +31,7 @@ odoo.define("website_apps_store.website_sale", function(require) {
             });
         },
 
-        _onChangeCombination: function(ev, $parent, combination) {
+        _onChangeCombination: function (ev, $parent, combination) {
             this._super.apply(this, arguments);
             if ("is_odoo_module" in combination && combination.is_odoo_module) {
                 const $tech_deatil = this.$(".tech_deatil");
@@ -59,7 +59,7 @@ odoo.define("website_apps_store.website_sale", function(require) {
             }
         },
 
-        _onClickDownload: function(ev) {
+        _onClickDownload: function (ev) {
             ev.preventDefault();
             const google_captcha = $("#g-recaptcha-response").val();
             if (!google_captcha) {

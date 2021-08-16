@@ -105,7 +105,13 @@ class WebsiteSaleCustom(WebsiteSale):
                 "product_variant_ids.product_template_attribute_value_ids"
                 + ".product_attribute_value_id.id"
             )
-            domain += [(field_name, "=", post.get("version"),)]
+            domain += [
+                (
+                    field_name,
+                    "=",
+                    post.get("version"),
+                )
+            ]
         if post.get("author"):
             domain += [
                 ("product_variant_ids.app_author_ids.id", "=", post.get("author"))
