@@ -1,16 +1,17 @@
-/* global grecaptcha */
 /**
  *    Copyright 2018 BizzAppDev
  *    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
  **/
-
 odoo.define("website_apps_store.website_sale", function (require) {
     "use strict";
 
     require("web.dom_ready");
-    const ajax = require("web.ajax");
     const sAnimations = require("website.content.snippets.animation");
     const WebsiteSale = sAnimations.registry.WebsiteSale;
+    const {ReCaptcha} = require("google_recaptcha.ReCaptchaV3");
+
+    var core = require("web.core");
+    var _t = core._t;
 
     WebsiteSale.include({
         read_events: _.extend({}, WebsiteSale.prototype.read_events, {
@@ -19,16 +20,15 @@ odoo.define("website_apps_store.website_sale", function (require) {
 
         init: function () {
             this._super.apply(this, arguments);
-            const $captchas = $(".o_website_form_recaptcha");
-            ajax.post("/website/recaptcha/", {}).then((result) => {
-                const data = JSON.parse(result);
-                $captchas.append(
-                    $(`<div class="g-recaptcha" data-sitekey="${data.site_key}"></div>`)
-                );
-                if ($captchas.length) {
-                    $.getScript("https://www.google.com/recaptcha/api.js");
-                }
-            });
+            this._recaptcha = new ReCaptcha();
+            this.__started = new Promise((resolve) => (this.__startResolve = resolve));
+        },
+
+        willStart: function () {
+            const res = this._super(...arguments);
+            this._recaptchaLoaded = true;
+            this._recaptcha.loadLibs();
+            return res;
         },
 
         _onChangeCombination: function (ev, $parent, combination) {
@@ -59,19 +59,26 @@ odoo.define("website_apps_store.website_sale", function (require) {
             }
         },
 
-        _onClickDownload: function (ev) {
+        _onClickDownload: async function (ev) {
             ev.preventDefault();
-            const google_captcha = $("#g-recaptcha-response").val();
-            if (!google_captcha) {
-                return;
+            // Prevent users from crazy clicking
+            $(".download_zip").addClass("disabled").attr("disabled", "disabled");
+            if (this._recaptchaLoaded) {
+                const tokenObj = await this._recaptcha.getToken("download_product_zip");
+                if (tokenObj.token) {
+                    var recaptcha_token_response = tokenObj.token;
+                } else if (tokenObj.error) {
+                    this.displayNotification({
+                        type: "danger",
+                        title: _t("Error"),
+                        message: tokenObj.error,
+                        sticky: true,
+                    });
+                    return false;
+                }
             }
-            if (typeof grecaptcha !== "undefined") {
-                grecaptcha.reset();
-            }
-            const $product_template_id = this.$(".product_template_id");
-            const product_template_id = $product_template_id.val();
-            const $product_id = this.$(".product_id");
-            const product_id = $product_id.val();
+            const product_template_id = this.$(".product_template_id").val();
+            const product_id = this.$(".product_id").val();
             if (product_id) {
                 window.location.href =
                     "/shop/download_product_zip/" +
@@ -79,13 +86,13 @@ odoo.define("website_apps_store.website_sale", function (require) {
                     "/" +
                     product_id +
                     "/" +
-                    google_captcha;
+                    recaptcha_token_response;
             } else {
                 window.location.href =
                     "/shop/download_product_zip/" +
                     product_template_id +
                     "/" +
-                    google_captcha;
+                    recaptcha_token_response;
             }
         },
     });

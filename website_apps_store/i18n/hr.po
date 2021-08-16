@@ -146,10 +146,3 @@ msgstr "Ukupni broj preuzimanja"
 #: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
 msgid "Version:"
 msgstr ""
-
-#~ msgid ""
-#~ "Download\n"
-#~ "                                    <span class=\"fa fa-download\"/>"
-#~ msgstr ""
-#~ "Preuzimanje\n"
-#~ "                                    <span class=\"fa fa-download\"/>"

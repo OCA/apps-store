@@ -23,3 +23,11 @@
         height: unset;
     }
 }
+
+#product_detail[data-is-module="1"]
+    #o-carousel-product
+    .carousel-outer
+    .carousel-inner
+    img {
+    width: auto;
+}
