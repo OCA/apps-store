@@ -19,6 +19,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[apps_download](apps_download/) | 14.0.1.0.0 |  | Product Download for Appstore
 [apps_product_creator](apps_product_creator/) | 14.0.1.0.0 |  | Create a product variant (by version) for every module found in the Github repositories
 
 [//]: # (end addons)
