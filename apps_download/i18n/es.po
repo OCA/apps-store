@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * apps_download
+#
+# Translators:
+# enjolras <yo@miguelrevilla.com>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-10 01:37+0000\n"
+"PO-Revision-Date: 2020-01-15 22:13+0000\n"
+"Last-Translator: Carles Antoli <carlesantoli@hotmail.com>\n"
+"Language-Team: Spanish (https://www.transifex.com/oca/teams/23907/es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: apps_download
+#: model:product.template.attribute.value,name:apps_download.product_template_100_attribute_odoo_version_value_100
+msgid "10.0"
+msgstr ""
+
+#. module: apps_download
+#: model:product.template.attribute.value,name:apps_download.product_template_100_attribute_odoo_version_value_110
+msgid "11.0"
+msgstr ""
+
+#. module: apps_download
+#: model:product.public.category,name:apps_download.website_category1
+msgid "Category1"
+msgstr ""
+
+#. module: apps_download
+#: code:addons/apps_download/models/product_product.py:0
+#, python-format
+msgid "Error: You cannot create recursive dependency."
+msgstr "Error: No se puede crear una dependencia recursiva."
+
+#. module: apps_download
+#: model:ir.actions.server,name:apps_download.ir_cron_scheduler_generate_zip_ir_actions_server
+#: model:ir.cron,cron_name:apps_download.ir_cron_scheduler_generate_zip
+#: model:ir.cron,name:apps_download.ir_cron_scheduler_generate_zip
+msgid "Generate ZIP files for all products"
+msgstr "Generar archivos ZIP para todos los productos"
+
+#. module: apps_download
+#: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
+#, fuzzy
+msgid "Get all Dependencies"
+msgstr "Obtener todas las dependencias"
+
+#. module: apps_download
+#: model:ir.model.fields,field_description:apps_download.field_product_product__module_path
+msgid "Local Path"
+msgstr "Ruta local"
+
+#. module: apps_download
+#: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
+#, fuzzy
+msgid "Module Dependencies"
+msgstr "Dependencia del módulo"
+
+#. module: apps_download
+#: code:addons/apps_download/models/product_product.py:0
+#, python-format
+msgid ""
+"Module code not downloaded yet. Please initialize the code in the associated "
+"Github Repository Branch by downloading the source code."
+msgstr ""
+
+#. module: apps_download
+#: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
+#, fuzzy
+msgid "Modules Dependencies"
+msgstr "Dependencia de módulos"
+
+#. module: apps_download
+#: model:product.product,name:apps_download.product_product_100
+#: model:product.product,name:apps_download.product_product_100b
+#: model:product.template,name:apps_download.product_product_100b_product_template
+msgid "Odoo Module 1"
+msgstr ""
+
+#. module: apps_download
+#: model:product.attribute,name:apps_download.attribute_odoo_version
+msgid "Odoo Version"
+msgstr ""
+
+#. module: apps_download
+#: model:ir.model,name:apps_download.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: apps_download
+#: model:product.product,uom_name:apps_download.product_product_100
+#: model:product.product,uom_name:apps_download.product_product_100b
+#: model:product.template,uom_name:apps_download.product_product_100b_product_template
+msgid "Units"
+msgstr ""
