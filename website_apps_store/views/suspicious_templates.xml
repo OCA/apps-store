@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2021 Tecnativa - Ernesto Tejeda
+        License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="suspicious_product_download" name="Suspicious Product Download">
+        <t t-call="website.layout">
+            <div id="wrap" class="wrap-download-zip-failed">
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12 oe_structure">
+                            <section
+                                class="pt40 s_text_block pb40 o_colored_level o_cc o_cc1"
+                                data-snippet="s_text_block"
+                                data-name="Text"
+                            >
+                                <div class="container mt-5 mb-5">
+                                    <span
+                                        class="d-block fa fa-5x fa-exclamation-triangle mx-auto text-danger"
+                                    /><br />
+                                    <h5
+                                        class="text-center"
+                                    >Error during product download</h5>
+                                    <div
+                                        class="pb16 pt16 s_hr"
+                                        data-snippet="s_hr"
+                                        data-name="Separator"
+                                    >
+                                        <hr
+                                            class="mx-auto border-top w-25 border-dark text-center"
+                                        />
+                                    </div>
+                                    <h2 class="text-center">
+                                        <span t-raw="error_msg" />
+                                    </h2>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

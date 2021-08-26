@@ -1,0 +1,33 @@
+.desc_rst > {
+    .document > .reference {
+        display: none;
+    }
+}
+
+.font_12 {
+    font-size: 12px;
+}
+
+.dropdown-scrollable {
+    max-height: 15rem;
+    overflow-y: auto;
+}
+
+#product_details .col-form-label {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#o-carousel-product {
+    .carousel-outer {
+        height: unset;
+    }
+}
+
+#product_detail[data-is-module="1"]
+    #o-carousel-product
+    .carousel-outer
+    .carousel-inner
+    img {
+    width: auto;
+}
