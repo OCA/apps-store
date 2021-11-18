@@ -373,7 +373,11 @@
                             <b>Website: </b>
                         </div>
                         <div class="col-md-8 p-0">
-                            <a t-att-href="product_var_id.app_website" target="_blank">
+                            <a
+                                t-att-href="product_var_id.app_website"
+                                id="website_detail_href"
+                                target="_blank"
+                            >
                                 <span
                                     class="website_detail"
                                     t-esc="product_var_id.app_website"
