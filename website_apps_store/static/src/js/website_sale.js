@@ -39,6 +39,7 @@ odoo.define("website_apps_store.website_sale", function (require) {
                 const $license_url = this.$(".license_url");
                 const $author_detail = this.$(".author_detail");
                 const $website_detail = this.$(".website_detail");
+                const $website_detail_href = this.$("#website_detail_href");
                 const $repo_detail = this.$(".repo_detail");
                 const $rst_html = this.$(".desc_rst");
                 const $app_summary = this.$(".app_summary");
@@ -49,6 +50,7 @@ odoo.define("website_apps_store.website_sale", function (require) {
                 $license_url.attr("href", combination.license_url);
                 $author_detail.text(combination.author);
                 $website_detail.text(combination.website);
+                $website_detail_href.attr("href", combination.website);
                 $repo_detail.text(combination.repository);
                 if ($repo_detail.length) {
                     $repo_detail.parent()[0].href = combination.repository;
