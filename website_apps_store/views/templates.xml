@@ -253,12 +253,6 @@
             <attribute name="t-if">not product.odoo_module_id</attribute>
         </xpath>
         <xpath
-            expr='//div[@id="product_details"]/p[hasclass("text-muted")]'
-            position="attributes"
-        >
-            <attribute name="t-if">not product.odoo_module_id</attribute>
-        </xpath>
-        <xpath
             expr="//div[@id='product_details']/h1[@t-field='product.name']"
             position="attributes"
         >
