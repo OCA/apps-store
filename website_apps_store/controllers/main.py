@@ -129,8 +129,8 @@ class WebsiteSaleCustom(WebsiteSale):
         if attrib_list:
             post["attrib"] = attrib_list
 
+        category = request.env["product.public.category"].browse(int(category or 0))
         if category:
-            category = request.env["product.public.category"].browse(int(category))
             url = "/shop/category/%s" % slug(category)
 
         attribute_id = request.env.ref("apps_product_creator.attribute_odoo_version")
