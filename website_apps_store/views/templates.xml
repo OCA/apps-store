@@ -258,10 +258,7 @@
         >
             <attribute name="class">name_product</attribute>
         </xpath>
-        <xpath
-            expr='//form[@t-if="product._is_add_to_cart_possible()"]'
-            position="after"
-        >
+        <xpath expr="//hr[@t-if='product.description_sale']" position="before">
             <div class="col-md-12 p-0 mt16 mb16" t-if="product.odoo_module_id">
                 <button
                     class="btn btn-primary btn-lg"

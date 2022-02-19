@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Website Apps Store",
-    "version": "14.0.1.2.1",
+    "version": "14.0.1.3.0",
     "author": "Odoo Community Association (OCA), BizzAppDev",
     "website": "https://github.com/OCA/apps-store",
     "license": "AGPL-3",
