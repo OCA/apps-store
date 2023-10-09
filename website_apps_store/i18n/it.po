@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* website_apps_store
+# 	* website_apps_store
 #
 msgid ""
 msgstr ""
@@ -80,7 +80,8 @@ msgstr "Categoria:"
 
 #. module: website_apps_store
 #: model_terms:ir.ui.view,arch_db:website_apps_store.product
-msgid "Download\n"
+msgid ""
+"Download\n"
 "                                    <span class=\"fa fa-download\"/>"
 msgstr ""
 "Scarica\n"
