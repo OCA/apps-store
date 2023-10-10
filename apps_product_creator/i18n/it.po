@@ -104,6 +104,14 @@ msgid "Discuss"
 msgstr "Comunicazioni"
 
 #. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__display_name
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module_version__display_name
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__display_name
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.document_management
 msgid "Document Management"
 msgstr "Gestione documentale"
@@ -129,9 +137,25 @@ msgid "Human Resources"
 msgstr "Risorse umane"
 
 #. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__id
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module_version__id
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product__id
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.industries
 msgid "Industries"
 msgstr "Settori"
+
+#. module: apps_product_creator
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module____last_update
+#: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module_version____last_update
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_product____last_update
+#: model:ir.model.fields,field_description:apps_product_creator.field_product_template____last_update
+msgid "Last Modified on"
+msgstr ""
 
 #. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_license_id
