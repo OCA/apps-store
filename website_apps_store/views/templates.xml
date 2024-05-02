@@ -147,7 +147,7 @@
         </div>
     </template>
     <!-- Add new filters -->
-    <template id="sort_customize" inherit_id="website_sale.sort">
+    <template id="sort_customize" inherit_id="website_sale.sort" priority="99">
         <xpath expr='//div[hasclass("dropdown_sorty_by")]' position="after">
             <t t-call="website_apps_store.category_display" />
             <t t-call="website_apps_store.version_display" />
@@ -176,7 +176,11 @@
         </xpath>
     </template>
     <!-- Product Item Cell -->
-    <template id="products_item_customize" inherit_id="website_sale.products_item">
+    <template
+        id="products_item_customize"
+        inherit_id="website_sale.products_item"
+        priority="99"
+    >
         <xpath
             expr="//div[hasclass('o_wsale_product_information_text')]"
             position="attributes"
@@ -229,7 +233,7 @@
         </xpath>
     </template>
     <!-- Product Detail Page Customization -->
-    <template id="product" inherit_id="website_sale.product">
+    <template id="product" inherit_id="website_sale.product" priority="99">
         <section id="product_detail" position="attributes">
             <attribute
                 name="t-att-data-is-module"
