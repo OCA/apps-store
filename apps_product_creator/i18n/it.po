@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-06 16:37+0000\n"
+"PO-Revision-Date: 2025-01-20 11:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_odoo_module__product_qty
@@ -96,7 +96,7 @@ msgstr "Crea/Aggiorna le varianti prodotto per ciascuna versione del modulo"
 #. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product__dependent_product_ids
 msgid "Dependent Products"
-msgstr ""
+msgstr "Prodotti dipendenti"
 
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.discuss
@@ -109,7 +109,7 @@ msgstr "Comunicazioni"
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product__display_name
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.document_management
@@ -142,7 +142,7 @@ msgstr "Risorse umane"
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product__id
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_template__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.industries
@@ -155,7 +155,7 @@ msgstr "Settori"
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product____last_update
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_template____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: apps_product_creator
 #: model:ir.model.fields,field_description:apps_product_creator.field_product_product__app_license_id
@@ -203,7 +203,7 @@ msgstr "Versione Odoo"
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.other
 msgid "Other"
-msgstr ""
+msgstr "Altro"
 
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.point_of_sale
@@ -265,7 +265,7 @@ msgstr "Versione (manifest)"
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.warehouse
 msgid "Warehouse"
-msgstr ""
+msgstr "Magazzino"
 
 #. module: apps_product_creator
 #: model:product.public.category,name:apps_product_creator.website
