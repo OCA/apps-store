@@ -6,20 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-06-08 22:19+0000\n"
-"Last-Translator: Sergio Zanchetta <primes2h@gmail.com>\n"
+"PO-Revision-Date: 2025-01-20 11:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: apps_download
 #: code:addons/apps_download/models/product_product.py:0
@@ -37,17 +37,17 @@ msgstr "Genera file ZIP per tutti i prodotti"
 #. module: apps_download
 #: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
 msgid "Get all Dependencies"
-msgstr ""
+msgstr "Ottieni tutte le dipendenze"
 
 #. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: apps_download
 #: model:ir.model.fields,field_description:apps_download.field_product_product__module_path
@@ -66,6 +66,8 @@ msgid ""
 "Module code not downloaded yet. Please initialize the code in the associated "
 "Github Repository Branch by downloading the source code."
 msgstr ""
+"Il codice del modulo non è ancora stato scaricato. Inizializza il codice nel "
+"branch del repository Github associato scaricando il codice sorgente."
 
 #. module: apps_download
 #: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
