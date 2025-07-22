@@ -43,23 +43,34 @@ class OdooModule(models.Model):
         Create the product template related to the module in current recordset.
         :return: product.template recordset
         """
-        product_obj = self.env["product.template"]
-        products = self.env["product.template"]
-        modules = self.filtered(lambda m: not m.product_template_id)
+        new_products = self.env["product.template"]
+        modules_without_product_template = self.filtered(
+            lambda m: not m.product_template_id
+        )
         domain = [
-            ("odoo_module_id", "in", modules.ids),
+            ("odoo_module_id", "in", modules_without_product_template.ids),
         ]
-        matching_products = product_obj.search(domain)
-        for odoo_module in modules:
+        matching_products = (
+            self.env["product.template"].with_context(active_test=False).search(domain)
+        )
+        for odoo_module in modules_without_product_template:
             product = matching_products.filtered(
                 lambda p: p.odoo_module_id == odoo_module
             )
+            # odoo_module_id and product_template_id are set in the same
+            # transaction this condition is mainly true in most cases
             if not product and not odoo_module.product_template_id:
                 product_values = odoo_module._prepare_template()
-                new_product = product_obj.create(product_values)
+                new_product = self.env["product.template"].create(product_values)
                 odoo_module.write({"product_template_id": new_product.id})
-                products |= new_product
-        return products
+                new_products |= new_product
+        self.product_template_id.write(
+            {
+                "active": True,
+                "website_published": True,
+            }
+        )
+        return new_products
 
     def _update_product(self):
         attribute = self.env.ref("apps_product_creator.attribute_odoo_version")
@@ -81,6 +92,8 @@ class OdooModule(models.Model):
             )
             att_line.write({"value_ids": [[4, record.id] for record in att_val_ids]})
             product._create_variant_ids()
+            product.active = True
+            product.website_published = True
 
     @api.model
     def _update_series_product_attribute_values(self):
