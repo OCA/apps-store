@@ -94,6 +94,20 @@ class OdooModule(models.Model):
             product._create_variant_ids()
             product.active = True
             product.website_published = True
+            no_version_variants = product.product_variant_ids.filtered(
+                lambda variant: not variant.odoo_module_version_id
+            )
+            for variant in no_version_variants:
+                values = (
+                    variant.product_template_attribute_value_ids.product_attribute_value_id
+                )
+                for value in values:
+                    version = self.env["product.product"]._get_version_with_attribute(
+                        module.module_version_ids, value
+                    )
+                    if version:
+                        variant.odoo_module_version_id = version
+                        break
 
     @api.model
     def _update_series_product_attribute_values(self):
