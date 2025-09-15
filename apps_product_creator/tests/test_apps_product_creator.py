@@ -107,3 +107,22 @@ class TestAppsProductCreator(SavepointCase):
         self.odoo_module2._update_product()
         self.assertTrue(self.odoo_module2.product_template_id.active)
         self.assertTrue(self.odoo_module2.product_template_id.website_published)
+
+    def test_restore_variant_module_version(self):
+        # Arrange
+        module = self.odoo_module2
+        module.action_create_product()
+        template = module.product_template_id
+        variant = template.product_variant_ids
+        module_version = variant.odoo_module_version_id
+        variant.odoo_module_version_id = False
+        # pre-condition
+        self.assertEqual(len(variant), 1)
+        self.assertFalse(variant.odoo_module_version_id)
+        self.assertTrue(module_version)
+
+        # Act
+        module._update_product()
+
+        # Assert
+        self.assertEqual(variant.odoo_module_version_id, module_version)
