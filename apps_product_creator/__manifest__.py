@@ -5,7 +5,7 @@
     "name": "Github product creator",
     "summary": "Create a product variant (by version) for every module found "
     "in the Github repositories",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "category": "Connector",
     "website": "https://github.com/OCA/apps-store",
     "license": "AGPL-3",
