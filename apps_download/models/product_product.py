@@ -97,7 +97,7 @@ class ProductProduct(models.Model):
             tmp_zip_file = "%s.zip" % tmp_zip_file
             with open(tmp_zip_file, "rb") as file_obj:
                 try:
-                    data_encode = base64.encodestring(file_obj.read())
+                    data_encode = base64.encodebytes(file_obj.read())
                     self.env["ir.attachment"].create(
                         {
                             "datas": data_encode,
