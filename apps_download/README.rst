@@ -73,6 +73,11 @@ Contributors
   * Alexandre D. Díaz
   * Ernesto Tejeda
 
+* `PyTech <https://www.pytech.it>`_:
+
+  * Simone Rubino <simone.rubino@pytech.it>
+  * Alessandro Uffreduzzi <alessandro.uffreduzzi@pytech.it>
+
 Maintainers
 ~~~~~~~~~~~
 
