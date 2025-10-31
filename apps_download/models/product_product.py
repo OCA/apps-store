@@ -122,15 +122,13 @@ class ProductProduct(models.Model):
                 shutil.rmtree(tmp_dir)
             except OSError as exc:
                 _logger.warning(
-                    "Could not remove Tempdir {}, Errormsg {}".format(tmp_dir, str(exc))
+                    f"Could not remove Tempdir {tmp_dir}, Errormsg {str(exc)}"
                 )
             try:
                 shutil.rmtree(tmp_dir_2)
             except OSError as exc:
                 _logger.warning(
-                    "Could not remove Tempdir 2 {}, Errormsg {}".format(
-                        tmp_dir, str(exc)
-                    )
+                    f"Could not remove Tempdir 2 {tmp_dir}, Errormsg {str(exc)}"
                 )
 
     @api.model
