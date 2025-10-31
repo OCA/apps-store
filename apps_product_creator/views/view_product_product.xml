@@ -10,7 +10,7 @@
                 <page
                     string="Module Informations"
                     id="module_informations"
-                    attrs="{'invisible':[('odoo_module_version_id','=',False)]}"
+                    invisible="odoo_module_version_id == False"
                 >
                     <group>
                         <group>

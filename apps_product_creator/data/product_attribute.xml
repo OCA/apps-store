@@ -50,4 +50,20 @@
         <field name="name">14.0</field>
         <field name="attribute_id" ref="attribute_odoo_version" />
     </record>
+    <record id="odoo_version_150" model="product.attribute.value">
+        <field name="name">15.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_160" model="product.attribute.value">
+        <field name="name">16.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_170" model="product.attribute.value">
+        <field name="name">17.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
+    <record id="odoo_version_180" model="product.attribute.value">
+        <field name="name">18.0</field>
+        <field name="attribute_id" ref="attribute_odoo_version" />
+    </record>
 </odoo>

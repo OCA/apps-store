@@ -1,10 +1,10 @@
 # Copyright (C) 2017-Today: Odoo Community Association (OCA)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 from odoo.tools import config
 
 
-class Common(SavepointCase):
+class Common(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

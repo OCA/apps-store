@@ -104,10 +104,11 @@ class ProductProduct(models.Model):
                 rst_desc = hook_github_image_url(rst_desc, product.app_github_url)
             product.app_description_rst_html = rst_desc
 
-    @api.model
-    def create(self, values):
-        self._manage_product_module(values)
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            self._manage_product_module(vals)
+        return super().create(vals_list)
 
     @api.model
     def _manage_product_module(self, values):
