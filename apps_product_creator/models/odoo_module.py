@@ -98,9 +98,7 @@ class OdooModule(models.Model):
                 lambda variant: not variant.odoo_module_version_id
             )
             for variant in no_version_variants:
-                values = (
-                    variant.product_template_attribute_value_ids.product_attribute_value_id
-                )
+                values = variant.product_template_attribute_value_ids.product_attribute_value_id
                 for value in values:
                     version = self.env["product.product"]._get_version_with_attribute(
                         module.module_version_ids, value
