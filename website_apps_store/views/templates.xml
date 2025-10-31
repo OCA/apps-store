@@ -27,8 +27,8 @@
                 aria-expanded="false"
             >
                 Category: <t
-                    t-esc="(selected_category and selected_category.name) or 'All'"
-                />
+                t-esc="(selected_category and selected_category.name) or 'All'"
+            />
             </a>
             <div
                 class="dropdown-menu dropdown-scrollable"
@@ -71,8 +71,8 @@
                 aria-expanded="false"
             >
                 Version: <t
-                    t-esc="(selected_version and selected_version.name) or 'All'"
-                />
+                t-esc="(selected_version and selected_version.name) or 'All'"
+            />
             </a>
             <div
                 class="dropdown-menu dropdown-scrollable"
@@ -422,8 +422,7 @@
                 />
             </div>
         </xpath>
-        <xpath expr="//div[@id='product_details']/h1" position="replace">
-        </xpath>
+        <xpath expr="//div[@id='product_details']/h1" position="replace" />
         <xpath expr="//div[@id='product_details']" position="attributes">
             <attribute
                 name="class"

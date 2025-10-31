@@ -16,7 +16,8 @@
                                 <div class="container mt-5 mb-5">
                                     <span
                                         class="d-block fa fa-5x fa-exclamation-triangle mx-auto text-danger"
-                                    /><br />
+                                    />
+                                    <br />
                                     <h5
                                         class="text-center"
                                     >Error during product download</h5>
