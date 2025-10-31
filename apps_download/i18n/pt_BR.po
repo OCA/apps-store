@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* apps_download
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2019-11-24 18:09+0000\n"
+"Last-Translator: Rodrigo Macedo <rmsolucoeseminformatic4@gmail.com>\n"
+"Language-Team: none\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.8\n"
+
+#. module: apps_download
+#: model:ir.model.fields,field_description:apps_download.field_product_product__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: apps_download
+#: code:addons/apps_download/models/product_product.py:0
+#, python-format
+msgid "Error: You cannot create recursive dependency."
+msgstr "Erro: você não pode criar dependência recursiva."
+
+#. module: apps_download
+#: model:ir.actions.server,name:apps_download.ir_cron_scheduler_generate_zip_ir_actions_server
+#: model:ir.cron,cron_name:apps_download.ir_cron_scheduler_generate_zip
+#: model:ir.cron,name:apps_download.ir_cron_scheduler_generate_zip
+msgid "Generate ZIP files for all products"
+msgstr "Gere arquivos ZIP para todos os produtos"
+
+#. module: apps_download
+#: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
+msgid "Get all Dependencies"
+msgstr "Obter todas as dependências"
+
+#. module: apps_download
+#: model:ir.model.fields,field_description:apps_download.field_product_product__id
+msgid "ID"
+msgstr ""
+
+#. module: apps_download
+#: model:ir.model.fields,field_description:apps_download.field_product_product____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: apps_download
+#: model:ir.model.fields,field_description:apps_download.field_product_product__module_path
+msgid "Local Path"
+msgstr "Caminho Local"
+
+#. module: apps_download
+#: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
+msgid "Module Dependencies"
+msgstr "Dependências dos módulos"
+
+#. module: apps_download
+#: code:addons/apps_download/models/product_product.py:0
+#, python-format
+msgid ""
+"Module code not downloaded yet. Please initialize the code in the associated "
+"Github Repository Branch by downloading the source code."
+msgstr ""
+
+#. module: apps_download
+#: model_terms:ir.ui.view,arch_db:apps_download.view_product_product_view_dependent_form
+msgid "Modules Dependencies"
+msgstr "Dependências dos módulos"
+
+#. module: apps_download
+#: model:ir.model,name:apps_download.model_product_product
+msgid "Product"
+msgstr "Produto"
+
+#~ msgid "Category1"
+#~ msgstr "Categoria1"
+
+#~ msgid "Odoo Module 1"
+#~ msgstr "Módulo Odoo 1"
+
+#, fuzzy
+#~ msgid "Units"
+#~ msgstr "Unidade(s)"
