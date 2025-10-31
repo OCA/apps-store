@@ -54,7 +54,7 @@ class TestAppDownload(Common):
 
     def _get_attachments(self, products):
         return self.env["ir.attachment"].search(
-            [("res_id", "=", products.ids), ("res_model", "=", products._name)],
+            [("res_id", "in", products.ids), ("res_model", "=", products._name)],
         )
 
     def test_generate_zip(self):

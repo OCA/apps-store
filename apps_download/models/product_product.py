@@ -24,7 +24,7 @@ class ProductProduct(models.Model):
 
     @api.constrains("dependent_product_ids")
     def check_dependent_recursion(self):
-        if not self._check_m2m_recursion("dependent_product_ids"):
+        if self._has_cycle("dependent_product_ids"):
             raise ValidationError(_("Error: You cannot create recursive dependency."))
 
     @api.model
@@ -81,7 +81,7 @@ class ProductProduct(models.Model):
                         " Please initialize the code in the associated"
                         " Github Repository Branch by downloading the source code."
                     )
-                )
+                ) from None
             time_version_value = time.strftime("_%y%m%d_%H%M%S")
             attr_values = product.product_template_attribute_value_ids
             if attr_values:
@@ -94,7 +94,7 @@ class ProductProduct(models.Model):
 
             tmp_zip_file = os.path.join(tmp_dir_2, product.name) + time_version_value
             shutil.make_archive(tmp_zip_file, "zip", tmp_dir)
-            tmp_zip_file = "%s.zip" % tmp_zip_file
+            tmp_zip_file = f"{tmp_zip_file}.zip"
             with open(tmp_zip_file, "rb") as file_obj:
                 try:
                     data_encode = base64.encodebytes(file_obj.read())
@@ -110,13 +110,15 @@ class ProductProduct(models.Model):
                             "name": product.name + time_version_value + ".zip",
                             "res_model": product._name,
                             "res_id": product.id,
-                            "product_downloadable": True,
+                            # TODO: check if obsolete field - most probable scenario
+                            # "product_downloadable": True,
                         }
                     )
                 except Exception as exc:
                     _logger.error(
-                        "Error creating attachment %s Error is: %s"
-                        % (tmp_zip_file, str(exc))
+                        "Error creating attachment %s Error is: %s",
+                        tmp_zip_file,
+                        str(exc),
                     )
             try:
                 shutil.rmtree(tmp_dir)
