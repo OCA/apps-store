@@ -1,13 +1,13 @@
 # Copyright 2017-2018 BizzAppDev
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 import os
 from unittest import mock
 
 from odoo.tests import HttpCase, tagged
 
 mock_get_module_path = (
-    "odoo.addons.apps_download.models.product_product.ProductProduct"
-    "._get_module_path"
+    "odoo.addons.apps_download.models.product_product.ProductProduct._get_module_path"
 )
 mock_verify_recaptcha_token = (
     "odoo.addons.google_recaptcha.models.ir_http.Http._verify_recaptcha_token"
@@ -16,38 +16,51 @@ mock_verify_recaptcha_token = (
 
 @tagged("post_install", "-at_install")
 class TestUi(HttpCase):
-    def setUp(self):
-        super().setUp()
-        self.browse_ref("website_sale.products").active = True
-        self.env["product.public.category"].create({"name": "Category"})
-        self.organization = self.browse_ref("github_connector.oca_organization")
-        self.organization_serie = self.env["github.organization.serie"].create(
-            {"name": "14.0", "sequence": 1, "organization_id": self.organization.id}
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env.ref("website_sale.products").active = True
+        cls._req_patcher = mock.patch(
+            "odoo.addons.github_connector_odoo.models.github_repository.requests.get"
         )
-        self.repository = self.env["github.repository"].create(
-            {
-                "name": "Repository1",
-                "organization_id": self.organization.id,
-            }
+        cls._mock_get = cls._req_patcher.start()
+        cls.addClassCleanup(cls._req_patcher.stop)
+        resp = mock.MagicMock()
+        resp.status_code = 200
+        resp.text = "login/Repository1 1234\n"
+        resp.json.return_value = ["login/Repository1 1234"]
+        resp.iter_lines.return_value = [b"login/Repository1 1234"]
+        resp.raise_for_status.return_value = None
+        resp.__iter__.return_value = iter([b"login/Repository1 1234"])
+        cls._mock_get.return_value = resp
+
+        cls.env["product.public.category"].create({"name": "Category"})
+        cls.organization = cls.env.ref("github_connector.oca_organization")
+
+        cls.organization_serie = cls.env["github.organization.serie"].create(
+            {"name": "14.0", "sequence": 1, "organization_id": cls.organization.id}
         )
-        self.branch = self.env["github.repository.branch"].create(
+        cls.repository = cls.env["github.repository"].create(
+            {"name": "Repository1", "organization_id": cls.organization.id}
+        )
+        cls.branch = cls.env["github.repository.branch"].create(
             {
                 "name": "14.0",
-                "repository_id": self.repository.id,
-                "organization_id": self.organization.id,
+                "repository_id": cls.repository.id,
+                "organization_id": cls.organization.id,
             }
         )
-        self.odoo_module = self.env["odoo.module"].create(
+        cls.odoo_module = cls.env["odoo.module"].create(
             {"technical_name": "odoo_module"}
         )
-        self.attribute = self.env.ref("apps_product_creator.attribute_odoo_version")
-        self.version = self.env.ref("apps_product_creator.odoo_version_140")
-        self.odoo_module_version = self.env["odoo.module.version"].create(
+        cls.attribute = cls.env.ref("apps_product_creator.attribute_odoo_version")
+        cls.version = cls.env.ref("apps_product_creator.odoo_version_140")
+        cls.env["odoo.module.version"].create(
             {
                 "name": "Odoo Module",
                 "technical_name": "odoo_module",
-                "module_id": self.odoo_module.id,
-                "repository_branch_id": self.branch.id,
+                "module_id": cls.odoo_module.id,
+                "repository_branch_id": cls.branch.id,
                 "license": "AGPL-3",
                 "summary": "Summary Test",
                 "website": "Website Test",
@@ -58,7 +71,7 @@ class TestUi(HttpCase):
                 "external_dependencies": "{}",
             }
         )
-        self.odoo_module.action_create_product()
+        cls.odoo_module.action_create_product()
 
     def test_successfully_download_zip_tour(self):
         test_path = os.path.dirname(os.path.realpath(__file__))
@@ -66,8 +79,8 @@ class TestUi(HttpCase):
         test_module_path = os.path.join(
             test_path + "/apps_download" + "/tests", "test_modules", "second_module"
         )
-        with mock.patch(mock_get_module_path) as mock_func:
-            mock_func.return_value = test_module_path
+        with mock.patch(mock_get_module_path) as mock_mod_path:
+            mock_mod_path.return_value = test_module_path
             with mock.patch(mock_verify_recaptcha_token) as mock_verify:
                 mock_verify.return_value = "is_human"
                 self.start_tour(

@@ -1,162 +1,155 @@
-odoo.define("website_apps_store.tour_custom", function (require) {
-    "use strict";
+/** @odoo-module **/
 
-    var Tour = require("web_tour.tour");
-    var base = require("web_editor.base");
+import {registry} from "@web/core/registry";
 
-    Tour.register(
-        "successfully_download_zip",
+const tour = registry.category("web_tour.tours");
+
+tour.add("successfully_download_zip", {
+    name: "Download Zip File - successfully",
+    url: "/shop/page/2",
+    test: true,
+    steps: [
         {
-            name: "Download Zip File - successfully",
-            url: "/shop/page/2",
-            test: true,
-            wait_for: base.ready(),
+            content: "Shop",
+            trigger: ".oe_product_cart a:contains('Odoo Module')",
+            run: "click",
         },
-        [
-            {
-                content: "Shop",
-                trigger: ".oe_product_cart a:contains('Odoo Module')",
-            },
-            {
-                content: "Select Version",
-                trigger: "input[type=radio]",
-                run: function () {
-                    $("input[type=radio]:last").attr("checked", "checked");
-                },
-            },
-            {
-                content: "Download",
-                trigger: "#download_zip",
-            },
-            {
-                content: "No failure, we are in the same page",
-                trigger: "#product_detail",
-            },
-        ]
-    );
-
-    Tour.register(
-        "download_zip_failed",
         {
-            name: "Download Zip File - Failed",
-            url: "/shop/page/2",
-            test: true,
-            wait_for: base.ready(),
+            content: "Select Version",
+            trigger: "input[type=radio]",
+            run() {
+                const radios = document.querySelectorAll("input[type='radio']");
+                if (radios.length) {
+                    radios[radios.length - 1].checked = true;
+                }
+            },
         },
-        [
-            {
-                content: "Shop",
-                trigger: ".oe_product_cart a:contains('Odoo Module')",
-            },
-            {
-                content: "Select Version",
-                trigger: "input[type=radio]",
-                run: function () {
-                    $("input[type=radio]:last").attr("checked", "checked");
-                },
-            },
-            {
-                content: "Download",
-                trigger: "#download_zip",
-            },
-            {
-                content: "Suspicious",
-                trigger: "#wrap.wrap-download-zip-failed",
-            },
-        ]
-    );
-
-    Tour.register(
-        "select_version_search",
         {
-            name: "Select Version",
-            url: "/shop",
-            test: true,
-            wait_for: base.ready(),
+            content: "Download",
+            trigger: "#download_zip",
+            run: "click",
         },
-        [
-            {
-                content: "Shop",
-                trigger: ".dropdown_version_by a.dropdown-toggle",
-            },
-            {
-                content: "Select Version",
-                trigger: ".dropdown_version_by .dropdown-menu a:contains('10.0')",
-            },
-        ]
-    );
-
-    Tour.register(
-        "select_category_search",
         {
-            name: "Select Category",
-            url: "/shop",
-            test: true,
-            wait_for: base.ready(),
+            content: "No failure, we are in the same page",
+            trigger: "#product_detail",
         },
-        [
-            {
-                content: "Shop",
-                trigger: ".dropdown_category_by a.dropdown-toggle",
-            },
-            {
-                content: "Select Category",
-                trigger: ".dropdown_category_by .dropdown-menu a:contains('Category')",
-            },
-        ]
-    );
+    ],
+});
 
-    Tour.register(
-        "module_search",
+tour.add("download_zip_failed", {
+    name: "Download Zip File - Failed",
+    url: "/shop/page/2",
+    test: true,
+    steps: [
         {
-            name: "Select Product(Module)",
-            url: "/shop",
-            test: true,
-            wait_for: base.ready(),
+            content: "Shop",
+            trigger: ".oe_product_cart a:contains('Odoo Module')",
+            run: "click",
         },
-        [
-            {
-                content: "Shop",
-                trigger: ".search-query",
-                run: function () {
-                    $(".search-query").attr("value", "Test");
-                },
+        {
+            content: "Select Version",
+            trigger: "input[type=radio]",
+            run() {
+                const radios = document.querySelectorAll("input[type='radio']");
+                if (radios.length) {
+                    radios[radios.length - 1].checked = true;
+                }
             },
-            {
-                content: "Search Button",
-                trigger: ".oe_search_button",
-            },
-            {
-                content: "There is one or more products as a search result",
-                trigger: "#products_grid td.oe_product a:contains('Odoo Module')",
-            },
-        ]
-    );
+        },
+        {
+            content: "Download",
+            trigger: "#download_zip",
+            run: "click",
+        },
+        {
+            content: "Suspicious",
+            trigger: "#wrap.wrap-download-zip-failed",
+        },
+    ],
+});
 
-    Tour.register(
-        "technical_name_search",
+tour.add("select_version_search", {
+    name: "Select Version",
+    url: "/shop",
+    test: true,
+    steps: [
         {
-            name: "Select Product(Module) by Technical Name",
-            url: "/shop",
-            test: true,
-            wait_for: base.ready(),
+            content: "Shop",
+            trigger: ".dropdown_version_by a.dropdown-toggle",
+            run: "click",
         },
-        [
-            {
-                content: "Shop",
-                trigger: ".search-query",
-                run: function () {
-                    $(".search-query").attr("value", "odoo_module");
-                },
+        {
+            content: "Select Version",
+            trigger: ".dropdown_version_by .dropdown-menu a:contains('10.0')",
+            run: "click",
+        },
+    ],
+});
+
+tour.add("select_category_search", {
+    name: "Select Category",
+    url: "/shop",
+    test: true,
+    steps: [
+        {
+            content: "Shop",
+            trigger: ".dropdown_category_by a.dropdown-toggle",
+            run: "click",
+        },
+        {
+            content: "Select Category",
+            trigger: ".dropdown_category_by .dropdown-menu a:contains('Category')",
+            run: "click",
+        },
+    ],
+});
+
+tour.add("module_search", {
+    name: "Select Product(Module)",
+    url: "/shop",
+    test: true,
+    steps: [
+        {
+            content: "Shop",
+            trigger: ".search-query",
+            run() {
+                const el = document.querySelector(".search-query");
+                if (el) el.value = "Test";
             },
-            {
-                content: "Search Button",
-                trigger: ".oe_search_button",
+        },
+        {
+            content: "Search Button",
+            trigger: ".oe_search_button",
+            run: "click",
+        },
+        {
+            content: "There is one or more products as a search result",
+            trigger: "#products_grid td.oe_product a:contains('Odoo Module')",
+        },
+    ],
+});
+
+tour.add("technical_name_search", {
+    name: "Select Product(Module) by Technical Name",
+    url: "/shop",
+    test: true,
+    steps: [
+        {
+            content: "Shop",
+            trigger: ".search-query",
+            run() {
+                const el = document.querySelector(".search-query");
+                if (el) el.value = "odoo_module";
             },
-            {
-                content: "There is one or more products as a search result",
-                trigger: "#products_grid td.oe_product a:contains('Odoo Module')",
-            },
-        ]
-    );
+        },
+        {
+            content: "Search Button",
+            trigger: ".oe_search_button",
+            run: "click",
+        },
+        {
+            content: "There is one or more products as a search result",
+            trigger: "#products_grid td.oe_product a:contains('Odoo Module')",
+        },
+    ],
 });

@@ -7,7 +7,10 @@
             <div id="wrap" class="wrap-download-zip-failed">
                 <div class="container mt-4">
                     <div class="row">
-                        <div class="col-lg-12 col-xl-12 oe_structure">
+                        <div
+                            class="col-lg-12 col-xl-12 oe_structure"
+                            id="oe_structure_suspicious_product_download"
+                        >
                             <section
                                 class="pt40 s_text_block pb40 o_colored_level o_cc o_cc1"
                                 data-snippet="s_text_block"

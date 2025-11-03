@@ -8,7 +8,7 @@ from odoo import _, http
 from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
 
-from odoo.addons.http_routing.models.ir_http import slug
+from odoo.addons.http_routing.models.ir_http import IrHttp
 from odoo.addons.website.controllers.main import QueryURL
 from odoo.addons.website_sale.controllers.main import TableCompute, WebsiteSale
 
@@ -131,7 +131,7 @@ class WebsiteSaleCustom(WebsiteSale):
 
         category = request.env["product.public.category"].browse(int(category or 0))
         if category:
-            url = "/shop/category/%s" % slug(category)
+            url = f"/shop/category/{IrHttp._slug(category)}"
 
         attribute_id = request.env.ref("apps_product_creator.attribute_odoo_version")
         category_all = request.env["product.public.category"].search([])
@@ -239,7 +239,7 @@ class WebsiteSaleCustom(WebsiteSale):
             )
         if attachment:
             filecontent = base64.b64decode(attachment.datas)
-            disposition = 'attachment; filename="%s"' % attachment.name
+            disposition = f'attachment; filename="{attachment.name}"'
             # increasing count for the product downloadg
             product.sudo().download_count += 1
             return request.make_response(
