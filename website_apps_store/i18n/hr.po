@@ -1,0 +1,182 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_apps_store
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-03-05 18:13+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>\n"
+"Language-Team: none\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Author: </b>"
+msgstr "<b>Autor: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>License: </b>"
+msgstr "<b>Licenca: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Maintainer: </b>"
+msgstr "<b>Održava: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Repository: </b>"
+msgstr "<b>Repositorij: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Technical Name: </b>"
+msgstr "<b>Tehnički naziv: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Version: </b>"
+msgstr "<b>Verzija: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<b>Website: </b>"
+msgstr "<b>Webstranica: </b>"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "<span class=\"main_detail\">https://odoo-community.org</span>"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+#: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
+msgid "All"
+msgstr "Sve"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Alpha"
+msgstr "Alfa"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Beta"
+msgstr "Beta"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.category_display
+msgid "Category:"
+msgstr "Kategorija:"
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product__display_name
+#: model:ir.model.fields,field_description:website_apps_store.field_product_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid ""
+"Download\n"
+"                            <span class=\"fa fa-download\"/>"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product__download_count
+msgid "Download Count"
+msgstr "Broj preuzimanja"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.sort_customize
+msgid "Download Count - Max to Min"
+msgstr "Broj preuzimanja - Najviše do najmanje"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.sort_customize
+msgid "Download Count - Min to Max"
+msgstr ""
+
+#. module: website_apps_store
+#. openerp-web
+#: code:addons/website_apps_store/static/src/js/website_sale.js:0
+#, python-format
+msgid "Error"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.suspicious_product_download
+msgid "Error during product download"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product__id
+#: model:ir.model.fields,field_description:website_apps_store.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product____last_update
+#: model:ir.model.fields,field_description:website_apps_store.field_product_template____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Mature"
+msgstr ""
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Maturity:"
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model,name:website_apps_store.model_product_product
+msgid "Product"
+msgstr "Proizvod"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.product
+msgid "Product Name"
+msgstr "Naziv proizvoda"
+
+#. module: website_apps_store
+#: model:ir.model,name:website_apps_store.model_product_template
+msgid "Product Template"
+msgstr "Predložak proizvoda"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.maturity_display
+msgid "Production/Stable"
+msgstr "Produkcija/Stabilno"
+
+#. module: website_apps_store
+#: code:addons/website_apps_store/controllers/main.py:0
+#, python-format
+msgid "Suspicious activity detected by <b>Google reCaptcha<b/>."
+msgstr ""
+
+#. module: website_apps_store
+#: model:ir.model.fields,field_description:website_apps_store.field_product_product__total_download_count
+#: model:ir.model.fields,field_description:website_apps_store.field_product_template__total_download_count
+msgid "Total Download Count"
+msgstr "Ukupni broj preuzimanja"
+
+#. module: website_apps_store
+#: model_terms:ir.ui.view,arch_db:website_apps_store.version_display
+msgid "Version:"
+msgstr ""
+
+#~ msgid "Name, Author, Version..."
+#~ msgstr "Naziv, Autor, Verzija..."
