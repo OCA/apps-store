@@ -4,6 +4,8 @@
 import base64
 import logging
 
+from werkzeug.exceptions import NotFound
+
 from odoo import _, http
 from odoo.exceptions import UserError, ValidationError
 from odoo.http import request
@@ -20,7 +22,7 @@ PPR = 4  # Products Per Row
 
 class WebsiteSaleCustom(WebsiteSale):
     def _get_search_domain(
-        self, search, category, attrib_values, search_in_description=True
+        self, search, category, attrib_values, search_in_description=True, **post
     ):
         domain = request.website.sale_product_domain()
         if search:
@@ -67,37 +69,6 @@ class WebsiteSaleCustom(WebsiteSale):
             if attrib:
                 domain += [("attribute_line_ids.value_ids", "in", ids)]
 
-        return domain
-
-    @http.route()
-    def shop(self, page=0, category=None, search="", ppg=False, **post):
-        res = super().shop(page=page, category=category, search=search, ppg=ppg, **post)
-
-        if ppg:
-            try:
-                ppg = int(ppg)
-            except ValueError:
-                ppg = PPG
-            post["ppg"] = ppg
-        else:
-            ppg = PPG
-
-        attrib_list = request.httprequest.args.getlist("attrib")
-        attrib_values = [[int(x) for x in v.split("-")] for v in attrib_list if v]
-        attributes_ids = {v[0] for v in attrib_values}
-        attrib_set = {v[1] for v in attrib_values}
-        domain = self._get_search_domain(search, category, attrib_values)
-
-        keep = QueryURL(
-            "/shop",
-            category=category and int(category),
-            search=search,
-            attrib=attrib_list,
-            order=post.get("order"),
-            maturity=post.get("maturity"),
-            version=post.get("version"),
-            author=post.get("author"),
-        )
         if post.get("version"):
             field_name = (
                 "product_variant_ids.product_template_attribute_value_ids"
@@ -122,6 +93,52 @@ class WebsiteSaleCustom(WebsiteSale):
                     post.get("maturity"),
                 )
             ]
+        return domain
+
+    @http.route()
+    def shop(self, page=0, category=None, search="", ppg=False, **post):
+        add_qty = int(post.get("add_qty", 1))
+        Category = request.env["product.public.category"]
+        if category:
+            category = Category.search([("id", "=", int(category))], limit=1)
+            if not category or not category.can_access_from_current_website():
+                raise NotFound()
+        else:
+            category = Category
+
+        if ppg:
+            try:
+                ppg = int(ppg)
+                post["ppg"] = ppg
+            except ValueError:
+                ppg = False
+
+        if not ppg:
+            ppg = request.env["website"].get_current_website().shop_ppg or PPG
+
+        ppr = request.env["website"].get_current_website().shop_ppr or 4
+
+        attrib_list = request.httprequest.args.getlist("attrib")
+        attrib_values = [[int(x) for x in v.split("-")] for v in attrib_list if v]
+        attributes_ids = {v[0] for v in attrib_values}
+        attrib_set = {v[1] for v in attrib_values}
+        domain = self._get_search_domain(search, category, attrib_values, **post)
+
+        keep = QueryURL(
+            "/shop",
+            category=category and int(category),
+            search=search,
+            attrib=attrib_list,
+            order=post.get("order"),
+            maturity=post.get("maturity"),
+            version=post.get("version"),
+            author=post.get("author"),
+        )
+
+        pricelist_context, pricelist = self._get_pricelist_context()
+        request.context = dict(
+            request.context, pricelist=pricelist.id, partner=request.env.user.partner_id
+        )
 
         url = "/shop"
         if search:
@@ -129,60 +146,86 @@ class WebsiteSaleCustom(WebsiteSale):
         if attrib_list:
             post["attrib"] = attrib_list
 
-        category = request.env["product.public.category"].browse(int(category or 0))
+        Product = request.env["product.template"].with_context(bin_size=True)
+
+        search_product = Product.search(domain, order=self._get_search_order(post))
+        website_domain = request.website.website_domain()
+        categs_domain = [("parent_id", "=", False)] + website_domain
+        if search:
+            search_categories = Category.search(
+                [("product_tmpl_ids", "in", search_product.ids)] + website_domain
+            ).parents_and_self
+            categs_domain.append(("id", "in", search_categories.ids))
+        else:
+            search_categories = Category
+        categs = Category.search(categs_domain)
+
         if category:
             url = "/shop/category/%s" % slug(category)
 
-        attribute_id = request.env.ref("apps_product_creator.attribute_odoo_version")
-        category_all = request.env["product.public.category"].search([])
-        versions = request.env["product.attribute.value"].search(
-            [("attribute_id", "=", attribute_id.id)]
-        )
-        authors = request.env["odoo.author"].search([])
-        Product = request.env["product.template"]
-
-        product_count = Product.search_count(domain)
+        product_count = len(search_product)
         pager = request.website.pager(
-            url=url, total=product_count, page=page, step=ppg, scope=7, url_args=post
+            url=url, total=product_count, page=page, step=ppg, scope=5, url_args=post
         )
-        products = Product.search(
-            domain,
-            limit=ppg,
-            offset=pager["offset"],
-            order=self._get_search_order(post),
-        )
+        offset = pager["offset"]
+        products = search_product[offset : offset + ppg]
 
         ProductAttribute = request.env["product.attribute"]
         if products:
             # get all products without limit
-            selected_products = Product.search(domain, limit=False)
             attributes = ProductAttribute.search(
-                [("attribute_line_ids.product_tmpl_id", "in", selected_products.ids)]
+                [("product_tmpl_ids", "in", search_product.ids)]
             )
         else:
             attributes = ProductAttribute.browse(attributes_ids)
 
-        res.qcontext.update(
-            {
-                "search": search,
-                "category": category,
-                "attrib_values": attrib_values,
-                "attrib_set": attrib_set,
-                "pager": pager,
-                "products": products,
-                "search_count": product_count,  # common for all searchbox
-                "bins": TableCompute().process(products, ppg),
-                "category_all": category_all,
-                "versions": versions,
-                "authors": authors,
-                "version": post.get("version"),
-                "author": post.get("author"),
-                "attributes": attributes,
-                "keep": keep,
-                "maturity": post.get("maturity"),
-            }
-        )
-        return res
+        layout_mode = request.session.get("website_sale_shop_layout_mode")
+        if not layout_mode:
+            if request.website.viewref("website_sale.products_list_view").active:
+                layout_mode = "list"
+            else:
+                layout_mode = "grid"
+
+        values = {
+            "search": search,
+            "order": post.get("order", ""),
+            "category": category,
+            "attrib_values": attrib_values,
+            "attrib_set": attrib_set,
+            "pager": pager,
+            "pricelist": pricelist,
+            "add_qty": add_qty,
+            "products": products,
+            "search_count": product_count,  # common for all searchbox
+            "bins": TableCompute().process(products, ppg, ppr),
+            "ppg": ppg,
+            "ppr": ppr,
+            "categories": categs,
+            "attributes": attributes,
+            "keep": keep,
+            "search_categories_ids": search_categories.ids,
+            "layout_mode": layout_mode,
+            "maturity": post.get("maturity"),
+            "version": post.get("version"),
+            "author": post.get("author"),
+            # should we filter according current product result list?
+            "versions": request.env["product.attribute.value"].search(
+                [
+                    (
+                        "attribute_id",
+                        "=",
+                        request.env.ref(
+                            "apps_product_creator.attribute_odoo_version"
+                        ).id,
+                    )
+                ]
+            ),
+            "authors": request.env["odoo.author"].search([]),
+            "category_all": request.env["product.public.category"].search([]),
+        }
+        if category:
+            values["main_object"] = category
+        return request.render("website_sale.products", values)
 
     @http.route(
         [
